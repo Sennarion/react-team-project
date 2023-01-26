@@ -1,3 +1,10 @@
+import { GlobalStyleComponent } from 'styles/GlobalStyles.styled';
+
 export const App = () => {
-  return <div>React homework template</div>;
+  return (
+    <>
+      <p>React homework template</p>
+      <GlobalStyleComponent />
+    </>
+  );
 };
