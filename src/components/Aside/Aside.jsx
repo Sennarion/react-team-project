@@ -1,12 +1,14 @@
-import Navigation from 'components/Navigation/Navigation';
+import DesktopNavigation from 'components/DesktopNavigation/DesktopNavigation';
 import Balance from 'components/Balance/Balance';
 import Currency from 'components/Currency/Currency';
 
 export default function Aside() {
   return (
     <aside>
-      <Navigation />
-      <Balance />
+      <div>
+        <DesktopNavigation />
+        <Balance />
+      </div>
       <Currency />
     </aside>
   );
