@@ -6,7 +6,6 @@ export const Nav = styled.nav`
   justify-content: center;
   align-items: center;
   gap: ${({ theme }) => theme.spacing(9)};
-  margin-bottom: ${({ theme }) => theme.spacing(7)};
 `;
 
 export const NavItem = styled(NavLink)`
