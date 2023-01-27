@@ -3,9 +3,10 @@ export const theme = Object.freeze({
     accentGreen: '#24CCA7',
     accentBlue: '#4A56E2',
     accentPink: '#FF6596',
+    secondaryBlue: '#6E78E8',
     bgColor: '#E7EAF2',
     white: '#ffffff',
-    black: '000000',
+    black: '#000000',
     grey: '#BDBDBD',
   },
   fonts: {
