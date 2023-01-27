@@ -10,6 +10,9 @@ export const Wrapper = styled.div`
   position: relative;
   margin-bottom: ${({ theme }) => theme.spacing(10)};
   text-align: center;
+  @media screen and (min-width: 768px0) {
+    margin-bottom: ${({ theme }) => theme.spacing(10)};
+  }
 `;
 
 export const Label = styled.label`

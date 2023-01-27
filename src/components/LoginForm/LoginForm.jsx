@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { logIn } from 'redux/auth/operations';
 
 import icons from '../../images/icons.svg';
-import { Wrapper, Label, Icon, Input, ErrorMess, LinkTo } from './LoginForm.styled';
+import {FormWrapper, Wrapper, Label, Icon, Input, ErrorMess, LinkTo } from './LoginForm.styled';
 import Button from 'components/UI/Button/Button';
 
 export default function LoginForm() {
@@ -42,7 +42,7 @@ export default function LoginForm() {
   };
 
   return (
-    <div>
+    <FormWrapper>
       <Formik
         initialValues={initialValues}
         validationSchema={userSchema}
@@ -78,6 +78,6 @@ export default function LoginForm() {
         </Form>
       </Formik>
       <LinkTo to="/register">Registration</LinkTo>
-    </div>
+    </FormWrapper>
   );
 }
