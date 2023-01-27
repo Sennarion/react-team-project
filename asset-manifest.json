@@ -1,13 +1,21 @@
 {
   "files": {
     "main.css": "/react-team-project/static/css/main.c3d5249d.css",
-    "main.js": "/react-team-project/static/js/main.44c841bb.js",
+    "main.js": "/react-team-project/static/js/main.eb31c497.js",
+    "static/media/Circe-Bold.woff": "/react-team-project/static/media/Circe-Bold.fca9743700608e1abf6a.woff",
+    "static/media/Circe-Regular.woff": "/react-team-project/static/media/Circe-Regular.a5168fcec068fa77220a.woff",
+    "static/media/Circe-Bold.woff2": "/react-team-project/static/media/Circe-Bold.b64357adbf12b109fcf2.woff2",
+    "static/media/Circe-Regular.woff2": "/react-team-project/static/media/Circe-Regular.2c54c074533cf5620761.woff2",
+    "static/media/Poppins-Regular.woff": "/react-team-project/static/media/Poppins-Regular.9b9d9585fc27c8fff554.woff",
+    "static/media/Poppins-Bold.woff": "/react-team-project/static/media/Poppins-Bold.c4e77e991e26d17e68c5.woff",
+    "static/media/Poppins-Regular.woff2": "/react-team-project/static/media/Poppins-Regular.5a6c15af2151cfa27e76.woff2",
+    "static/media/Poppins-Bold.woff2": "/react-team-project/static/media/Poppins-Bold.b138d0279be06a607215.woff2",
     "index.html": "/react-team-project/index.html",
     "main.c3d5249d.css.map": "/react-team-project/static/css/main.c3d5249d.css.map",
-    "main.44c841bb.js.map": "/react-team-project/static/js/main.44c841bb.js.map"
+    "main.eb31c497.js.map": "/react-team-project/static/js/main.eb31c497.js.map"
   },
   "entrypoints": [
     "static/css/main.c3d5249d.css",
-    "static/js/main.44c841bb.js"
+    "static/js/main.eb31c497.js"
   ]
 }
