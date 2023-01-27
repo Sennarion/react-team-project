@@ -5,6 +5,11 @@ export const BalanceWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   padding: ${({ theme }) => theme.spacing(2)} ${({ theme }) => theme.spacing(8)};
   border-radius: 30px;
+  margin-bottom: ${({ theme }) => theme.spacing(8)};
+
+  @media screen and (min-width: ${({ theme }) => theme.media.tablet}) {
+    margin-bottom: 0;
+  }
 `;
 
 export const Desc = styled.p`
