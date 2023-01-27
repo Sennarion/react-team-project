@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import WithAuthRedirect from 'hoc/WithAuthRedirect';
 import { Container } from 'components/UI/Container/Container.styled';
+import { Content } from './HomePage.styled';
 import Header from 'components/Header/Header';
 import Aside from 'components/Aside/Aside';
 import MobileNavigation from 'components/MobileNavigation/MobileNavigation';
@@ -13,10 +14,11 @@ function HomePage() {
   return (
     <Container>
       <Header />
-      {isMobile && <MobileNavigation />}
-
-      {isTablet && <Aside />}
-      <Outlet />
+      <Content>
+        {isMobile && <MobileNavigation />}
+        {isTablet && <Aside />}
+        <Outlet />
+      </Content>
     </Container>
   );
 }

@@ -6,6 +6,7 @@ export const Nav = styled.nav`
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing(3)};
   font-family: ${({ theme }) => theme.fonts.secondary};
+  margin-bottom: ${({ theme }) => theme.spacing(7)};
 `;
 
 export const NavItem = styled(NavLink)`

@@ -1,3 +1,5 @@
+import { DiagramWrapper } from './Diagram.styled';
+
 export default function Diagram() {
-  return <div>Diagram</div>;
+  return <DiagramWrapper>Diagram</DiagramWrapper>;
 }

@@ -29,14 +29,14 @@ export const GlobalFontComponent = createGlobalStyle`
 }
 @font-face {
     font-family: 'CirceRegular';
-    // src: local('CirceRegular'), local('CirceRegular'),
-    // url(${CirceRegularWoff2}) format('woff2'),
-    // url(${CirceRegularWoff}) format('woff');
-    // font-weight: 400;
-    // font-style: normal;
+    src: local('CirceRegular'), local('CirceRegular'),
+    url(${CirceRegularWoff2}) format('woff2'),
+    url(${CirceRegularWoff}) format('woff');
+    font-weight: 400;
+    font-style: normal;
 }
 @font-face {
-    font-family: 'CirceRegular';
+    font-family: 'CirceBold';
     src: local('CirceBold'), local('CirceBold'),
     url(${CirceBoldWoff2}) format('woff2'),
     url(${CirceBoldWoff}) format('woff');
@@ -44,4 +44,3 @@ export const GlobalFontComponent = createGlobalStyle`
     font-style: bold;
 }
 `;
-

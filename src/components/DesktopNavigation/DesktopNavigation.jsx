@@ -10,7 +10,6 @@ export default function DesktopNavigation() {
             <use href={`${icons}#icon-home`}></use>
           </svg>
         </Icon>
-
         <Text>Home</Text>
       </NavItem>
       <NavItem to="/diagram">
