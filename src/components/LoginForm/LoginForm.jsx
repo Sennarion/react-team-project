@@ -1,16 +1,29 @@
-import { Formik, Form, ErrorMessage} from 'formik';
+import { Formik, Form, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { logIn } from 'redux/auth/operations';
 
 import icons from '../../images/icons.svg';
-import {FormWrapper, Wrapper, Label, Icon, Input, ErrorMess, LinkTo } from './LoginForm.styled';
+import {
+  FormWrapper,
+  Wrapper,
+  Label,
+  Icon,
+  Input,
+  ErrorMess,
+  LinkTo,
+} from './LoginForm.styled';
 import Button from 'components/UI/Button/Button';
 
 export default function LoginForm() {
   const dispatch = useDispatch();
   const FormError = ({ name }) => {
-    return <ErrorMessage name={name} render={message => <ErrorMess>{message}</ErrorMess>} />;
+    return (
+      <ErrorMessage
+        name={name}
+        render={message => <ErrorMess>{message}</ErrorMess>}
+      />
+    );
   };
   const initialValues = {
     email: '',
@@ -20,7 +33,7 @@ export default function LoginForm() {
     email: yup
       .string()
       .matches(
-        /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+        /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
         'Email may contain letters, @, numbers. For example bar.ba@test.co.uk.'
       )
       .required(),
@@ -36,7 +49,7 @@ export default function LoginForm() {
     const user = {
       email: values.email,
       password: values.password,
-    };   
+    };
     dispatch(logIn(user));
     resetForm();
   };
@@ -50,8 +63,8 @@ export default function LoginForm() {
       >
         <Form autoComplete="off">
           <Wrapper>
-            <Input type="email" name="email" id="email" placeholder=' '/>
-            
+            <Input type="email" name="email" id="email" placeholder=" " />
+
             <Label htmlFor="email"> E-mail</Label>
             <Icon>
               <svg width="24" height="24">
@@ -61,8 +74,13 @@ export default function LoginForm() {
             <FormError name="email" />
           </Wrapper>
           <Wrapper>
-            <Input type="password" name="password" id="password" placeholder=' ' />
-            
+            <Input
+              type="password"
+              name="password"
+              id="password"
+              placeholder=" "
+            />
+
             <Label htmlFor="password">Password</Label>
             <Icon>
               <svg width="24" height="24">
@@ -73,7 +91,7 @@ export default function LoginForm() {
           </Wrapper>
 
           <Wrapper>
-            <Button text='log in' type='submit'/>            
+            <Button text="log in" type="submit" />
           </Wrapper>
         </Form>
       </Formik>

@@ -1,17 +1,12 @@
-import { Formik, Form, ErrorMessage, Field  } from 'formik';
+import { Formik, Form, ErrorMessage, Field } from 'formik';
 import * as yup from 'yup';
-import {useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { register } from 'redux/auth/operations';
 import { Link } from 'react-router-dom';
 export default function RegistrationForm() {
   const dispatch = useDispatch();
   const FormError = ({ name }) => {
-    return (
-      <ErrorMessage
-        name={name}
-        render={message => <p>{message}</p>}
-      />
-    );
+    return <ErrorMessage name={name} render={message => <p>{message}</p>} />;
   };
   const initialValues = {
     username: '',
@@ -22,7 +17,7 @@ export default function RegistrationForm() {
     email: yup
       .string()
       .matches(
-        /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+        /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
         'Email may contain letters, @, numbers. For example bar.ba@test.co.uk'
       )
       .required(),
@@ -42,61 +37,46 @@ export default function RegistrationForm() {
       .required(),
   });
   const onSubmit = (values, { resetForm }) => {
-   
     const user = {
-        username: values.username,
-        email: values.email,
-        password: values.password,        
-      }; 
+      username: values.username,
+      email: values.email,
+      password: values.password,
+    };
     console.log(user);
-    dispatch(
-      register(user)
-    );
+    dispatch(register(user));
     resetForm();
   };
 
   return (
     <div>
-        <Formik
-      initialValues={initialValues}
-      validationSchema={userSchema}
-      onSubmit={onSubmit}
-    >
-      <Form autoComplete="off">
-        <div>
-          <Field             
-            type="email"
-            name="email"
-            id="email"            
-          />
-          <label htmlFor="email"> Email</label>
-          <FormError name="email" />
-        </div>
-        <div>
-          <Field             
-            type="password"
-            name="password"
-            id="password"            
-          />
-          <label htmlFor="password">Password</label>
-          <FormError name="password" />
-        </div>
-        <div>
-          <Field             
-            type="username"
-            name="username"
-            id="username"            
-          />
-          <label htmlFor="username">Username</label>
-          <FormError name="username" />
-        </div>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={userSchema}
+        onSubmit={onSubmit}
+      >
+        <Form autoComplete="off">
+          <div>
+            <Field type="email" name="email" id="email" />
+            <label htmlFor="email"> Email</label>
+            <FormError name="email" />
+          </div>
+          <div>
+            <Field type="password" name="password" id="password" />
+            <label htmlFor="password">Password</label>
+            <FormError name="password" />
+          </div>
+          <div>
+            <Field type="username" name="username" id="username" />
+            <label htmlFor="username">Username</label>
+            <FormError name="username" />
+          </div>
 
-        <div>
-          <button type="submit">Registration</button>
-        </div>
-      </Form>
-    </Formik>
-    <Link  to="/login">log in</Link>
+          <div>
+            <button type="submit">Registration</button>
+          </div>
+        </Form>
+      </Formik>
+      <Link to="/login">log in</Link>
     </div>
   );
-};
+}
