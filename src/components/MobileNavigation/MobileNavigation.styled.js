@@ -10,10 +10,11 @@ export const Nav = styled.nav`
 
 export const NavItem = styled(NavLink)`
   display: block;
+  border-radius: 6px;
+  overflow: hidden;
+
   &.active {
-    div {
-      filter: drop-shadow(0px 3px 10px rgba(74, 86, 226, 0.5));
-    }
+    filter: drop-shadow(0px 3px 10px rgba(74, 86, 226, 0.5));
 
     svg {
       fill: ${({ theme }) => theme.colors.accentBlue};
@@ -25,7 +26,6 @@ export const Icon = styled.div`
   width: 38px;
   height: 38px;
 
-  border-radius: 6px;
   background-color: ${({ theme }) => theme.colors.white};
 
   svg {
