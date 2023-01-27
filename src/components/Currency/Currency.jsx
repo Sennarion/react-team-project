@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { TableWrapper, Table, TableHead, TableData } from './Currency.styled';
 // import { privatbankApi } from 'services/privatbankApi';
 
 export default function Currency() {
-  const [rates, setRates] = useState([
+  const [rates] = useState([
     {
       ccy: 'EUR',
       base_ccy: 'UAH',
