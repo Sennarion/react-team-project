@@ -7,7 +7,7 @@ import MobileNavigation from 'components/MobileNavigation/MobileNavigation';
 import useMediaQuery from 'hooks/useMediaQuery/useMediaQuery';
 
 function HomePage() {
-  const isDesktop = useMediaQuery('(min-width: 1280px)');
+  const isTablet = useMediaQuery('(min-width: 768px)');
   const isMobile = useMediaQuery('(max-width: 767px)');
 
   return (
@@ -15,7 +15,7 @@ function HomePage() {
       <Header />
       {isMobile && <MobileNavigation />}
 
-      {isDesktop && <Aside />}
+      {isTablet && <Aside />}
       <Outlet />
     </Container>
   );
