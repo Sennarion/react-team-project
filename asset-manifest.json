@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/react-team-project/static/css/main.c3d5249d.css",
-    "main.js": "/react-team-project/static/js/main.ef99093e.js",
+    "main.js": "/react-team-project/static/js/main.4d4d173e.js",
     "static/media/Circe-Bold.woff": "/react-team-project/static/media/Circe-Bold.fca9743700608e1abf6a.woff",
     "static/media/Circe-Regular.woff": "/react-team-project/static/media/Circe-Regular.a5168fcec068fa77220a.woff",
     "static/media/Circe-Bold.woff2": "/react-team-project/static/media/Circe-Bold.b64357adbf12b109fcf2.woff2",
@@ -11,12 +11,13 @@
     "static/media/Poppins-Regular.woff2": "/react-team-project/static/media/Poppins-Regular.5a6c15af2151cfa27e76.woff2",
     "static/media/Poppins-Bold.woff2": "/react-team-project/static/media/Poppins-Bold.b138d0279be06a607215.woff2",
     "static/media/icons.svg": "/react-team-project/static/media/icons.115c6e21d5b13a239307f2e8d871d43a.svg",
+    "static/media/wave-bg.svg": "/react-team-project/static/media/wave-bg.2965f3691046b64b7ba2e0a0528b27fd.svg",
     "index.html": "/react-team-project/index.html",
     "main.c3d5249d.css.map": "/react-team-project/static/css/main.c3d5249d.css.map",
-    "main.ef99093e.js.map": "/react-team-project/static/js/main.ef99093e.js.map"
+    "main.4d4d173e.js.map": "/react-team-project/static/js/main.4d4d173e.js.map"
   },
   "entrypoints": [
     "static/css/main.c3d5249d.css",
-    "static/js/main.ef99093e.js"
+    "static/js/main.4d4d173e.js"
   ]
 }
