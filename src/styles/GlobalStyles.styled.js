@@ -13,7 +13,7 @@ html {
 };
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'PoppinsRegular', sans-serif;
     font-size: ${({ theme }) => theme.fontSizes.small};
     color: ${({ theme }) => theme.colors.black};
   }
