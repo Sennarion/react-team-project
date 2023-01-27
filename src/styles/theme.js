@@ -9,8 +9,10 @@ export const theme = Object.freeze({
     grey: '#BDBDBD',
   },
   fonts: {
-    primary: 'Circe, sans serif',
-    secondary: 'Poppins, sans serif',
+    primary: 'CirceRegular, sans serif',
+    primaryBold: 'CirceBold, sans serif',
+    secondary: 'PoppinsRegular, sans serif',
+    secondaryBold: 'PoppinsBold, sans serif',
   },
   fontSizes: {
     min: '12px',

@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { GlobalStyleComponent } from 'styles/GlobalStyles.styled';
+import { GlobalFontComponent } from 'fonts/FontStyled';
 import RegisterPage from 'pages/RegisterPage/RegisterPage';
 import LoginPage from 'pages/LoginPage/LoginPage';
 import HomePage from 'pages/HomePage/HomePage';
@@ -20,6 +21,7 @@ export const App = () => {
       </Routes>
 
       <GlobalStyleComponent />
+      <GlobalFontComponent/>
     </>
   );
 };
