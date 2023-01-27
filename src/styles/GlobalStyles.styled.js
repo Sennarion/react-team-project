@@ -13,7 +13,7 @@ html {
 };
 
 body {
-    font-family: ${({ theme }) => theme.fonts.primary};;
+    font-family: ${({ theme }) => theme.fonts.primary};
     font-size: ${({ theme }) => theme.fontSizes.small};
     color: ${({ theme }) => theme.colors.black};
   }

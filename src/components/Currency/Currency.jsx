@@ -1,3 +1,5 @@
+import { CurrencyWrapper } from './Currency.styled';
+
 export default function Currency() {
-  return <div>Currency</div>;
+  return <CurrencyWrapper>Currency</CurrencyWrapper>;
 }
