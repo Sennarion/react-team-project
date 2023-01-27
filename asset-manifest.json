@@ -1,23 +1,29 @@
 {
   "files": {
     "main.css": "/react-team-project/static/css/main.c3d5249d.css",
-    "main.js": "/react-team-project/static/js/main.4d4d173e.js",
+    "main.js": "/react-team-project/static/js/main.1ec8d187.js",
     "static/media/Circe-Bold.woff": "/react-team-project/static/media/Circe-Bold.fca9743700608e1abf6a.woff",
     "static/media/Circe-Regular.woff": "/react-team-project/static/media/Circe-Regular.a5168fcec068fa77220a.woff",
+    "static/media/loginBg-desktop-2x.png": "/react-team-project/static/media/loginBg-desktop-2x.2ca36b55710b68ed178b.png",
     "static/media/Circe-Bold.woff2": "/react-team-project/static/media/Circe-Bold.b64357adbf12b109fcf2.woff2",
     "static/media/Circe-Regular.woff2": "/react-team-project/static/media/Circe-Regular.2c54c074533cf5620761.woff2",
+    "static/media/loginBg-tablet-2x.png": "/react-team-project/static/media/loginBg-tablet-2x.c2ae6419c4721c0a5b97.png",
     "static/media/Poppins-Regular.woff": "/react-team-project/static/media/Poppins-Regular.9b9d9585fc27c8fff554.woff",
     "static/media/Poppins-Bold.woff": "/react-team-project/static/media/Poppins-Bold.c4e77e991e26d17e68c5.woff",
+    "static/media/loginBg-desktop-1x.png": "/react-team-project/static/media/loginBg-desktop-1x.9ba04be8971316586062.png",
     "static/media/Poppins-Regular.woff2": "/react-team-project/static/media/Poppins-Regular.5a6c15af2151cfa27e76.woff2",
     "static/media/Poppins-Bold.woff2": "/react-team-project/static/media/Poppins-Bold.b138d0279be06a607215.woff2",
+    "static/media/loginBg-tablet-1x.png": "/react-team-project/static/media/loginBg-tablet-1x.fa07888e831f6341be4d.png",
     "static/media/icons.svg": "/react-team-project/static/media/icons.115c6e21d5b13a239307f2e8d871d43a.svg",
     "static/media/wave-bg.svg": "/react-team-project/static/media/wave-bg.2965f3691046b64b7ba2e0a0528b27fd.svg",
     "index.html": "/react-team-project/index.html",
+    "static/media/bottom-ellipse.svg": "/react-team-project/static/media/bottom-ellipse.f6c24d3e33e7e1253ac73f0578713248.svg",
+    "static/media/top-ellipse.svg": "/react-team-project/static/media/top-ellipse.07ef13244b203e866dcdec6e7633ee44.svg",
     "main.c3d5249d.css.map": "/react-team-project/static/css/main.c3d5249d.css.map",
-    "main.4d4d173e.js.map": "/react-team-project/static/js/main.4d4d173e.js.map"
+    "main.1ec8d187.js.map": "/react-team-project/static/js/main.1ec8d187.js.map"
   },
   "entrypoints": [
     "static/css/main.c3d5249d.css",
-    "static/js/main.4d4d173e.js"
+    "static/js/main.1ec8d187.js"
   ]
 }
