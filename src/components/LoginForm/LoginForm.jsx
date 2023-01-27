@@ -1,19 +1,18 @@
-import { Formik, Form, ErrorMessage, Field  } from 'formik';
+import { Formik, Form, ErrorMessage} from 'formik';
 import * as yup from 'yup';
-import {useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { logIn } from 'redux/auth/operations';
-import { Link } from 'react-router-dom';
+
+import icons from '../../images/icons.svg';
+import { Wrapper, Label, Icon, Input, ErrorMess, LinkTo } from './LoginForm.styled';
+import Button from 'components/UI/Button/Button';
+
 export default function LoginForm() {
   const dispatch = useDispatch();
   const FormError = ({ name }) => {
-    return (
-      <ErrorMessage
-        name={name}
-        render={message => <p>{message}</p>}
-      />
-    );
+    return <ErrorMessage name={name} render={message => <ErrorMess>{message}</ErrorMess>} />;
   };
-  const initialValues = {    
+  const initialValues = {
     email: '',
     password: '',
   };
@@ -22,7 +21,7 @@ export default function LoginForm() {
       .string()
       .matches(
         /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-        'Email may contain letters, @, numbers. For example bar.ba@test.co.uk'
+        'Email may contain letters, @, numbers. For example bar.ba@test.co.uk.'
       )
       .required(),
     password: yup
@@ -31,54 +30,54 @@ export default function LoginForm() {
         /^.{6,12}$/,
         'Password must contain minimum 6 to 12 include symbols.'
       )
-      .required(),    
+      .required(),
   });
   const onSubmit = (values, { resetForm }) => {
-   
-    const user = {       
-        email: values.email,
-        password: values.password,        
-      }; 
-    console.log(user);
-    dispatch(
-      logIn(user)
-    );
+    const user = {
+      email: values.email,
+      password: values.password,
+    };   
+    dispatch(logIn(user));
     resetForm();
   };
 
   return (
     <div>
-        <Formik
-      initialValues={initialValues}
-      validationSchema={userSchema}
-      onSubmit={onSubmit}
-    >
-      <Form autoComplete="off">
-        <div>
-          <Field             
-            type="email"
-            name="email"
-            id="email"            
-          />
-          <label htmlFor="email"> Email</label>
-          <FormError name="email" />
-        </div>
-        <div>
-          <Field             
-            type="password"
-            name="password"
-            id="password"            
-          />
-          <label htmlFor="password">Password</label>
-          <FormError name="password" />
-        </div>       
+      <Formik
+        initialValues={initialValues}
+        validationSchema={userSchema}
+        onSubmit={onSubmit}
+      >
+        <Form autoComplete="off">
+          <Wrapper>
+            <Input type="email" name="email" id="email" placeholder=' '/>
+            
+            <Label htmlFor="email"> E-mail</Label>
+            <Icon>
+              <svg width="24" height="24">
+                <use href={`${icons}#icon-email`}></use>
+              </svg>
+            </Icon>
+            <FormError name="email" />
+          </Wrapper>
+          <Wrapper>
+            <Input type="password" name="password" id="password" placeholder=' ' />
+            
+            <Label htmlFor="password">Password</Label>
+            <Icon>
+              <svg width="24" height="24">
+                <use href={`${icons}#icon-password`}></use>
+              </svg>
+            </Icon>
+            <FormError name="password" />
+          </Wrapper>
 
-        <div>
-          <button type="submit">log in</button>
-        </div>
-      </Form>
-    </Formik>
-    <Link  to="/register">Registration</Link>
+          <Wrapper>
+            <Button text='log in' type='submit'/>            
+          </Wrapper>
+        </Form>
+      </Formik>
+      <LinkTo to="/register">Registration</LinkTo>
     </div>
   );
-};
+}

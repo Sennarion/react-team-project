@@ -1,7 +1,11 @@
-import LoginForm from "components/LoginForm/LoginForm";
+import LoginForm from 'components/LoginForm/LoginForm';
+import { Container } from 'components/UI/Container/Container.styled';
+import Logo from 'components/Logo/Logo';
 export default function LoginPage() {
-  return <div>
-    <h2>Log In</h2>
-    <LoginForm/>
-  </div>;
+  return (
+    <Container>
+      <Logo />
+      <LoginForm />
+    </Container>
+  );
 }
