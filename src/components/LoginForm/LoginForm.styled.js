@@ -3,8 +3,8 @@ import { Field } from 'formik';
 import { Link } from 'react-router-dom';
 
 export const FormWrapper = styled.div`
-text-align: center;
-`
+  text-align: center;
+`;
 
 export const Wrapper = styled.div`
   position: relative;

@@ -13,7 +13,7 @@ export const theme = Object.freeze({
   fonts: {
     primary: 'CirceRegular, sans serif',
     primaryBold: 'CirceBold, sans serif',
-    secondary: 'PoppinsRegular, sans serif',
+    secondaryRegular: 'PoppinsRegular, sans serif',
     secondaryBold: 'PoppinsBold, sans serif',
   },
   fontSizes: {
