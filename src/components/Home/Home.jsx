@@ -3,7 +3,8 @@ import Balance from 'components/Balance/Balance';
 import { HomeWrapper } from './Home.styled';
 import { ButtonAddTransaction } from 'components/ButtonAddTransaction/ButtonAddTransaction';
 import ModalAddTransaction from 'components/ModalAddTransaction/ModalAddTransaction';
-
+import { Table } from '../../components/Table/Table.jsx'
+ 
 export default function Home() {
   const isMobile = useMediaQuery('(max-width: 767px)');
 
@@ -11,6 +12,7 @@ export default function Home() {
     <HomeWrapper>
       {isMobile && <Balance />}
       Home
+      <Table/>
       <ButtonAddTransaction />
       <ModalAddTransaction />
     </HomeWrapper>

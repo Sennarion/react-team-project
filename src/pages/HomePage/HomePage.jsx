@@ -7,6 +7,7 @@ import Aside from 'components/Aside/Aside';
 import MobileNavigation from 'components/MobileNavigation/MobileNavigation';
 import useMediaQuery from 'hooks/useMediaQuery/useMediaQuery';
 
+
 function HomePage() {
   const isMobile = useMediaQuery('(max-width: 767px)');
 
