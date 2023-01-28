@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const AsideWrapper = styled.aside`
   display: flex;
+  align-items: flex-end;
   width: 100%;
   gap: ${({ theme }) => theme.spacing(8)};
 
