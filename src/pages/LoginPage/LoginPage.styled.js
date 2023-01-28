@@ -70,7 +70,7 @@ export const MainTitle = styled.h1`
   display: none;
   @media screen and (min-width: ${({ theme }) => theme.media.tablet}) {
     display: block;
-    font-family: ${({ theme }) => theme.fonts.secondaryRegular};
+    font-family: ${({ theme }) => theme.fonts.secondary};
     font-weight: ${({ theme }) => theme.fontWeight.normal};
     font-size: ${({ theme }) => theme.spacing(8)};
     line-height: ${({ theme }) => theme.spacing(11)};
