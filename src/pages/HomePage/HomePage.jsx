@@ -13,8 +13,8 @@ function HomePage() {
 
   return (
     <BgWrapper>
+      <Header />
       <Container>
-        <Header />
         <Content>
           {isMobile && <MobileNavigation />}
           {isTablet && <Aside />}
