@@ -32,6 +32,7 @@ export const StyledForm = styled(Form)`
   @media screen and (min-width: ${({ theme }) => theme.media.tablet}) {
     width: ${({ theme }) => theme.spacing(102)};
   } ;
+
 `;
 
 export const Wrapper = styled.div`
