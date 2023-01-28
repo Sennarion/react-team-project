@@ -3,14 +3,14 @@ import { Field } from 'formik';
 import { Link } from 'react-router-dom';
 
 export const FormWrapper = styled.div`
-text-align: center;
-`
+  text-align: center;
+`;
 
 export const Wrapper = styled.div`
   position: relative;
   margin-bottom: ${({ theme }) => theme.spacing(10)};
   text-align: center;
-  @media screen and (min-width: 768px0) {
+  @media screen and (min-width: 768px) {
     margin-bottom: ${({ theme }) => theme.spacing(10)};
   }
 `;
