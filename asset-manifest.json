@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/react-team-project/static/css/main.c3d5249d.css",
-    "main.js": "/react-team-project/static/js/main.6eb4d552.js",
+    "main.js": "/react-team-project/static/js/main.bb52e701.js",
     "static/media/Circe-Bold.woff": "/react-team-project/static/media/Circe-Bold.fca9743700608e1abf6a.woff",
     "static/media/Circe-Regular.woff": "/react-team-project/static/media/Circe-Regular.a5168fcec068fa77220a.woff",
     "static/media/loginBg-desktop-2x.png": "/react-team-project/static/media/loginBg-desktop-2x.2ca36b55710b68ed178b.png",
@@ -20,10 +20,10 @@
     "static/media/bottom-ellipse.svg": "/react-team-project/static/media/bottom-ellipse.f6c24d3e33e7e1253ac73f0578713248.svg",
     "static/media/top-ellipse.svg": "/react-team-project/static/media/top-ellipse.07ef13244b203e866dcdec6e7633ee44.svg",
     "main.c3d5249d.css.map": "/react-team-project/static/css/main.c3d5249d.css.map",
-    "main.6eb4d552.js.map": "/react-team-project/static/js/main.6eb4d552.js.map"
+    "main.bb52e701.js.map": "/react-team-project/static/js/main.bb52e701.js.map"
   },
   "entrypoints": [
     "static/css/main.c3d5249d.css",
-    "static/js/main.6eb4d552.js"
+    "static/js/main.bb52e701.js"
   ]
 }
