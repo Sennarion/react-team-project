@@ -1,11 +1,12 @@
-import { Formik, Form, ErrorMessage } from 'formik';
+import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { logIn } from 'redux/auth/operations';
-
+import Logo from 'components/Logo/Logo';
 import icons from '../../images/icons.svg';
 import {
   FormWrapper,
+  StyledForm,
   Wrapper,
   Label,
   Icon,
@@ -56,12 +57,13 @@ export default function LoginForm() {
 
   return (
     <FormWrapper>
+      <Logo/>
       <Formik
         initialValues={initialValues}
         validationSchema={userSchema}
         onSubmit={onSubmit}
       >
-        <Form autoComplete="off">
+        <StyledForm autoComplete="off">
           <Wrapper>
             <Input type="email" name="email" id="email" placeholder=" " />
 
@@ -93,7 +95,7 @@ export default function LoginForm() {
           <Wrapper>
             <Button text="log in" type="submit" />
           </Wrapper>
-        </Form>
+        </StyledForm>
       </Formik>
       <LinkTo to="/register">Registration</LinkTo>
     </FormWrapper>
