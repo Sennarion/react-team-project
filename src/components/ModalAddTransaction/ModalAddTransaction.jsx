@@ -1,14 +1,20 @@
 import {
   Backdrop,
   Modal,
-  CloseButton,
   ModalTitle,
   SwitchWrap,
   Switch,
   TransactionForm,
   SumInput,
+  DateInput,
+  CommentInput,
 } from './ModalAddTransaction.styled';
+import Button from 'components/UI/Button/Button';
+import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai';
+import Datetime from 'react-datetime';
+
 import { Formik } from 'formik';
+import Select from 'react-select'
 
 const initialValues = {
   sum: '',
@@ -17,17 +23,26 @@ const initialValues = {
   date: new Date(),
 };
 
+const options = [
+  { value: 'chocolate', label: 'Chocolate' },
+  { value: 'strawberry', label: 'Strawberry' },
+  { value: 'vanilla', label: 'Vanilla' }
+]
+
 export default function ModalAddTransaction() {
   return (
     <Backdrop>
       <Modal>
-        <CloseButton />
+        <AiOutlineClose />
         <ModalTitle>Add transaction</ModalTitle>
         <SwitchWrap>
-          <Switch></Switch>
+          <Switch>
+            <AiOutlinePlus size={20} />
+          </Switch>
         </SwitchWrap>
         <Formik initialValues={initialValues}>
           <TransactionForm>
+          <Select options={options} />
             <SumInput
               name="sum"
               type="number"
@@ -36,6 +51,22 @@ export default function ModalAddTransaction() {
               // value={sum}
               placeholder="0.00"
             />
+            <DateInput>
+              <Datetime
+                dateFormat="DD.MM.YYYY"
+                timeFormat={false}
+                initialValue={new Date()}
+                input={true}
+                closeOnSelect
+              />
+            </DateInput>
+            <CommentInput
+              name="comment"
+              type="text"
+              // value={sum}
+              placeholder="Comment"
+            ></CommentInput>
+            <Button>Add</Button>
           </TransactionForm>
         </Formik>
       </Modal>
