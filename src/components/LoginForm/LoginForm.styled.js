@@ -32,7 +32,6 @@ export const StyledForm = styled(Form)`
   @media screen and (min-width: ${({ theme }) => theme.media.tablet}) {
     width: ${({ theme }) => theme.spacing(102)};
   } ;
-
 `;
 
 export const Wrapper = styled.div`
@@ -90,6 +89,8 @@ export const Input = styled(Field)`
 `;
 export const ErrorMess = styled.p`
   font-size: ${({ theme }) => theme.spacing(3)};
+  padding-top: ${({ theme }) => theme.spacing(1)};
+  text-transform: uppercase;
   color: red;
 `;
 

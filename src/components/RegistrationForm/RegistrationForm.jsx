@@ -1,17 +1,33 @@
-import { Formik, Form, ErrorMessage, Field } from 'formik';
+import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { register } from 'redux/auth/operations';
-import { Link } from 'react-router-dom';
+import icons from '../../images/icons.svg';
+import Button from 'components/UI/Button/Button';
+import Logo from 'components/Logo/Logo';
+import {
+  FormWrapper,
+  StyledForm,
+  Wrapper,
+  Label,
+  Icon,
+  Input,
+  ErrorMess,
+  LinkTo,
+} from '../LoginForm/LoginForm.styled';
+
+
+
 export default function RegistrationForm() {
   const dispatch = useDispatch();
   const FormError = ({ name }) => {
-    return <ErrorMessage name={name} render={message => <p>{message}</p>} />;
+    return <ErrorMessage name={name} render={message => <ErrorMess>{message}</ErrorMess>} />;
   };
   const initialValues = {
     username: '',
     email: '',
     password: '',
+    confirmPassword: '',
   };
   const userSchema = yup.object().shape({
     email: yup
@@ -28,6 +44,10 @@ export default function RegistrationForm() {
         'Password must contain minimum 6 to 12 include symbols.'
       )
       .required(),
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref('password'), null], 'Your passwords do not match.')
+      .required(),
     username: yup
       .string()
       .matches(
@@ -42,41 +62,67 @@ export default function RegistrationForm() {
       email: values.email,
       password: values.password,
     };
-    console.log(user);
+    
     dispatch(register(user));
     resetForm();
   };
 
   return (
-    <div>
+    <FormWrapper>
+      <Logo/>
       <Formik
         initialValues={initialValues}
         validationSchema={userSchema}
         onSubmit={onSubmit}
       >
-        <Form autoComplete="off">
-          <div>
-            <Field type="email" name="email" id="email" />
-            <label htmlFor="email"> Email</label>
+        <StyledForm autoComplete="off">
+          <Wrapper>
+            <Input type="email" name="email" id="email" placeholder=" " />
+            <Label htmlFor="email"> E-mail</Label>
+            <Icon>
+              <svg width="24" height="24">
+                <use href={`${icons}#icon-email`}></use>
+              </svg>
+            </Icon>
             <FormError name="email" />
-          </div>
-          <div>
-            <Field type="password" name="password" id="password" />
-            <label htmlFor="password">Password</label>
+          </Wrapper>
+          <Wrapper>
+            <Input type="password" name="password" id="password" placeholder=" " />
+            <Label htmlFor="password">Password</Label>
+            <Icon>
+              <svg width="24" height="24">
+                <use href={`${icons}#icon-password`}></use>
+              </svg>
+            </Icon>
             <FormError name="password" />
-          </div>
-          <div>
-            <Field type="username" name="username" id="username" />
-            <label htmlFor="username">Username</label>
+          </Wrapper>
+          <Wrapper>
+            <Input type="password" name="confirmPassword" id="confirmPassword" placeholder=" " />
+            <Label htmlFor="confirmPassword">Confirm Password</Label>
+            <Icon>
+              <svg width="24" height="24">
+                <use href={`${icons}#icon-password`}></use>
+              </svg>
+            </Icon>
+            <FormError name="confirmPassword" />
+          </Wrapper>
+          <Wrapper>
+            <Input type="username" name="username" id="username" placeholder=" "  />
+            <Label htmlFor="username">First Name</Label>
+            <Icon>
+              <svg width="24" height="24">
+                <use href={`${icons}#icon-name`}></use>
+              </svg>
+            </Icon>
             <FormError name="username" />
-          </div>
+          </Wrapper>
 
-          <div>
-            <button type="submit">Registration</button>
-          </div>
-        </Form>
+          <Wrapper>
+            <Button type="submit" text='Registrer'/>
+          </Wrapper>
+        </StyledForm>
       </Formik>
-      <Link to="/login">log in</Link>
-    </div>
+      <LinkTo to="/login">log in</LinkTo>
+    </FormWrapper>
   );
 }
