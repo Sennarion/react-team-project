@@ -1,15 +1,19 @@
 import LoginForm from 'components/LoginForm/LoginForm';
-import { Container } from 'components/UI/Container/Container.styled';
-import { PageWrapper, LeftSide,RightSide,  MainTitle, ImgBox } from './LoginPage.styled';
-import Logo from 'components/Logo/Logo';
+import {
+  Container,
+  LeftSide,
+  RightSide,
+  MainTitle,
+  ImgBox,
+} from './LoginPage.styled';
+
 import loginTablet1x from '../../images/loginBg-tablet-1x.png';
 import loginTablet2x from '../../images/loginBg-tablet-2x.png';
 import loginDesk1x from '../../images/loginBg-desktop-1x.png';
 import loginDesc2x from '../../images/loginBg-desktop-2x.png';
 export default function LoginPage() {
   return (
-    <PageWrapper>
-      <Container>
+    <Container>
       <LeftSide>
         <ImgBox>
           <picture>
@@ -29,10 +33,8 @@ export default function LoginPage() {
         <MainTitle>Finance app</MainTitle>
       </LeftSide>
       <RightSide>
-        <Logo />
         <LoginForm />
       </RightSide>
     </Container>
-    </PageWrapper>
   );
 }
