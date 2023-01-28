@@ -36,12 +36,11 @@ export const Modal = styled.div`
 `;
 
 export const ModalTitle = styled.h2`
-text-align: center;
-font-weight: ${({ theme }) => theme.fontWeight.normal};
-font-family: ${({ theme }) => theme.fonts.secondary};
+  text-align: center;
+  font-weight: ${({ theme }) => theme.fontWeight.normal};
+  font-family: ${({ theme }) => theme.fonts.secondary};
   font-size: ${({ theme }) => theme.fontSizes.title};
   line-height: 1.5;
-
 `;
 
 export const SwitchWrap = styled.div`
@@ -64,20 +63,13 @@ export const Switch = styled.button`
   svg {
     fill: ${({ theme }) => theme.colors.white};
     top: ${({ theme }) => theme.spacing(3)};
-    right:${({ theme }) => theme.spacing(3)};
-    
+    right: ${({ theme }) => theme.spacing(3)};
   }
 `;
 
 export const TransactionForm = styled(Form)``;
 
-export const SumInput = styled(Field)`
-`;
+export const SumInput = styled(Field)``;
 
-export const DateInput = styled.div`
-
-`;
-export const CommentInput = styled(Field)`
-
-`;
-
+export const DateInput = styled.div``;
+export const CommentInput = styled(Field)``;
