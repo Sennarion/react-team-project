@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import { fetchTransactions } from 'redux/transactions/operations';
 
 const initialState = {
-  categories: [],
   items: [],
   isLoading: false,
   error: null,

@@ -1,83 +1,114 @@
-import Dropdown from 'components/Dropdown/Dropdown';
-import { nanoid } from 'nanoid';
-import { useEffect, useState } from 'react';
+import React from 'react';
+// import './index.css'
+
+import Media from 'react-media';
+import { transactions } from './transaction.js';
+
 import {
-  fetchCategories,
-  fetchTransactions,
-} from '../../redux/transactions/operations';
-import { useDispatch } from 'react-redux';
+  List,
+  ListItem,
+  ListText,
+  StyledTable,
+  SumStyled,
+  TableWrapper,
+} from './Table.styled.js';
 
-export default function Table({ income, expence, tableData }) {
-  //=======================================================достаем актуальные мецяц и год
-  const currentMonth = new Date().getMonth();
-  const currentYear = new Date().getFullYear();
-  // const date = new Date();
+export const Table = () => {
+  const columns = [
+    {
+      title: 'Date',
+      dataIndex: 'transactionDate',
+      key: 'transactionDate',
+      width: '17%',
+    },
 
-  //======================================================записываем в массив десять последних лет
-  const years = [];
-  for (let i = currentYear; i >= currentYear - 10; i -= 1) {
-    years.push({ label: i, value: i });
-  }
+    {
+      title: 'Type',
+      dataIndex: 'type',
+      key: 'type',
+      width: '10%',
+    },
+    {
+      title: 'Category',
+      dataIndex: 'category',
+      key: 'category',
+      width: '15%',
+    },
 
-  //======================================================массив с месяцами
-  const months = [
-    { label: 'January', value: 'January' },
-    { label: 'February', value: 'February' },
-    { label: 'March', value: 'March' },
-    { label: 'April', value: 'April' },
-    { label: 'May', value: 'May' },
-    { label: 'June', value: 'June' },
-    { label: 'July', value: 'January' },
-    { label: 'August', value: 'August' },
-    { label: 'September', value: 'September' },
-    { label: 'October', value: 'October' },
-    { label: 'November', value: 'November' },
-    { label: 'December', value: 'December' },
+    {
+      title: 'Comment',
+      key: 'comment',
+      dataIndex: 'comment',
+      width: '15%',
+    },
+
+    {
+      title: 'Amount',
+      key: 'amount',
+      dataIndex: 'amount',
+      width: '15%',
+    },
+
+    {
+      title: 'BalanceAfter',
+      key: 'balanceAfter',
+      dataIndex: 'balanceAfter',
+    },
   ];
 
-  //======================================================установка значения фильтра по дате
-  const [month, setMonth] = useState(months[currentMonth].label);
-  const [year, setYear] = useState(currentYear);
-
-  //тут делать запрос на бек со значением value...по умолчанию там будет запрос на актуальній месяц и год months[currentMonth].label
-  const dispatch = useDispatch();
-  useEffect(() => {
-    const query = {
-      month: 1,
-      year: 2023,
-    };
-    dispatch(fetchTransactions(query));
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(fetchCategories());
-  }, [dispatch]);
-
-  const handleMomthChange = event => {
-    setMonth(event.target.value);
-    //тут должен быть запрос на бек
-  };
-  const handleYearChange = event => {
-    setYear(event.target.value);
-    //тут должен быть запрос на бек
-  };
-
   return (
-    <>
-      Table
-      <Dropdown options={months} value={month} onChange={handleMomthChange} />
-      <Dropdown options={years} value={year} onChange={handleYearChange} />
-      <ul>
-        {tableData.map(({ category, total }) => (
-          <li key={nanoid()}>
-            Category: {category}; sum: {total}
-          </li>
-        ))}
-      </ul>
-      <br />
-      <p>Total income: {income}</p>
-      <br />
-      <p>Total expence: {expence}</p>
-    </>
+    <TableWrapper>
+      <Media query="(min-width: 768px)">
+        {matches =>
+          matches ? (
+            <StyledTable
+              rowClassName="rowStyled"
+              columns={columns}
+              dataSource={transactions?.map(item => ({
+                ...item,
+                key: item.id,
+              }))}
+              pagination={{
+                defaultPageSize: '5',
+                showSizeChanger: true,
+                pageSizeOptions: [5, 10, 15],
+                position: ['bottomRight'],
+              }}
+            />
+          ) : (
+            <TableWrapper>
+              {transactions?.map(item => (
+                <List type={item.type} key={item.id}>
+                  <ListItem>
+                    <ListText>{'Date'}</ListText>
+                    {item.transactionDate}
+                  </ListItem>
+                  <ListItem>
+                    <ListText>{'Type'}</ListText>
+                    {item.type === 'INCOME' ? '+' : '-'}
+                  </ListItem>
+                  <ListItem>
+                    <ListText>{'Category'}</ListText>
+                    {item.category}
+                  </ListItem>
+                  <ListItem>
+                    <ListText>{'Comment'}</ListText>
+                    {item.comment}
+                  </ListItem>
+                  <ListItem>
+                    <ListText>{'Sum'}</ListText>
+                    <SumStyled type={item.type}>{item.amount}</SumStyled>
+                  </ListItem>
+                  <ListItem>
+                    <ListText>{'Balance'}</ListText>
+                    {item.balanceAfter}
+                  </ListItem>
+                </List>
+              ))}
+            </TableWrapper>
+          )
+        }
+      </Media>
+    </TableWrapper>
   );
-}
+};

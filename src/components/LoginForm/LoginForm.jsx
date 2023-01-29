@@ -57,7 +57,7 @@ export default function LoginForm() {
 
   return (
     <FormWrapper>
-      <Logo/>
+      <Logo />
       <Formik
         initialValues={initialValues}
         validationSchema={userSchema}
@@ -93,7 +93,7 @@ export default function LoginForm() {
           </Wrapper>
 
           <Wrapper>
-            <Button text="log in" type="submit" />
+            <Button type="submit">log in</Button>
           </Wrapper>
         </StyledForm>
       </Formik>

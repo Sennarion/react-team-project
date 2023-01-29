@@ -15,8 +15,7 @@ function HomePage() {
       <Header />
       <Container>
         <Content>
-          {isMobile && <MobileNavigation />}
-          {!isMobile && <Aside />}
+          {isMobile ? <MobileNavigation /> : <Aside />}
           <Outlet />
         </Content>
       </Container>

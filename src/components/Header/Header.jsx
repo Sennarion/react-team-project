@@ -1,25 +1,23 @@
 import { useSelector } from 'react-redux';
-import { getUsername } from 'redux/auth/selectors';
+import { selectLogoutModalOpen } from 'redux/global/selectors';
 import { Container } from 'components/UI/Container/Container.styled';
+import ModalLogout from 'components/ModalLogout/ModalLogout';
 import {
   HeaderWrapper,
   HeaderContent,
   LogoWrapper,
   Logo,
   LogoText,
-  UserWrapper,
-  UserName,
-  LogoutBtn,
-  LogoutIcon,
-  LogoutText,
 } from './Header.styled';
+import User from 'components/User/User';
 import icons from '../../images/icons.svg';
 
 export default function Header() {
-  const username = useSelector(getUsername);
+  const isModalLogoutOpen = useSelector(selectLogoutModalOpen);
 
   return (
     <HeaderWrapper>
+      {isModalLogoutOpen && <ModalLogout />}
       <Container>
         <HeaderContent>
           <LogoWrapper to="/">
@@ -28,15 +26,7 @@ export default function Header() {
             </Logo>
             <LogoText>Wallet</LogoText>
           </LogoWrapper>
-          <UserWrapper>
-            <UserName>{username}</UserName>
-            <LogoutBtn>
-              <LogoutIcon width="18" height="18">
-                <use href={`${icons}#icon-logout`}></use>
-              </LogoutIcon>
-              <LogoutText>Exit</LogoutText>
-            </LogoutBtn>
-          </UserWrapper>
+          <User />
         </HeaderContent>
       </Container>
     </HeaderWrapper>

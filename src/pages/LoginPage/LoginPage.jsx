@@ -14,18 +14,18 @@ import loginTablet1x from '../../images/loginBg-tablet-1x.png';
 import loginTablet2x from '../../images/loginBg-tablet-2x.png';
 import loginDesk1x from '../../images/loginBg-desktop-1x.png';
 import loginDesc2x from '../../images/loginBg-desktop-2x.png';
-import { getToken } from 'redux/auth/selectors';
+import { getIsLoggedIn } from 'redux/auth/selectors';
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const token = useSelector(getToken);
+  const isLoggedIn = useSelector(getIsLoggedIn);
 
   useEffect(() => {
-    if (token === null) {
+    if (!isLoggedIn) {
       return;
     }
     navigate('/', { replace: true });
-  }, [navigate, token]);
+  }, [navigate, isLoggedIn]);
 
   return (
     <Container>

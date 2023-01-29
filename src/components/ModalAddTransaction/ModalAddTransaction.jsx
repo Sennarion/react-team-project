@@ -1,6 +1,11 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { toggleModalAddTransaction } from 'redux/global/slice';
 import {
   Backdrop,
   Modal,
+  CloseButton,
   ModalTitle,
   SwitchWrap,
   Switch,
@@ -14,26 +19,48 @@ import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai';
 import Datetime from 'react-datetime';
 
 import { Formik } from 'formik';
-import Select from 'react-select'
+import Select from 'react-select';
+import { selectCategories } from 'redux/categories/selector';
 
 const initialValues = {
-  sum: '',
-  category: '',
-  comment: '',
-  date: new Date(),
+  transactionDate: 'string',
+  type: 'INCOME',
+  categoryId: 'string',
+  comment: 'string',
+  amount: 0,
 };
 
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' }
-]
-
 export default function ModalAddTransaction() {
+  const dispatch = useDispatch();
+  const categories = useSelector(selectCategories);
+
+  useEffect(() => {
+    const onPressEsc = e => {
+      if (e.code === 'Escape') {
+        dispatch(toggleModalAddTransaction());
+      }
+    };
+
+    window.addEventListener('keydown', onPressEsc);
+
+    return () => {
+      window.removeEventListener('keydown', onPressEsc);
+    };
+  }, [dispatch]);
+
+  const onBackdropClick = e => {
+    if (e.currentTarget === e.target) {
+      dispatch(toggleModalAddTransaction());
+    }
+  };
+
   return (
-    <Backdrop>
+    <Backdrop onClick={onBackdropClick}>
       <Modal>
-        <AiOutlineClose />
+        <CloseButton onClick={() => dispatch(toggleModalAddTransaction())}>
+          <AiOutlineClose />
+        </CloseButton>
+
         <ModalTitle>Add transaction</ModalTitle>
         <SwitchWrap>
           <Switch>
@@ -42,7 +69,12 @@ export default function ModalAddTransaction() {
         </SwitchWrap>
         <Formik initialValues={initialValues}>
           <TransactionForm>
-          <Select options={options} />
+            <Select
+              options={categories.map(({ name, id }) => ({
+                value: id,
+                label: [`categoryName.${name}`],
+              }))}
+            />
             <SumInput
               name="sum"
               type="number"

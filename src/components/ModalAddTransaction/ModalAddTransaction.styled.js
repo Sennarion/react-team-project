@@ -11,7 +11,6 @@ export const Backdrop = styled.div`
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.25);
-  display: none;
 `;
 
 export const Modal = styled.div`
@@ -28,11 +27,17 @@ export const Modal = styled.div`
   gap: ${({ theme }) => theme.spacing(10)};
 
   svg {
-    position: absolute;
+    /* position: absolute;
     top: ${({ theme }) => theme.spacing(5)};
-    right: ${({ theme }) => theme.spacing(5)};
+    right: ${({ theme }) => theme.spacing(5)}; */
     fill: ${({ theme }) => theme.colors.black};
   }
+`;
+export const CloseButton = styled.button`
+  position: absolute;
+  top: ${({ theme }) => theme.spacing(5)};
+  right: ${({ theme }) => theme.spacing(5)};
+  /* fill: ${({ theme }) => theme.colors.black}; */
 `;
 
 export const ModalTitle = styled.h2`

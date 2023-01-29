@@ -1,5 +1,5 @@
 import Chart from 'components/Chart/Chart';
-import Table from 'components/Table/Table';
+import StaticticsTable from 'components/StaticticsTable/StaticticsTable';
 import { transactions } from 'data/data';
 import { useState } from 'react';
 import { DiagramWrapper } from './Diagram.styled';
@@ -56,7 +56,7 @@ export default function Diagram() {
   return (
     <DiagramWrapper>
       <Chart chartData={userData} />
-      <Table
+      <StaticticsTable
         tableData={categories}
         income={totalIncome}
         expence={totalExpence}
