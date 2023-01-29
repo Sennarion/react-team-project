@@ -1,5 +1,5 @@
 import { Container } from 'components/UI/Container/Container.styled';
-import ModalLogout from 'components/ModalLogout/ModalLogout';
+// import ModalLogout from 'components/ModalLogout/ModalLogout';
 import {
   HeaderWrapper,
   HeaderContent,
@@ -13,7 +13,7 @@ import icons from '../../images/icons.svg';
 export default function Header() {
   return (
     <HeaderWrapper>
-      <ModalLogout />
+      {/* <ModalLogout /> */}
       <Container>
         <HeaderContent>
           <LogoWrapper to="/">
