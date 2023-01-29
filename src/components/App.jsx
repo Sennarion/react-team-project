@@ -11,12 +11,17 @@ import Diagram from './Diagram/Diagram';
 import Currency from './Currency/Currency';
 import { useAuth } from 'hooks/useUserAuth';
 import { refreshUser } from 'redux/auth/operations';
+import useMediaQuery from 'hooks/useMediaQuery/useMediaQuery';
+
 export const App = () => {
   const dispatch = useDispatch();
   const { isRefreshing } = useAuth();
+  const isTablet = useMediaQuery('(min-width: 768px)');
+
   useEffect(() => {
     dispatch(refreshUser());
   }, [dispatch]);
+
   return (
     <>
       {isRefreshing ? (
@@ -27,7 +32,7 @@ export const App = () => {
             <Route path="/" element={<HomePage />}>
               <Route index element={<Home />} />
               <Route path="diagram" element={<Diagram />} />
-              <Route path="currency" element={<Currency />} />
+              {!isTablet && <Route path="currency" element={<Currency />} />}
             </Route>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
