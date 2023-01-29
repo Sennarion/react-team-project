@@ -182,7 +182,7 @@ export default function RegistrationForm() {
             </Wrapper>
 
             <Wrapper>
-              <Button type="submit" text="Registrer" />
+              <Button type="submit">Register</Button>              
             </Wrapper>
           </StyledForm>
         )}
