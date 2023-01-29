@@ -1,22 +1,22 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-const inctanceAuth = axios.create({
+export const inctanceAuth = axios.create({
   baseURL: 'https://wallet.goit.ua/api',
 });
 const setAuthHeader = token => {
-    inctanceAuth.defaults.headers.common.Authorization = `Bearer ${token}`;
+  inctanceAuth.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
 const clearAuthHeader = () => {
-    inctanceAuth.defaults.headers.common.Authorization = '';
+  inctanceAuth.defaults.headers.common.Authorization = '';
 };
 
 export const register = createAsyncThunk(
   'auth/register',
   async (credentials, thunkAPI) => {
     try {
-      const res = await inctanceAuth.post('/auth/sign-up', credentials);      
+      const res = await inctanceAuth.post('/auth/sign-up', credentials);
       setAuthHeader(res.data.token);
       return res.data;
     } catch (error) {
@@ -29,7 +29,7 @@ export const logIn = createAsyncThunk(
   'auth/login',
   async (credentials, thunkAPI) => {
     try {
-      const res = await inctanceAuth.post('/auth/sign-in', credentials);      
+      const res = await inctanceAuth.post('/auth/sign-in', credentials);
       setAuthHeader(res.data.token);
       return res.data;
     } catch (error) {

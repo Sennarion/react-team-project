@@ -1,6 +1,11 @@
 import Dropdown from 'components/Dropdown/Dropdown';
 import { nanoid } from 'nanoid';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import {
+  fetchCategories,
+  fetchTransactions,
+} from '../../redux/transactions/operations';
+import { useDispatch } from 'react-redux';
 
 export default function Table({ income, expence, tableData }) {
   //=======================================================достаем актуальные мецяц и год
@@ -35,6 +40,18 @@ export default function Table({ income, expence, tableData }) {
   const [year, setYear] = useState(currentYear);
 
   //тут делать запрос на бек со значением value...по умолчанию там будет запрос на актуальній месяц и год months[currentMonth].label
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const query = {
+      month: 1,
+      year: 2023,
+    };
+    dispatch(fetchTransactions(query));
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
 
   const handleMomthChange = event => {
     setMonth(event.target.value);
