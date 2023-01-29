@@ -7,7 +7,6 @@ import Aside from 'components/Aside/Aside';
 import MobileNavigation from 'components/MobileNavigation/MobileNavigation';
 import useMediaQuery from 'hooks/useMediaQuery/useMediaQuery';
 
-
 function HomePage() {
   const isMobile = useMediaQuery('(max-width: 767px)');
 
@@ -16,8 +15,7 @@ function HomePage() {
       <Header />
       <Container>
         <Content>
-          {isMobile && <MobileNavigation />}
-          {!isMobile && <Aside />}
+          {isMobile ? <MobileNavigation /> : <Aside />}
           <Outlet />
         </Content>
       </Container>

@@ -9,6 +9,7 @@ import Currency from './Currency/Currency';
 import { useAuth } from 'hooks/useUserAuth';
 import { refreshUser } from 'redux/auth/operations';
 import useMediaQuery from 'hooks/useMediaQuery/useMediaQuery';
+import Loader from './UI/Loader/Loader';
 
 const HomePage = lazy(() => import('pages/HomePage/HomePage'));
 const LoginPage = lazy(() => import('pages/LoginPage/LoginPage'));
@@ -26,7 +27,7 @@ export const App = () => {
   return (
     <>
       {isRefreshing ? (
-        <div>Loading...</div>
+        <Loader />
       ) : (
         <>
           <Suspense fallback={null}>

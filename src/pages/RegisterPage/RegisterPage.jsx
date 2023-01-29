@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { getToken } from 'redux/auth/selectors';
+import { getIsLoggedIn } from 'redux/auth/selectors';
 import RegistrationForm from 'components/RegistrationForm/RegistrationForm';
 import registerTablet1x from '../../images/registerBg-tablet-1x.png';
 import registerTablet2x from '../../images/registerBg-tablet-2x.png';
@@ -15,17 +15,16 @@ import {
   ImgBox,
 } from '../LoginPage/LoginPage.styled';
 
-
 export default function RegisterPage() {
   const navigate = useNavigate();
-  const token = useSelector(getToken);
+  const isLoggedIn = useSelector(getIsLoggedIn);
 
   useEffect(() => {
-    if (token === null) {
+    if (!isLoggedIn) {
       return;
     }
     navigate('/', { replace: true });
-  }, [navigate, token]);
+  }, [navigate, isLoggedIn]);
 
   return (
     <Container>
@@ -53,4 +52,3 @@ export default function RegisterPage() {
     </Container>
   );
 }
-
