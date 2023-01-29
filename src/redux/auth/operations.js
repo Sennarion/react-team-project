@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-const inctanceAuth = axios.create({
+export const inctanceAuth = axios.create({
   baseURL: 'https://wallet.goit.ua/api',
 });
 const setAuthHeader = token => {
