@@ -2,6 +2,7 @@ import Chart from 'components/Chart/Chart';
 import Table from 'components/Table/Table';
 import { transactions } from 'data/data';
 import { useState } from 'react';
+import { DiagramWrapper } from './Diagram.styled';
 
 //======================================================генерация случайного цвета
 const getRandomHexColor = () => {
@@ -53,13 +54,13 @@ export default function Diagram() {
   const [userData, setUserData] = useState(initState);
 
   return (
-    <div>
+    <DiagramWrapper>
       <Chart chartData={userData} />
       <Table
         tableData={categories}
         income={totalIncome}
         expence={totalExpence}
       />
-    </div>
+    </DiagramWrapper>
   );
 }
