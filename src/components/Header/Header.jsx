@@ -1,3 +1,5 @@
+import { useSelector } from 'react-redux';
+import { getUsername } from 'redux/auth/selectors';
 import { Container } from 'components/UI/Container/Container.styled';
 import {
   HeaderWrapper,
@@ -14,6 +16,8 @@ import {
 import icons from '../../images/icons.svg';
 
 export default function Header() {
+  const username = useSelector(getUsername);
+
   return (
     <HeaderWrapper>
       <Container>
@@ -25,7 +29,7 @@ export default function Header() {
             <LogoText>Wallet</LogoText>
           </LogoWrapper>
           <UserWrapper>
-            <UserName>Name</UserName>
+            <UserName>{username}</UserName>
             <LogoutBtn>
               <LogoutIcon width="18" height="18">
                 <use href={`${icons}#icon-logout`}></use>

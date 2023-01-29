@@ -66,6 +66,7 @@ export const RightSide = styled.div`
     backdrop-filter: blur(25px);
   }
 `;
+
 export const MainTitle = styled.h1`
   display: none;
   @media screen and (min-width: ${({ theme }) => theme.media.tablet}) {
@@ -76,6 +77,7 @@ export const MainTitle = styled.h1`
     line-height: ${({ theme }) => theme.spacing(11)};
   }
 `;
+
 export const ImgBox = styled.div`
   display: none;
 
