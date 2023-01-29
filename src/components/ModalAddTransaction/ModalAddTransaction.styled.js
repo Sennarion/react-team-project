@@ -25,19 +25,22 @@ export const Modal = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing(10)};
-
-  svg {
-    /* position: absolute;
-    top: ${({ theme }) => theme.spacing(5)};
-    right: ${({ theme }) => theme.spacing(5)}; */
-    fill: ${({ theme }) => theme.colors.black};
-  }
 `;
+
 export const CloseButton = styled.button`
   position: absolute;
   top: ${({ theme }) => theme.spacing(5)};
   right: ${({ theme }) => theme.spacing(5)};
-  /* fill: ${({ theme }) => theme.colors.black}; */
+  background-color: transparent;
+  border: none;
+  svg {
+    fill: ${({ theme }) => theme.colors.black};
+    &:hover,
+    &:focus {
+      fill: ${({ theme }) => theme.colors.accentBlue};
+      transition: fill ${({ theme }) => theme.animation.cubicBezier};
+  }
+  }
 `;
 
 export const ModalTitle = styled.h2`
@@ -66,15 +69,96 @@ export const Switch = styled.button`
   background-color: ${({ theme }) => theme.colors.accentGreen};
   position: relative;
   svg {
+    position: absolute;
     fill: ${({ theme }) => theme.colors.white};
     top: ${({ theme }) => theme.spacing(3)};
-    right: ${({ theme }) => theme.spacing(3)};
+    left: ${({ theme }) => theme.spacing(3)};
   }
 `;
 
-export const TransactionForm = styled(Form)``;
+export const TransactionForm = styled(Form)`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing(10)};
+`;
 
-export const SumInput = styled(Field)``;
+export const SumInput = styled(Field)`
+  width: ${({ theme }) => theme.spacing(47.5)};
+  height: ${({ theme }) => theme.spacing(8)};
+  border: none;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
+`;
 
-export const DateInput = styled.div``;
-export const CommentInput = styled(Field)``;
+export const DateInput = styled.div`
+  width: ${({ theme }) => theme.spacing(47.5)};
+  height: ${({ theme }) => theme.spacing(8)};
+  border: none;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
+  outline: 0;
+  background-color: transparent;
+`;
+
+export const Wrap = styled.div`
+  display: flex;
+  gap: ${({ theme }) => theme.spacing(7.5)};
+`;
+
+export const CommentInput = styled(Field)`
+  width: 100%;
+  height: ${({ theme }) => theme.spacing(8)};
+  border: none;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
+`;
+
+export const PrimaryBut = styled.button`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: ${({ theme }) => theme.spacing(75)};
+  height: ${({ theme }) => theme.spacing(12.5)};
+  background-color: ${({ theme }) => theme.colors.accentGreen};
+  color: ${({ theme }) => theme.colors.white};
+  border-radius: ${({ theme }) => theme.spacing(5)};
+  border: none;
+  cursor: pointer;
+  font-size: ${({ theme }) => theme.spacing(4.5)};
+  line-height: ${({ theme }) => theme.spacing(7)};
+  text-align: center;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: box-shadow ${({ theme }) => theme.animation.cubicBezier};
+  &:hover,
+  &:focus {
+    box-shadow: 0 0.5em 0.5em -0.4em ${({ theme }) => theme.colors.accentBlue};
+  }
+  margin-bottom: ${({ theme }) => theme.spacing(5)};
+`;
+
+export const But = styled.button`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: ${({ theme }) => theme.spacing(75)};
+  height: ${({ theme }) => theme.spacing(12.5)};
+  background-color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.accentBlue};
+  border-radius: ${({ theme }) => theme.spacing(5)};
+  border: 1px solid ${({ theme }) => theme.colors.accentBlue};
+  cursor: pointer;
+  font-size: ${({ theme }) => theme.spacing(4.5)};
+  line-height: ${({ theme }) => theme.spacing(7)};
+  text-align: center;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: box-shadow ${({ theme }) => theme.animation.cubicBezier};
+  &:hover,
+  &:focus {
+    box-shadow: 0 0.5em 0.5em -0.4em ${({ theme }) => theme.colors.accentBlue};
+  }
+`;
+
+export const ButWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
