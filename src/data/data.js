@@ -1,7 +1,8 @@
 export const transactions = [
   {
     id: '1',
-    transactionDate: 'string',
+    transactionDate:
+      'Sat Jan 28 2022 15:49:17 GMT+0300 (Москва, стандартное время)',
     type: 'EXPENCE',
     categoryId: 'food',
     userId: '123',

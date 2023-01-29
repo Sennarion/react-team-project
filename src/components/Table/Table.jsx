@@ -1,33 +1,66 @@
-import { transactions } from 'data/data';
+import Dropdown from 'components/Dropdown/Dropdown';
+import { nanoid } from 'nanoid';
+import { useState } from 'react';
 
-// let income = 0;
-// let expence = 0;
+export default function Table({ income, expence, tableData }) {
+  //=======================================================достаем актуальные мецяц и год
+  const currentMonth = new Date().getMonth();
+  const currentYear = new Date().getFullYear();
+  // const date = new Date();
 
-// for (let { type, amount } of transactions) {
-//   if (type === 'INCOME') {
-//     income += amount;
-//     console.log('income', income);
-//   }
-//   if (type === 'EXPENCE') {
-//     expence += amount;
-//     console.log('expence', expence);
-//   }
-// }
+  //======================================================записываем в массив десять последних лет
+  const years = [];
+  for (let i = currentYear; i >= currentYear - 10; i -= 1) {
+    years.push({ label: i, value: i });
+  }
 
-export default function Table({ income, expence }) {
+  //======================================================массив с месяцами
+  const months = [
+    { label: 'January', value: 'January' },
+    { label: 'February', value: 'February' },
+    { label: 'March', value: 'March' },
+    { label: 'April', value: 'April' },
+    { label: 'May', value: 'May' },
+    { label: 'June', value: 'June' },
+    { label: 'July', value: 'January' },
+    { label: 'August', value: 'August' },
+    { label: 'September', value: 'September' },
+    { label: 'October', value: 'October' },
+    { label: 'November', value: 'November' },
+    { label: 'December', value: 'December' },
+  ];
+
+  //======================================================установка значения фильтра по дате
+  const [month, setMonth] = useState(months[currentMonth].label);
+  const [year, setYear] = useState(currentYear);
+
+  //тут делать запрос на бек со значением value...по умолчанию там будет запрос на актуальній месяц и год months[currentMonth].label
+
+  const handleMomthChange = event => {
+    setMonth(event.target.value);
+    //тут должен быть запрос на бек
+  };
+  const handleYearChange = event => {
+    setYear(event.target.value);
+    //тут должен быть запрос на бек
+  };
+
   return (
     <>
       Table
+      <Dropdown options={months} value={month} onChange={handleMomthChange} />
+      <Dropdown options={years} value={year} onChange={handleYearChange} />
       <ul>
-        {transactions.map(({ categoryId, amount, id, type }) => (
-          <li key={id}>
-            Category: {categoryId}; sum: {amount}; type: {type}
+        {tableData.map(({ category, total }) => (
+          <li key={nanoid()}>
+            Category: {category}; sum: {total}
           </li>
         ))}
       </ul>
-      <p>income: {income}</p>
       <br />
-      <p>expence: {expence}</p>
+      <p>Total income: {income}</p>
+      <br />
+      <p>Total expence: {expence}</p>
     </>
   );
 }
