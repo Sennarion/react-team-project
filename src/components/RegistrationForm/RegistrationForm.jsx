@@ -19,14 +19,14 @@ import {
 import { ProgressBarContainer, ProgressBar } from './RegistrationForm.styled';
 export default function RegistrationForm() {
   const [password, setPassword] = useState('');
-  const [strength, setStrength] = useState(0);
+
   const [progressBarStyles, setProgressBarStyles] = useState({
     width: '0%',
     backgroundColor: 'transparent',
   });
 
-  const handlePassword = someValue => {    
-    setPassword(someValue);    
+  const handlePassword = someValue => {
+    setPassword(someValue);
   };
 
   useEffect(() => {
@@ -44,12 +44,14 @@ export default function RegistrationForm() {
     updatedProgressBarStyles.width = `${totalStrength * 10}%`;
     if (totalStrength > 8) {
       updatedProgressBarStyles.backgroundColor = '#24CCA7';
-      updatedProgressBarStyles.boxShadow = '0px 1px 8px rgba(36, 204, 167, 0.5)';
+      updatedProgressBarStyles.boxShadow =
+        '0px 1px 8px rgba(36, 204, 167, 0.5)';
     } else if (totalStrength > 6) {
       updatedProgressBarStyles.backgroundColor = 'orange';
-      updatedProgressBarStyles.boxShadow = '0px 1px 8px rgba(204, 173, 36, 0.5)';
+      updatedProgressBarStyles.boxShadow =
+        '0px 1px 8px rgba(204, 173, 36, 0.5)';
     }
-    setStrength(totalStrength);
+
     setProgressBarStyles(updatedProgressBarStyles);
   }, [password]);
 
@@ -101,7 +103,7 @@ export default function RegistrationForm() {
       email: values.email,
       password: values.password,
     };
-    console.log(password);
+
     dispatch(register(user));
     resetForm();
   };
@@ -130,7 +132,7 @@ export default function RegistrationForm() {
               <Input
                 type="password"
                 value={values.password}
-                onChange={e => {                  
+                onChange={e => {
                   setFieldValue('password', e.currentTarget.value);
                   let someValue = e.currentTarget.value;
                   handlePassword(someValue);
@@ -182,7 +184,7 @@ export default function RegistrationForm() {
             </Wrapper>
 
             <Wrapper>
-              <Button type="submit">Register</Button>              
+              <Button type="submit">Register</Button>
             </Wrapper>
           </StyledForm>
         )}
