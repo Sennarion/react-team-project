@@ -9,8 +9,8 @@ export const Container = styled.div`
   align-items: center;
   margin: 0 auto;
   width: 100%;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
+  overflow: auto;
   &::before {
     content: '';
     position: fixed;
