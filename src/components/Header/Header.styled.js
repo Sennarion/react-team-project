@@ -65,6 +65,10 @@ export const UserName = styled.span`
   position: relative;
   color: ${({ theme }) => theme.colors.secondaryTextColor};
 
+  &::first-letter {
+    text-transform: capitalize;
+  }
+
   @media screen and (min-width: ${({ theme }) => theme.media.tablet}) {
     &::after {
       content: '';
