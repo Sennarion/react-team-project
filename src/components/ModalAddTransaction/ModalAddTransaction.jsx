@@ -1,6 +1,9 @@
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux/es/exports';
 import {
   Backdrop,
   Modal,
+  CloseButton,
   ModalTitle,
   SwitchWrap,
   Switch,
@@ -14,7 +17,8 @@ import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai';
 import Datetime from 'react-datetime';
 
 import { Formik } from 'formik';
-import Select from 'react-select'
+import Select from 'react-select';
+import { selectCategories } from 'redux/categories/selector';
 
 const initialValues = {
   sum: '',
@@ -23,17 +27,36 @@ const initialValues = {
   date: new Date(),
 };
 
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' }
-]
 
-export default function ModalAddTransaction() {
+export default function ModalAddTransaction({ onClose, children }) {
+  useEffect(() => {
+    const handleKeyDown = e => {
+      const ESC_KEY_CODE = 'Escape';
+      if (e.code === ESC_KEY_CODE) {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [onClose]);
+
+  const handleEventOverlay = e => {
+    if (e.currentTarget === e.target) {
+      onClose();
+    }
+  };
+
+  const categories = useSelector(selectCategories);
+
   return (
-    <Backdrop>
+          <Backdrop onClick={handleEventOverlay}>
       <Modal>
-        <AiOutlineClose />
+        <CloseButton onClick={onClose}>
+          <AiOutlineClose />
+        </CloseButton>
+
         <ModalTitle>Add transaction</ModalTitle>
         <SwitchWrap>
           <Switch>
@@ -42,7 +65,13 @@ export default function ModalAddTransaction() {
         </SwitchWrap>
         <Formik initialValues={initialValues}>
           <TransactionForm>
-          <Select options={options} />
+            <Select
+              options={categories
+                .map(({ name, id }) => ({
+                  value: id,
+                  label: [`categoryName.${name}`],
+                }))}
+            />
             <SumInput
               name="sum"
               type="number"
