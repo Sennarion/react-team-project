@@ -16,8 +16,6 @@ import {
   LinkTo,
 } from '../LoginForm/LoginForm.styled';
 
-
-
 export default function RegistrationForm() {
   const dispatch = useDispatch();
   const FormError = ({ name }) => {
