@@ -92,6 +92,8 @@ export const Input = styled(Field)`
 
 export const ErrorMess = styled.p`
   font-size: ${({ theme }) => theme.spacing(3)};
+  padding-top: ${({ theme }) => theme.spacing(1)};
+  text-transform: uppercase;
   color: red;
 `;
 
