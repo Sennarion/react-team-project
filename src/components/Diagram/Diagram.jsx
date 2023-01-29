@@ -51,7 +51,7 @@ export default function Diagram() {
       },
     ],
   };
-  const [userData, setUserData] = useState(initState);
+  const [userData] = useState(initState);
 
   return (
     <DiagramWrapper>
