@@ -44,6 +44,6 @@ export const Content = styled.div`
   @media screen and (min-width: ${({ theme }) => theme.media.desktop}) {
     flex-direction: row;
     padding: ${({ theme }) => theme.spacing(12)} 0;
-    gap: ${({ theme }) => theme.spacing(10)};
+    gap: ${({ theme }) => theme.spacing(34)};
   }
 `;

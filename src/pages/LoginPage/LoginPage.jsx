@@ -1,3 +1,6 @@
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import LoginForm from 'components/LoginForm/LoginForm';
 import {
   Container,
@@ -11,7 +14,19 @@ import loginTablet1x from '../../images/loginBg-tablet-1x.png';
 import loginTablet2x from '../../images/loginBg-tablet-2x.png';
 import loginDesk1x from '../../images/loginBg-desktop-1x.png';
 import loginDesc2x from '../../images/loginBg-desktop-2x.png';
+import { getToken } from 'redux/auth/selectors';
+
 export default function LoginPage() {
+  const navigate = useNavigate();
+  const token = useSelector(getToken);
+
+  useEffect(() => {
+    if (token === null) {
+      return;
+    }
+    navigate('/', { replace: true });
+  }, [navigate, token]);
+
   return (
     <Container>
       <LeftSide>

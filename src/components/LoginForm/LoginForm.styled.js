@@ -32,7 +32,6 @@ export const StyledForm = styled(Form)`
   @media screen and (min-width: ${({ theme }) => theme.media.tablet}) {
     width: ${({ theme }) => theme.spacing(102)};
   } ;
-
 `;
 
 export const Wrapper = styled.div`
@@ -57,6 +56,7 @@ export const Label = styled.label`
   transition: top ${({ theme }) => theme.animation.cubicBezier},
     font-size ${({ theme }) => theme.animation.cubicBezier};
 `;
+
 export const Icon = styled.span`
   position: absolute;
   top: ${({ theme }) => theme.spacing(-1)};
@@ -66,6 +66,7 @@ export const Icon = styled.span`
     fill: ${({ theme }) => theme.colors.grey};
   }
 `;
+
 export const Input = styled(Field)`
   width: ${({ theme }) => theme.spacing(70)};
   height: ${({ theme }) => theme.spacing(8)};
@@ -88,6 +89,7 @@ export const Input = styled(Field)`
     width: ${({ theme }) => theme.spacing(102)};
   } ;
 `;
+
 export const ErrorMess = styled.p`
   font-size: ${({ theme }) => theme.spacing(3)};
   color: red;

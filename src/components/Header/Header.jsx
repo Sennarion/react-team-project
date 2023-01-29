@@ -1,21 +1,19 @@
 import { Container } from 'components/UI/Container/Container.styled';
+// import ModalLogout from 'components/ModalLogout/ModalLogout';
 import {
   HeaderWrapper,
   HeaderContent,
   LogoWrapper,
   Logo,
   LogoText,
-  UserWrapper,
-  UserName,
-  LogoutBtn,
-  LogoutIcon,
-  LogoutText,
 } from './Header.styled';
+import User from 'components/User/User';
 import icons from '../../images/icons.svg';
 
 export default function Header() {
   return (
     <HeaderWrapper>
+      {/* <ModalLogout /> */}
       <Container>
         <HeaderContent>
           <LogoWrapper to="/">
@@ -24,15 +22,7 @@ export default function Header() {
             </Logo>
             <LogoText>Wallet</LogoText>
           </LogoWrapper>
-          <UserWrapper>
-            <UserName>Name</UserName>
-            <LogoutBtn>
-              <LogoutIcon width="18" height="18">
-                <use href={`${icons}#icon-logout`}></use>
-              </LogoutIcon>
-              <LogoutText>Exit</LogoutText>
-            </LogoutBtn>
-          </UserWrapper>
+          <User />
         </HeaderContent>
       </Container>
     </HeaderWrapper>
