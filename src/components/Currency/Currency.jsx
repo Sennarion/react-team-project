@@ -1,5 +1,11 @@
 import { useState } from 'react';
-import { TableWrapper, Table, TableHead, TableData } from './Currency.styled';
+import {
+  TableWrapper,
+  Table,
+  TableHead,
+  TableHeadData,
+  TableBodyData,
+} from './Currency.styled';
 // import { privatbankApi } from 'services/privatbankApi';
 
 export default function Currency() {
@@ -27,17 +33,17 @@ export default function Currency() {
       <Table>
         <TableHead>
           <tr>
-            <TableData>Currency</TableData>
-            <TableData>Purchase</TableData>
-            <TableData>Sale</TableData>
+            <TableHeadData>Currency</TableHeadData>
+            <TableHeadData>Purchase</TableHeadData>
+            <TableHeadData>Sale</TableHeadData>
           </tr>
         </TableHead>
         <tbody>
           {rates.map(rate => (
             <tr key={rate.ccy}>
-              <TableData>{rate.ccy}</TableData>
-              <TableData>{Number(rate.buy).toFixed(2)}</TableData>
-              <TableData>{Number(rate.sale).toFixed(2)}</TableData>
+              <TableBodyData>{rate.ccy}</TableBodyData>
+              <TableBodyData>{Number(rate.buy).toFixed(2)}</TableBodyData>
+              <TableBodyData>{Number(rate.sale).toFixed(2)}</TableBodyData>
             </tr>
           ))}
         </tbody>
