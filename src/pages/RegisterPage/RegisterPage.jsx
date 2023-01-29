@@ -1,3 +1,7 @@
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { getToken } from 'redux/auth/selectors';
 import RegistrationForm from 'components/RegistrationForm/RegistrationForm';
 import registerTablet1x from '../../images/registerBg-tablet-1x.png';
 import registerTablet2x from '../../images/registerBg-tablet-2x.png';
@@ -10,8 +14,19 @@ import {
   MainTitle,
   ImgBox,
 } from '../LoginPage/LoginPage.styled';
+import { Container } from 'components/UI/Container/Container.styled';
 
 export default function RegisterPage() {
+  const navigate = useNavigate();
+  const token = useSelector(getToken);
+
+  useEffect(() => {
+    if (token === null) {
+      return;
+    }
+    navigate('/', { replace: true });
+  }, [navigate, token]);
+
   return (
     <Container>
       <LeftSide>
