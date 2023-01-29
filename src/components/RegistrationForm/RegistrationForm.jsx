@@ -1,4 +1,5 @@
 import { Formik, ErrorMessage } from 'formik';
+import { useState, useEffect } from 'react';
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { register } from 'redux/auth/operations';
@@ -15,11 +16,51 @@ import {
   ErrorMess,
   LinkTo,
 } from '../LoginForm/LoginForm.styled';
-
+import { ProgressBarContainer, ProgressBar } from './RegistrationForm.styled';
 export default function RegistrationForm() {
+  const [password, setPassword] = useState('');
+  const [strength, setStrength] = useState(0);
+  const [progressBarStyles, setProgressBarStyles] = useState({
+    width: '0%',
+    backgroundColor: 'transparent',
+  });
+
+  const handlePassword = someValue => {    
+    setPassword(someValue);    
+  };
+
+  useEffect(() => {
+    const updatedProgressBarStyles = {
+      backgroundColor: 'red',
+      boxShadow: '0px 1px 8px rgba(204, 36, 36, 0.5)',
+    };
+    let totalStrength = 0;
+    if (password.length > 1) {
+      const stengthByLength = Math.min(12, Math.floor(password.length / 6));
+      totalStrength = stengthByLength + password.length;
+    } else {
+      totalStrength = 0;
+    }
+    updatedProgressBarStyles.width = `${totalStrength * 10}%`;
+    if (totalStrength > 8) {
+      updatedProgressBarStyles.backgroundColor = '#24CCA7';
+      updatedProgressBarStyles.boxShadow = '0px 1px 8px rgba(36, 204, 167, 0.5)';
+    } else if (totalStrength > 6) {
+      updatedProgressBarStyles.backgroundColor = 'orange';
+      updatedProgressBarStyles.boxShadow = '0px 1px 8px rgba(204, 173, 36, 0.5)';
+    }
+    setStrength(totalStrength);
+    setProgressBarStyles(updatedProgressBarStyles);
+  }, [password]);
+
   const dispatch = useDispatch();
   const FormError = ({ name }) => {
-    return <ErrorMessage name={name} render={message => <ErrorMess>{message}</ErrorMess>} />;
+    return (
+      <ErrorMessage
+        name={name}
+        render={message => <ErrorMess>{message}</ErrorMess>}
+      />
+    );
   };
   const initialValues = {
     username: '',
@@ -60,65 +101,91 @@ export default function RegistrationForm() {
       email: values.email,
       password: values.password,
     };
-    
+    console.log(password);
     dispatch(register(user));
     resetForm();
   };
 
   return (
     <FormWrapper>
-      <Logo/>
+      <Logo />
       <Formik
         initialValues={initialValues}
         validationSchema={userSchema}
         onSubmit={onSubmit}
       >
-        <StyledForm autoComplete="off">
-          <Wrapper>
-            <Input type="email" name="email" id="email" placeholder=" " />
-            <Label htmlFor="email"> E-mail</Label>
-            <Icon>
-              <svg width="24" height="24">
-                <use href={`${icons}#icon-email`}></use>
-              </svg>
-            </Icon>
-            <FormError name="email" />
-          </Wrapper>
-          <Wrapper>
-            <Input type="password" name="password" id="password" placeholder=" " />
-            <Label htmlFor="password">Password</Label>
-            <Icon>
-              <svg width="24" height="24">
-                <use href={`${icons}#icon-password`}></use>
-              </svg>
-            </Icon>
-            <FormError name="password" />
-          </Wrapper>
-          <Wrapper>
-            <Input type="password" name="confirmPassword" id="confirmPassword" placeholder=" " />
-            <Label htmlFor="confirmPassword">Confirm Password</Label>
-            <Icon>
-              <svg width="24" height="24">
-                <use href={`${icons}#icon-password`}></use>
-              </svg>
-            </Icon>
-            <FormError name="confirmPassword" />
-          </Wrapper>
-          <Wrapper>
-            <Input type="username" name="username" id="username" placeholder=" "  />
-            <Label htmlFor="username">First Name</Label>
-            <Icon>
-              <svg width="24" height="24">
-                <use href={`${icons}#icon-name`}></use>
-              </svg>
-            </Icon>
-            <FormError name="username" />
-          </Wrapper>
+        {({ values, setFieldValue }) => (
+          <StyledForm autoComplete="off">
+            <Wrapper>
+              <Input type="email" name="email" id="email" placeholder=" " />
+              <Label htmlFor="email"> E-mail</Label>
+              <Icon>
+                <svg width="24" height="24">
+                  <use href={`${icons}#icon-email`}></use>
+                </svg>
+              </Icon>
+              <FormError name="email" />
+            </Wrapper>
+            <Wrapper>
+              <Input
+                type="password"
+                value={values.password}
+                onChange={e => {                  
+                  setFieldValue('password', e.currentTarget.value);
+                  let someValue = e.currentTarget.value;
+                  handlePassword(someValue);
+                }}
+                name="password"
+                id="password"
+                placeholder=" "
+              />
+              <Label htmlFor="password">Password</Label>
+              <ProgressBarContainer>
+                <ProgressBar style={{ ...progressBarStyles }}></ProgressBar>
+              </ProgressBarContainer>
+              <Icon>
+                <svg width="24" height="24">
+                  <use href={`${icons}#icon-password`}></use>
+                </svg>
+              </Icon>
+              <FormError name="password" />
+            </Wrapper>
+            <Wrapper>
+              <Input
+                type="password"
+                name="confirmPassword"
+                id="confirmPassword"
+                placeholder=" "
+              />
+              <Label htmlFor="confirmPassword">Confirm Password</Label>
+              <Icon>
+                <svg width="24" height="24">
+                  <use href={`${icons}#icon-password`}></use>
+                </svg>
+              </Icon>
+              <FormError name="confirmPassword" />
+            </Wrapper>
+            <Wrapper>
+              <Input
+                type="username"
+                name="username"
+                id="username"
+                placeholder=" "
+              />
+              <Label htmlFor="username">First Name</Label>
+              <Icon>
+                <svg width="24" height="24">
+                  <use href={`${icons}#icon-name`}></use>
+                </svg>
+              </Icon>
+              <FormError name="username" />
+            </Wrapper>
 
-          <Wrapper>
-            <Button type="submit" text='Registrer'/>
-          </Wrapper>
-        </StyledForm>
+            <Wrapper>
+              <Button type="submit" text="Registrer" />
+            </Wrapper>
+          </StyledForm>
+        )}
       </Formik>
       <LinkTo to="/login">log in</LinkTo>
     </FormWrapper>

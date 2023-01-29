@@ -14,7 +14,7 @@ import {
   MainTitle,
   ImgBox,
 } from '../LoginPage/LoginPage.styled';
-import { Container } from 'components/UI/Container/Container.styled';
+
 
 export default function RegisterPage() {
   const navigate = useNavigate();
