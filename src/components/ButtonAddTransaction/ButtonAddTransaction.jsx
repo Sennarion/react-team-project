@@ -2,9 +2,9 @@ import React from 'react';
 import { ButtonAddTransactionStyled } from './ButtonAddTransaction.styled';
 import { AiOutlinePlus } from 'react-icons/ai';
 
-export const ButtonAddTransaction = () => {
+export const ButtonAddTransaction = ({onClick}) => {
   return (
-    <ButtonAddTransactionStyled type="button">
+    <ButtonAddTransactionStyled type="button" onClick={onClick}>
       <AiOutlinePlus size={20} />
     </ButtonAddTransactionStyled>
   );
