@@ -1,5 +1,5 @@
-import { But } from "./Button.styled";
+import { But } from './Button.styled';
 
-export default function Button({text, type}) {
-  return <But type={type}>{text}</But>;
+export default function Button({ children, ...props }) {
+  return <But {...props}>{children}</But>;
 }
