@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import DatePicker from 'react-datepicker';
@@ -28,8 +28,10 @@ import Datetime from 'react-datetime';
 import { Formik } from 'formik';
 import Select from 'react-select';
 import { selectCategories } from 'redux/categories/selector';
+import { addTransaction } from 'redux/transactions/operations';
 import { useState } from 'react';
 import "react-datepicker/dist/react-datepicker.css";
+
 
 export default function ModalAddTransaction() {
 
@@ -55,6 +57,11 @@ export default function ModalAddTransaction() {
   const dispatch = useDispatch();
   const categories = useSelector(selectCategories);
 
+  const [amount, setAmount] = useState();
+  const [comment, setComment] = useState();
+  const [category, setCategory] = useState();
+  const [typeTransaction, setTypeTransaction] = useState('EXPANCE');
+
   useEffect(() => {
     const onPressEsc = e => {
       if (e.code === 'Escape') {
@@ -75,6 +82,27 @@ export default function ModalAddTransaction() {
     }
   };
 
+  const handleSubmit = (
+    { amount, category, comment, transactionDate },
+    { resetForm }
+  ) => {
+    dispatch(
+      addTransaction({
+        amount,
+        category,
+        comment,
+        transactionDate,
+        // categoryId
+        type: typeTransaction,
+      })
+    );
+    dispatch(toggleModalAddTransaction());
+  };
+
+  const handleType = () => {
+    setTypeTransaction(typeTransaction === 'EXPANCE' ? 'INCOME' : 'EXPANCE');
+  };
+
   return (
     <Backdrop onClick={onBackdropClick}>
       <Modal>
@@ -85,10 +113,10 @@ export default function ModalAddTransaction() {
         <ModalTitle>Add transaction</ModalTitle>
         <SwitchWrap>
           <Switch>
-            <AiOutlinePlus size={20} />
+            <AiOutlinePlus size={20} onClick={handleType} />
           </Switch>
         </SwitchWrap>
-        <Formik initialValues={initialValues}>
+        <Formik initialValues={initialValues} onSubmit={handleSubmit}>
           <TransactionForm>
             <Select
               options={categories.map(({ name, id }) => ({
@@ -123,7 +151,7 @@ export default function ModalAddTransaction() {
             <CommentInput
               name="comment"
               type="text"
-              // value={sum}
+              value={comment}
               placeholder="Comment"
             ></CommentInput>
             <ButWrap>

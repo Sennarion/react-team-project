@@ -26,3 +26,29 @@ export const fetchCategories = createAsyncThunk(
     }
   }
 );
+
+export const addTransaction = createAsyncThunk(
+  'transactions/add',
+  async newRecord => {
+    try {
+      const { data } = await inctanceAuth.post('/transactions', newRecord);
+      return data;
+    } catch (err) {
+      console.error(err);
+    }
+  }
+);
+
+export const deleteTransaction = createAsyncThunk(
+  'finance/deleteTransaction',
+  async transactionId => {
+    try {
+      const { data } = await inctanceAuth({
+        method: 'DELETE',
+        url: `api/transactions/${transactionId}`,
+      });
+
+      return data;
+    } catch (error) {}
+  }
+);
