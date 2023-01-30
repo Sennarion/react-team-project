@@ -16,7 +16,7 @@ import {
   Switch,
   TransactionForm,
   SumInput,
-  DateInput,
+  // DateInput,
   CommentInput,
   PrimaryBut,
   But,
@@ -24,14 +24,13 @@ import {
   ButWrap,
 } from './ModalAddTransaction.styled';
 import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai';
-import Datetime from 'react-datetime';
+// import Datetime from 'react-datetime';
 
 import { Formik } from 'formik';
 import Select from 'react-select';
 import { selectCategories } from 'redux/categories/selector';
 import { addTransaction } from 'redux/transactions/operations';
-import { useState } from 'react';
-import "react-datepicker/dist/react-datepicker.css";
+import 'react-datepicker/dist/react-datepicker.css';
 
 // const validationSchema = yup.object().shape({
 //   type: yup.string().required('Required'),
@@ -42,7 +41,6 @@ import "react-datepicker/dist/react-datepicker.css";
 // });
 
 export default function ModalAddTransaction() {
-
   //Налаштування дати
   const dateMoment = moment(new Date()).format('DD.MM.YYYY');
   const initialValues = {
@@ -61,22 +59,22 @@ export default function ModalAddTransaction() {
     setIsOpenDate(!isOpenDate);
     setStartDate(e);
   };
-//Догіка відкривання та закриття модалки
+  //Догіка відкривання та закриття модалки
   const dispatch = useDispatch();
   const categories = useSelector(selectCategories);
-  const expenseCategories = categories.filter(
-    element => element.type !== 'INCOME'
-  );
-  const incomeCategories = categories.filter(
-    element => element.type === 'INCOME'
-  );
-  const incomeCategoriesId = incomeCategories.map(element => {
-    return element.id;
-  });
+  // const expenseCategories = categories.filter(
+  //   element => element.type !== 'INCOME'
+  // );
+  // const incomeCategories = categories.filter(
+  //   element => element.type === 'INCOME'
+  // );
+  // const incomeCategoriesId = incomeCategories.map(element => {
+  //   return element.id;
+  // });
 
-  const [amount, setAmount] = useState();
-  const [comment, setComment] = useState();
-  const [category, setCategory] = useState();
+  // const [amount, setAmount] = useState();
+  const [comment] = useState();
+  // const [category, setCategory] = useState();
   const [typeTransaction, setTypeTransaction] = useState('EXPANCE');
 
   useEffect(() => {
@@ -183,11 +181,10 @@ export default function ModalAddTransaction() {
                 selected={startDate}
                 onChange={handleChangeDate}
                 dateFormat="dd.MM.yyyy"
-
                 style={{
-                  border: "none",
-                  outline: "none",
-                  color:"red"
+                  border: 'none',
+                  outline: 'none',
+                  color: 'red',
                 }}
               />
             </Wrap>
@@ -198,8 +195,8 @@ export default function ModalAddTransaction() {
               placeholder="Comment"
             ></CommentInput>
             <ButWrap>
-            <PrimaryBut>Add</PrimaryBut>
-            <But>Cancel</But>
+              <PrimaryBut>Add</PrimaryBut>
+              <But>Cancel</But>
             </ButWrap>
           </TransactionForm>
         </Formik>
