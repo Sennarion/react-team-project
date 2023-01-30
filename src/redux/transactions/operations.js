@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { inctanceAuth } from 'redux/auth/operations';
 
-export const fetchTransactions = createAsyncThunk(
+export const fetchTransactionsSummary = createAsyncThunk(
   'transactions/fetchAll',
   async (query, thunkAPI) => {
     try {

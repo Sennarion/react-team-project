@@ -7,7 +7,7 @@ export const transactions = [
     categoryId: 'food',
     userId: '123',
     comment: 'blyadi',
-    amount: 257,
+    amount: 258,
     balanceAfter: 0,
   },
 

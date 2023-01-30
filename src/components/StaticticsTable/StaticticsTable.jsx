@@ -2,8 +2,8 @@ import Dropdown from 'components/Dropdown/Dropdown';
 import { nanoid } from 'nanoid';
 import { useEffect, useState } from 'react';
 import {
-  /* fetchCategories, */
-  fetchTransactions,
+  fetchCategories,
+  fetchTransactionsSummary,
 } from '../../redux/transactions/operations';
 import { useDispatch } from 'react-redux';
 
@@ -46,12 +46,12 @@ export default function StaticticsTable({ income, expence, tableData }) {
       month: 1,
       year: 2023,
     };
-    dispatch(fetchTransactions(query));
+    dispatch(fetchTransactionsSummary(query));
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   dispatch(fetchCategories());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
 
   const handleMomthChange = event => {
     setMonth(event.target.value);
