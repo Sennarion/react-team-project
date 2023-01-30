@@ -6,6 +6,7 @@ import { addMonths } from 'date-fns';
 
 import moment from 'moment';
 import { toggleModalAddTransaction } from 'redux/global/slice';
+// import * as yup from 'yup';
 import {
   Backdrop,
   Modal,
@@ -32,6 +33,13 @@ import { addTransaction } from 'redux/transactions/operations';
 import { useState } from 'react';
 import "react-datepicker/dist/react-datepicker.css";
 
+// const validationSchema = yup.object().shape({
+//   type: yup.string().required('Required'),
+//   categoryId: yup.string().required('Required'),
+//   transactionDate: yup.string().required('Required'),
+//   amount: yup.number().required('Required'),
+//   comment: yup.string(),
+// });
 
 export default function ModalAddTransaction() {
 
@@ -56,6 +64,15 @@ export default function ModalAddTransaction() {
 //Догіка відкривання та закриття модалки
   const dispatch = useDispatch();
   const categories = useSelector(selectCategories);
+  const expenseCategories = categories.filter(
+    element => element.type !== 'INCOME'
+  );
+  const incomeCategories = categories.filter(
+    element => element.type === 'INCOME'
+  );
+  const incomeCategoriesId = incomeCategories.map(element => {
+    return element.id;
+  });
 
   const [amount, setAmount] = useState();
   const [comment, setComment] = useState();
@@ -99,8 +116,30 @@ export default function ModalAddTransaction() {
     dispatch(toggleModalAddTransaction());
   };
 
-  const handleType = () => {
+  // const [isIncomeTransaction, setIsIncomeTransaction] = useState(true);
+  // const [categoryIdFromDropdown, SetCategoryIdFromDropdown] = useState('');
+  // console.log('categoryIdFromDropdown:', categoryIdFromDropdown);
+
+  const handleType = (values, actions) => {
     setTypeTransaction(typeTransaction === 'EXPANCE' ? 'INCOME' : 'EXPANCE');
+
+    // setIsIncomeTransaction(isIncomeTransaction => !isIncomeTransaction);
+
+    // if (isIncomeTransaction) {
+    //   values.type = 'INCOME';
+    //   values.categoryId = incomeCategoriesId[0];
+    // } else {
+    //   values.amount = -values.amount;
+    //   values.type = 'EXPENSE';
+    //   categoryIdFromDropdown
+    //     ? (values.categoryId = categoryIdFromDropdown)
+    //     : (values.categoryId = expenseCategories[8].id);
+    // }
+
+    // console.log(values);
+    // dispatch(addTransaction(values));
+    // dispatch(toggleModalAddTransaction());
+    // actions.resetForm();
   };
 
   return (
@@ -116,7 +155,11 @@ export default function ModalAddTransaction() {
             <AiOutlinePlus size={20} onClick={handleType} />
           </Switch>
         </SwitchWrap>
-        <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+          // validationSchema={validationSchema}
+        >
           <TransactionForm>
             <Select
               options={categories.map(({ name, id }) => ({
