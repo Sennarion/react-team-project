@@ -1,0 +1,51 @@
+import { createSlice } from '@reduxjs/toolkit';
+import {
+  fetchTransactions,
+  fetchCategories,
+  addTransaction,
+  deleteTransaction,
+} from 'redux/transactions/operations';
+
+const initialState = {
+  items: [],
+  isLoading: false,
+  error: null,
+  totalBalance: '',
+  data: [],
+  categories: [],
+};
+
+const handlePending = state => {
+  state.isLoading = true;
+};
+const handleRejected = (state, action) => {
+  state.isLoading = false;
+  state.error = action.payload;
+};
+
+const transactionsSlice = createSlice({
+  name: 'transactions',
+  initialState,
+  extraReducers: {
+    [fetchTransactions.pending]: handlePending,
+    [fetchTransactions.rejected]: handleRejected,
+    [fetchTransactions.fulfilled](state, action) {
+      state.isLoading = false;
+      state.items = action.payload;
+      state.error = null;
+    },
+    [addTransaction.fulfilled](state, action) {
+      state.data.push(action.payload);
+    },
+    [deleteTransaction.fulfilled](state, action) {
+      const index = state.data.findIndex(
+        transaction => transaction.id === action.payload.id
+      );
+      state.data.splice(index, 1);
+    },
+    [fetchCategories.fulfilled](state, action) {
+      state.categories = action.payload;
+    },
+  },
+});
+export const transactionsReducer = transactionsSlice.reducer;
