@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Form, Field } from 'formik';
 import plusIcon from '../../images/plus.svg';
-// import minusIcon from '../../images/minus.svg';
+import minusIcon from '../../images/minus.svg';
 
 export const Backdrop = styled.div`
   position: fixed;
@@ -98,13 +98,14 @@ export const ToggleLabel = styled.label`
     width: ${({ theme }) => theme.spacing(11)};
     border-radius: 50%;
     transition: transform 0.2s linear, background-color 0.2s linear,
-      box-shadow 0.2s linear;
+      box-shadow 0.2s linear, background-image 0.2s linear;
   }
 
   &[value='true'] {
     &::after {
       box-shadow: 0px 6px 15px rgba(255, 101, 150, 0.5);
       background-color: ${({ theme }) => theme.colors.accentPink};
+      background-image: url(${minusIcon});
       transform: translate(0, -50%);
     }
   }
