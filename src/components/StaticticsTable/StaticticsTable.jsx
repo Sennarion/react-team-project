@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 import { useEffect, useState } from 'react';
 import {
   /* fetchCategories, */
-  fetchTransactions,
+  fetchTransactionsSummary,
 } from '../../redux/transactions/operations';
 import { useDispatch } from 'react-redux';
 
@@ -46,7 +46,7 @@ export default function StaticticsTable({ income, expence, tableData }) {
       month: 1,
       year: 2023,
     };
-    dispatch(fetchTransactions(query));
+    dispatch(fetchTransactionsSummary(query));
   }, [dispatch]);
 
   // useEffect(() => {

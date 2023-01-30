@@ -22,6 +22,8 @@ import {
   But,
   Wrap,
   ButWrap,
+  ToggleInput,
+  ToggleLable,
 } from './ModalAddTransaction.styled';
 import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai';
 // import Datetime from 'react-datetime';
@@ -44,10 +46,10 @@ export default function ModalAddTransaction() {
   //Налаштування дати
   const dateMoment = moment(new Date()).format('DD.MM.YYYY');
   const initialValues = {
-    transactionDate: 'string',
+    transactionDate: '',
     type: 'INCOME',
-    categoryId: 'string',
-    comment: 'string',
+    categoryId: '',
+    comment: '',
     amount: 0,
     date: dateMoment,
   };
@@ -149,56 +151,71 @@ export default function ModalAddTransaction() {
 
         <ModalTitle>Add transaction</ModalTitle>
         <SwitchWrap>
-          <Switch>
-            <AiOutlinePlus size={20} onClick={handleType} />
-          </Switch>
+          <ToggleInput
+            type="checkbox"
+            name="check"
+            id="switch"
+            // class="toggle-input"
+          />
+          <ToggleLable
+            htmlFor="switch"
+            // class="toggle-label"
+          >
+            label
+          </ToggleLable>
+          {/* <Switch>
+            <AiOutlinePlus size={20} onClick={handleType} /> 
+
+          </Switch> */}
         </SwitchWrap>
         <Formik
           initialValues={initialValues}
           onSubmit={handleSubmit}
           // validationSchema={validationSchema}
         >
-          <TransactionForm>
-            <Select
-              options={categories.map(({ name, id }) => ({
-                value: id,
-                label: [`categoryName.${name}`],
-              }))}
-            />
-            <Wrap>
-              <SumInput
-                name="sum"
-                type="number"
-                min="0.01"
-                step="0.01"
-                // value={sum}
-                placeholder="0.00"
+          {({ values, setFieldValue }) => (
+            <TransactionForm>
+              <Select
+                options={categories.map(({ name, id }) => ({
+                  value: id,
+                  label: [`categoryName.${name}`],
+                }))}
               />
-              <DatePicker
-                maxDate={addMonths(new Date(), 0)}
-                showDisabledMonthNavigation
-                name="date"
-                selected={startDate}
-                onChange={handleChangeDate}
-                dateFormat="dd.MM.yyyy"
-                style={{
-                  border: 'none',
-                  outline: 'none',
-                  color: 'red',
-                }}
-              />
-            </Wrap>
-            <CommentInput
-              name="comment"
-              type="text"
-              value={comment}
-              placeholder="Comment"
-            ></CommentInput>
-            <ButWrap>
-              <PrimaryBut>Add</PrimaryBut>
-              <But>Cancel</But>
-            </ButWrap>
-          </TransactionForm>
+              <Wrap>
+                <SumInput
+                  name="sum"
+                  type="number"
+                  min="0.01"
+                  step="0.01"
+                  // value={sum}
+                  placeholder="0.00"
+                />
+                <DatePicker
+                  maxDate={addMonths(new Date(), 0)}
+                  showDisabledMonthNavigation
+                  name="date"
+                  selected={startDate}
+                  onChange={handleChangeDate}
+                  dateFormat="dd.MM.yyyy"
+                  style={{
+                    border: 'none',
+                    outline: 'none',
+                    color: 'red',
+                  }}
+                />
+              </Wrap>
+              <CommentInput
+                name="comment"
+                type="text"
+                value={values.comment}
+                placeholder="Comment"
+              ></CommentInput>
+              <ButWrap>
+                <PrimaryBut>Add</PrimaryBut>
+                <But>Cancel</But>
+              </ButWrap>
+            </TransactionForm>
+          )}
         </Formik>
       </Modal>
     </Backdrop>
