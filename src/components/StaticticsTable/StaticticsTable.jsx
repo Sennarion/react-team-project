@@ -75,13 +75,17 @@ export default function StaticticsTable({ income, expence, tableData }) {
     <>
       {/* <Dropdown options={months} value={month} onChange={handleMomthChange} />
       <Dropdown options={years} value={year} onChange={handleYearChange} /> */}
+      <TableHead>
+        <span>Category</span>
+        <span>Sum</span>
+      </TableHead>
       <Table>
-        <TableHead>
+        {/* <TableHead>
           <tr>
             <TableHeadData>Category</TableHeadData>
             <TableHeadData>Sum</TableHeadData>
           </tr>
-        </TableHead>
+        </TableHead> */}
         <tbody>
           {Array.isArray(tableData) &&
             tableData.map(({ name, total }) => (

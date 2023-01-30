@@ -1,17 +1,17 @@
 import { nanoid } from 'nanoid';
-import { Select } from './Dropdown.styled';
+import { Option, Select, SelectWrap } from './Dropdown.styled';
 
 export default function Dropdown({ options, value, onChange }) {
   return (
-    <div>
+    <SelectWrap>
       <Select value={value} onChange={onChange}>
         {options.map(option => (
-          <option key={nanoid()} value={option.value}>
+          <Option key={nanoid()} value={option.value}>
             {option.label}
-          </option>
+          </Option>
         ))}
       </Select>
       {/* <p>you choose {value}</p> */}
-    </div>
+    </SelectWrap>
   );
 }

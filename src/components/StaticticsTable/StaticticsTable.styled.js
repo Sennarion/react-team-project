@@ -7,11 +7,14 @@ export const Table = styled.table`
   text-align: center;
 `;
 
-export const TableHead = styled.thead`
-  font-family: ${({ theme }) => theme.fonts.primaryBold};
-  font-size: ${({ theme }) => theme.fontSizes.medium};
+export const TableHead = styled.div`
+  font-family: ${({ theme }) => theme.fonts.primary};
+  font-size: ${({ theme }) => theme.fontSizes.medhium};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
   line-height: calc(27 / 18);
-  background-color: ${({ theme }) => theme.colors.secondaryBlue};
+  background-color: ${({ theme }) => theme.colors.white};
+  border-radius: 30px;
+  min-width: 280px;
 `;
 
 export const TableHeadData = styled.td`
