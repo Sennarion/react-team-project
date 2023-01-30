@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   TableWrapper,
   Table,
@@ -6,7 +6,7 @@ import {
   TableHeadData,
   TableBodyData,
 } from './Currency.styled';
-// import { privatbankApi } from 'services/privatbankApi';
+import { privatbankApi } from 'services/privatbankApi';
 
 export default function Currency() {
   const [rates] = useState([
@@ -24,9 +24,9 @@ export default function Currency() {
     },
   ]);
 
-  // useEffect(() => {
-  //   privatbankApi.getExchangeRate().then(res => console.log(res));
-  // }, []);
+  useEffect(() => {
+    privatbankApi.getExchangeRate().then(res => console.log(res));
+  }, []);
 
   return (
     <TableWrapper>

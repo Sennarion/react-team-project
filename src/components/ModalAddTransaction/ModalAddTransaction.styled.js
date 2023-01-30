@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Form, Field } from 'formik';
-// import plusIcon from '../../images/plus.svg';
+import plusIcon from '../../images/plus.svg';
 // import minusIcon from '../../images/minus.svg';
 
 export const Backdrop = styled.div`
@@ -90,7 +90,9 @@ export const ToggleLabel = styled.label`
     transform: translate(-100%, -50%);
     left: 50%;
     background-color: ${({ theme }) => theme.colors.accentGreen};
-    /* background-image: url(plusIcon) center; */
+    background-image: url(${plusIcon});
+    background-position: center;
+    background-repeat: no-repeat;
     box-shadow: 0px 6px 15px rgba(36, 204, 167, 0.5);
     height: ${({ theme }) => theme.spacing(11)};
     width: ${({ theme }) => theme.spacing(11)};
