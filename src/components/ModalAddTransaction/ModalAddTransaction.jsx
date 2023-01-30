@@ -28,6 +28,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 
 import { addTransaction } from 'redux/transactions/operations';
 import 'react-datepicker/dist/react-datepicker.css';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export default function ModalAddTransaction() {
   const initialValues = {
@@ -91,6 +92,13 @@ export default function ModalAddTransaction() {
   };
 
   return (
+    <AnimatePresence>
+      <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+          >
     <Backdrop onClick={onBackdropClick}>
       <Modal>
         <CloseButton onClick={() => dispatch(toggleModalAddTransaction())}>
@@ -161,5 +169,7 @@ export default function ModalAddTransaction() {
         </Formik>
       </Modal>
     </Backdrop>
+    </motion.div>
+    </AnimatePresence>
   );
 }
