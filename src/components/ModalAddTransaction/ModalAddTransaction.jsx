@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { Formik, Field } from 'formik';
 import DatePicker from 'react-datepicker';
-import { addMonths } from 'date-fns';
-
-import moment from 'moment';
+// import { addMonths } from 'date-fns';
+import { selectCategories } from 'redux/transactions/selectors';
+// import moment from 'moment';
 import { toggleModalAddTransaction } from 'redux/global/slice';
 // import * as yup from 'yup';
 import {
@@ -12,72 +13,40 @@ import {
   Modal,
   CloseButton,
   ModalTitle,
-  SwitchWrap,
-  Switch,
   TransactionForm,
   SumInput,
-  // DateInput,
   CommentInput,
   PrimaryBut,
   But,
   Wrap,
   ButWrap,
+  ToggleWrapper,
   ToggleInput,
-  ToggleLable,
+  ToggleLabel,
 } from './ModalAddTransaction.styled';
-import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai';
-// import Datetime from 'react-datetime';
+import { AiOutlineClose } from 'react-icons/ai';
 
-import { Formik } from 'formik';
-import Select from 'react-select';
-import { selectCategories } from 'redux/categories/selector';
 import { addTransaction } from 'redux/transactions/operations';
 import 'react-datepicker/dist/react-datepicker.css';
 
-// const validationSchema = yup.object().shape({
-//   type: yup.string().required('Required'),
-//   categoryId: yup.string().required('Required'),
-//   transactionDate: yup.string().required('Required'),
-//   amount: yup.number().required('Required'),
-//   comment: yup.string(),
-// });
-
 export default function ModalAddTransaction() {
-  //Налаштування дати
-  const dateMoment = moment(new Date()).format('DD.MM.YYYY');
   const initialValues = {
     transactionDate: '',
     type: 'INCOME',
     categoryId: '',
     comment: '',
     amount: 0,
-    date: dateMoment,
+    date: new Date(),
   };
 
-  const [startDate, setStartDate] = useState(new Date());
-  const [isOpenDate, setIsOpenDate] = useState(false);
+  const [date, setDate] = useState(new Date());
+  const [isChecked, setIsChecked] = useState(false);
 
-  const handleChangeDate = e => {
-    setIsOpenDate(!isOpenDate);
-    setStartDate(e);
-  };
-  //Догіка відкривання та закриття модалки
   const dispatch = useDispatch();
   const categories = useSelector(selectCategories);
-  // const expenseCategories = categories.filter(
-  //   element => element.type !== 'INCOME'
-  // );
-  // const incomeCategories = categories.filter(
-  //   element => element.type === 'INCOME'
-  // );
-  // const incomeCategoriesId = incomeCategories.map(element => {
-  //   return element.id;
-  // });
 
-  // const [amount, setAmount] = useState();
-  const [comment] = useState();
-  // const [category, setCategory] = useState();
-  const [typeTransaction, setTypeTransaction] = useState('EXPANCE');
+  const incomeCategoryId = categories.find(el => el.name === 'Income').id;
+  const filteredCategories = categories.filter(el => el.name !== 'Income');
 
   useEffect(() => {
     const onPressEsc = e => {
@@ -100,46 +69,25 @@ export default function ModalAddTransaction() {
   };
 
   const handleSubmit = (
-    { amount, category, comment, transactionDate },
+    { amount, categories, comment, date },
     { resetForm }
   ) => {
-    dispatch(
-      addTransaction({
-        amount,
-        category,
-        comment,
-        transactionDate,
-        // categoryId
-        type: typeTransaction,
-      })
-    );
+    const transaction = {
+      amount: isChecked ? amount : Number(amount * -1),
+      comment,
+      transactionDate: new Date(date).toISOString(),
+      categoryId: isChecked ? incomeCategoryId : categories,
+      type: isChecked ? 'INCOME' : 'EXPENSE',
+    };
+
+    dispatch(addTransaction(transaction));
     dispatch(toggleModalAddTransaction());
+
+    resetForm();
   };
 
-  // const [isIncomeTransaction, setIsIncomeTransaction] = useState(true);
-  // const [categoryIdFromDropdown, SetCategoryIdFromDropdown] = useState('');
-  // console.log('categoryIdFromDropdown:', categoryIdFromDropdown);
-
-  const handleType = (values, actions) => {
-    setTypeTransaction(typeTransaction === 'EXPANCE' ? 'INCOME' : 'EXPANCE');
-
-    // setIsIncomeTransaction(isIncomeTransaction => !isIncomeTransaction);
-
-    // if (isIncomeTransaction) {
-    //   values.type = 'INCOME';
-    //   values.categoryId = incomeCategoriesId[0];
-    // } else {
-    //   values.amount = -values.amount;
-    //   values.type = 'EXPENSE';
-    //   categoryIdFromDropdown
-    //     ? (values.categoryId = categoryIdFromDropdown)
-    //     : (values.categoryId = expenseCategories[8].id);
-    // }
-
-    // console.log(values);
-    // dispatch(addTransaction(values));
-    // dispatch(toggleModalAddTransaction());
-    // actions.resetForm();
+  const onCheckboxChange = () => {
+    setIsChecked(prev => !prev);
   };
 
   return (
@@ -150,52 +98,46 @@ export default function ModalAddTransaction() {
         </CloseButton>
 
         <ModalTitle>Add transaction</ModalTitle>
-        <SwitchWrap>
+        <ToggleWrapper>
           <ToggleInput
             type="checkbox"
             name="check"
             id="switch"
-            // class="toggle-input"
+            value={isChecked}
+            onChange={onCheckboxChange}
           />
-          <ToggleLable
-            htmlFor="switch"
-            // class="toggle-label"
-          >
-            label
-          </ToggleLable>
-          {/* <Switch>
-            <AiOutlinePlus size={20} onClick={handleType} /> 
+          <ToggleLabel htmlFor="switch" value={isChecked} />
+        </ToggleWrapper>
 
-          </Switch> */}
-        </SwitchWrap>
-        <Formik
-          initialValues={initialValues}
-          onSubmit={handleSubmit}
-          // validationSchema={validationSchema}
-        >
+        <Formik initialValues={initialValues} onSubmit={handleSubmit}>
           {({ values, setFieldValue }) => (
             <TransactionForm>
-              <Select
-                options={categories.map(({ name, id }) => ({
-                  value: id,
-                  label: [`categoryName.${name}`],
-                }))}
-              />
+              {!isChecked && (
+                <Field as="select" name="categories">
+                  {filteredCategories.map(({ name, id }) => (
+                    <option key={id} value={id}>
+                      {name}
+                    </option>
+                  ))}
+                </Field>
+              )}
               <Wrap>
                 <SumInput
-                  name="sum"
+                  name="amount"
                   type="number"
                   min="0.01"
                   step="0.01"
-                  // value={sum}
                   placeholder="0.00"
                 />
                 <DatePicker
-                  maxDate={addMonths(new Date(), 0)}
                   showDisabledMonthNavigation
                   name="date"
-                  selected={startDate}
-                  onChange={handleChangeDate}
+                  selected={date}
+                  value={values.date}
+                  onChange={val => {
+                    setDate(val);
+                    setFieldValue('date', val);
+                  }}
                   dateFormat="dd.MM.yyyy"
                   style={{
                     border: 'none',
@@ -211,7 +153,7 @@ export default function ModalAddTransaction() {
                 placeholder="Comment"
               ></CommentInput>
               <ButWrap>
-                <PrimaryBut>Add</PrimaryBut>
+                <PrimaryBut type="submit">Add</PrimaryBut>
                 <But>Cancel</But>
               </ButWrap>
             </TransactionForm>
@@ -221,116 +163,3 @@ export default function ModalAddTransaction() {
     </Backdrop>
   );
 }
-
-// import { useEffect } from 'react';
-// import { useDispatch } from 'react-redux';
-// import { useSelector } from 'react-redux';
-// import { toggleModalAddTransaction } from 'redux/global/slice';
-// import {
-//   Backdrop,
-//   Modal,
-//   CloseButton,
-//   ModalTitle,
-//   SwitchWrap,
-//   Switch,
-//   TransactionForm,
-//   SumInput,
-//   DateInput,
-//   CommentInput,
-//   PrimaryBut,
-//   But,
-//   Wrap
-// } from './ModalAddTransaction.styled';
-// import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai';
-// import Datetime from 'react-datetime';
-
-// import { Formik } from 'formik';
-// import Select from 'react-select';
-// import { selectCategories } from 'redux/categories/selector';
-
-// const initialValues = {
-//   transactionDate: 'string',
-//   type: 'INCOME',
-//   categoryId: 'string',
-//   comment: 'string',
-//   amount: 0,
-// };
-
-// export default function ModalAddTransaction() {
-//   const dispatch = useDispatch();
-//   const categories = useSelector(selectCategories);
-
-//   useEffect(() => {
-//     const onPressEsc = e => {
-//       if (e.code === 'Escape') {
-//         dispatch(toggleModalAddTransaction());
-//       }
-//     };
-
-//     window.addEventListener('keydown', onPressEsc);
-
-//     return () => {
-//       window.removeEventListener('keydown', onPressEsc);
-//     };
-//   }, [dispatch]);
-
-//   const onBackdropClick = e => {
-//     if (e.currentTarget === e.target) {
-//       dispatch(toggleModalAddTransaction());
-//     }
-//   };
-
-//   return (
-//     <Backdrop onClick={onBackdropClick}>
-//       <Modal>
-//         <CloseButton onClick={() => dispatch(toggleModalAddTransaction())}>
-//           <AiOutlineClose />
-//         </CloseButton>
-
-//         <ModalTitle>Add transaction</ModalTitle>
-//         <SwitchWrap>
-//           <Switch>
-//             <AiOutlinePlus size={20} />
-//           </Switch>
-//         </SwitchWrap>
-//         <Formik initialValues={initialValues}>
-//           <TransactionForm>
-//             <Select
-//               options={categories.map(({ name, id }) => ({
-//                 value: id,
-//                 label: [`categoryName.${name}`],
-//               }))}
-//             />
-//             <Wrap>
-//             <SumInput
-//               name="sum"
-//               type="number"
-//               min="0.01"
-//               step="0.01"
-//               // value={sum}
-//               placeholder="0.00"
-//             />
-//             <DateInput>
-//               <Datetime
-//                 dateFormat="DD.MM.YYYY"
-//                 timeFormat={false}
-//                 initialValue={new Date()}
-//                 input={true}
-//                 closeOnSelect
-
-//               />
-//             </DateInput></Wrap>
-//             <CommentInput
-//               name="comment"
-//               type="text"
-//               // value={sum}
-//               placeholder="Comment"
-//             ></CommentInput>
-//             <PrimaryBut>Add</PrimaryBut>
-//             <But>Cancel</But>
-//           </TransactionForm>
-//         </Formik>
-//       </Modal>
-//     </Backdrop>
-//   );
-// }

@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { GlobalStyleComponent } from 'styles/GlobalStyles.styled';
 import { GlobalFontComponent } from 'fonts/FontStyled';
+import { fetchCategories } from 'redux/transactions/operations';
 import Home from './Home/Home';
 import Diagram from './Diagram/Diagram';
 import Currency from './Currency/Currency';
@@ -22,6 +23,7 @@ export const App = () => {
 
   useEffect(() => {
     dispatch(refreshUser());
+    dispatch(fetchCategories());
   }, [dispatch]);
 
   return (

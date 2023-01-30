@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { Form, Field } from 'formik';
+// import plusIcon from '../../images/plus.svg';
+// import minusIcon from '../../images/minus.svg';
 
 export const Backdrop = styled.div`
   position: fixed;
@@ -51,16 +53,6 @@ export const ModalTitle = styled.h2`
   line-height: 1.5;
 `;
 
-export const SwitchWrap = styled.div`
-  display: flex;
-  align-items: center;
-
-  width: ${({ theme }) => theme.spacing(20)};
-  height: ${({ theme }) => theme.spacing(10)};
-  border-radius: ${({ theme }) => theme.spacing(5)};
-  border: 1px solid #e0e0e0;
-`;
-
 export const Switch = styled.button`
   width: ${({ theme }) => theme.spacing(11)};
   height: ${({ theme }) => theme.spacing(11)};
@@ -76,54 +68,49 @@ export const Switch = styled.button`
   }
 `;
 
-// ================ NEW STYLES TOGGLE BUTTON ================
-export const ToggleLable = styled.label`
-  cursor: pointer;
+export const ToggleWrapper = styled.div`
   position: relative;
-  top: -2.4rem;
-  left: -3.6rem;
-  display: flex;
-  padding: 18px;
-  background: gray;
-  color: transparent;
-  border-radius: 50%;
-  height: ${({ theme }) => theme.spacing(11)};
-  width: ${({ theme }) => theme.spacing(11)};
-  transition: background ease 0.3s;
+  width: ${({ theme }) => theme.spacing(20)};
+  height: ${({ theme }) => theme.spacing(10)};
+  border-radius: ${({ theme }) => theme.spacing(5)};
+  border: 1px solid #e0e0e0;
+`;
+
+export const ToggleLabel = styled.label`
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+
   &::after {
+    position: absolute;
     content: '';
+    display: block;
     top: 50%;
+    transform: translate(-100%, -50%);
     left: 50%;
-    transform: translate(-90%, -50%);
-    background: white;
+    background-color: ${({ theme }) => theme.colors.accentGreen};
+    /* background-image: url(plusIcon) center; */
+    box-shadow: 0px 6px 15px rgba(36, 204, 167, 0.5);
     height: ${({ theme }) => theme.spacing(11)};
     width: ${({ theme }) => theme.spacing(11)};
     border-radius: 50%;
-    transition: ease 0.3s;
-    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.257);
+    transition: transform 0.2s linear, background-color 0.2s linear,
+      box-shadow 0.2s linear;
+  }
+
+  &[value='true'] {
+    &::after {
+      box-shadow: 0px 6px 15px rgba(255, 101, 150, 0.5);
+      background-color: ${({ theme }) => theme.colors.accentPink};
+      transform: translate(0, -50%);
+    }
   }
 `;
 
 export const ToggleInput = styled.input`
   display: none;
-  &:checked + ToggleLable {
-    background: #00ed82;
-    transition: background ease 0.3s;
-  }
-  &:checked + ToggleLable::after {
-    transform: translate(-10%, -50%);
-    transition: ease 0.3s;
-  }
 `;
-
-// #switch:checked + .toggle-label {
-//   background: var(--primary-color);
-//   transition: background ease 0.3s;
-// }
-// #switch:checked + .toggle-label::after {
-//   transform: translate(-10%, -50%);
-//   transition: ease 0.3s;
-// }
 
 export const TransactionForm = styled(Form)`
   display: flex;

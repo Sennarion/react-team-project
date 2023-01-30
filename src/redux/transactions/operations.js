@@ -19,7 +19,6 @@ export const fetchCategories = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const res = await inctanceAuth.get('/transaction-categories');
-      console.log('categories', res.data);
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
