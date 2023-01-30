@@ -3,7 +3,12 @@ import { useDispatch } from 'react-redux';
 import { toggleModalLogout } from 'redux/global/slice';
 import { logOut } from 'redux/auth/operations';
 import Backdrop from 'components/UI/Backdrop/Backdrop';
-import { ModalWrapper, ModalTitle, ButtonsWrapper } from './ModalLogout.styled';
+import {
+  ModalWrapper,
+  ModalTitle,
+  ButtonsWrapper,
+  But,
+} from './ModalLogout.styled';
 import Button from 'components/UI/Button/Button';
 
 export default function ModalLogout() {
@@ -40,7 +45,7 @@ export default function ModalLogout() {
         <ModalTitle>Are you sure you want to exit?</ModalTitle>
         <ButtonsWrapper>
           <Button onClick={logout}>Yes</Button>
-          <Button onClick={() => dispatch(toggleModalLogout())}>No</Button>
+          <But onClick={() => dispatch(toggleModalLogout())}>No</But>
         </ButtonsWrapper>
       </ModalWrapper>
     </Backdrop>
