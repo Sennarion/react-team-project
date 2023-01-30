@@ -7,13 +7,14 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function Chart({ chartData }) {
   const userBalance = useSelector(getUserBalance);
+
   return (
-    <div style={{ display: 'flex', gap: '50px' }}>
+    <div>
       Statistics
-      <div style={{ width: '40%' }}>
-        <Doughnut data={chartData} redraw={true} />
-      </div>
       <div> User Balance {userBalance}</div>
+      <div>
+        <Doughnut data={chartData} />
+      </div>
     </div>
   );
 }

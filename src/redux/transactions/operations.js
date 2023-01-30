@@ -2,10 +2,15 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { inctanceAuth } from 'redux/auth/operations';
 
 export const fetchTransactionsSummary = createAsyncThunk(
-  'transactions/fetchAll',
+  'transactions/fetchTransactionsSummary',
   async (query, thunkAPI) => {
     try {
-      const res = await inctanceAuth.get('/transactions-summary', query);
+      const res = await inctanceAuth.get('/transactions-summary', {
+        params: {
+          month: query.selectedMonth,
+          year: query.selectedYear,
+        },
+      });
       console.log('summary', res.data);
       return res.data;
     } catch (error) {
@@ -15,7 +20,7 @@ export const fetchTransactionsSummary = createAsyncThunk(
 );
 
 export const fetchCategories = createAsyncThunk(
-  'categories/fetchAll',
+  'categories/fetchCategories',
   async (_, thunkAPI) => {
     try {
       const res = await inctanceAuth.get('/transaction-categories');
@@ -28,7 +33,7 @@ export const fetchCategories = createAsyncThunk(
 );
 
 export const addTransaction = createAsyncThunk(
-  'transactions/add',
+  'transactions/addTransaction',
   async newRecord => {
     try {
       const { data } = await inctanceAuth.post('/transactions', newRecord);
@@ -36,19 +41,5 @@ export const addTransaction = createAsyncThunk(
     } catch (err) {
       console.error(err);
     }
-  }
-);
-
-export const deleteTransaction = createAsyncThunk(
-  'finance/deleteTransaction',
-  async transactionId => {
-    try {
-      const { data } = await inctanceAuth({
-        method: 'DELETE',
-        url: `api/transactions/${transactionId}`,
-      });
-
-      return data;
-    } catch (error) {}
   }
 );
