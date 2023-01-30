@@ -8,7 +8,6 @@ import {
 const initialState = {
   isLoading: false,
   error: null,
-  totalBalance: '',
   data: [],
   filteredData: [],
   categories: [],
