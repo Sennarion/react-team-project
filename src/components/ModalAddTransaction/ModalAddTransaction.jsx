@@ -29,7 +29,6 @@ import Backdrop from 'components/UI/Backdrop/Backdrop';
 import icons from '../../images/icons.svg';
 import { addTransaction } from 'redux/transactions/operations';
 import 'react-datepicker/dist/react-datepicker.css';
-import { AnimatePresence, motion } from 'framer-motion';
 
 export default function ModalAddTransaction() {
   const initialValues = {
@@ -76,11 +75,11 @@ export default function ModalAddTransaction() {
     { resetForm }
   ) => {
     const transaction = {
-      amount: isChecked ? amount : Number(amount * -1),
+      amount: isChecked ? Number(amount * -1) : amount,
       comment,
       transactionDate: new Date(date).toISOString(),
-      categoryId: isChecked ? incomeCategoryId : categories,
-      type: isChecked ? 'INCOME' : 'EXPENSE',
+      categoryId: isChecked ? categories : incomeCategoryId,
+      type: isChecked ? 'EXPENSE' : 'INCOME',
     };
 
     dispatch(addTransaction(transaction));
@@ -94,102 +93,91 @@ export default function ModalAddTransaction() {
   };
 
   return (
-    <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 1 }}
-      >
-        <Backdrop onClick={onBackdropClick}>
-          <Modal>
-            {isMobile ? (
-              <HeaderContent />
-            ) : (
-              <CloseButton
-                onClick={() => dispatch(toggleModalAddTransaction())}
-              >
-                <svg width="16" height="16">
-                  <use href={`${icons}#icon-close`}></use>
-                </svg>
-              </CloseButton>
-            )}
+    <Backdrop onClick={onBackdropClick}>
+      <Modal>
+        {isMobile ? (
+          <HeaderContent />
+        ) : (
+          <CloseButton onClick={() => dispatch(toggleModalAddTransaction())}>
+            <svg width="16" height="16">
+              <use href={`${icons}#icon-close`}></use>
+            </svg>
+          </CloseButton>
+        )}
 
-            <ModalTitle>Add transaction</ModalTitle>
+        <ModalTitle>Add transaction</ModalTitle>
 
-            <ToggleWrapper>
-              <ToggleText data-active={!isChecked}>Income</ToggleText>
-              <Toggle>
-                <ToggleInput
-                  type="checkbox"
-                  name="check"
-                  id="switch"
-                  value={isChecked}
-                  onChange={onCheckboxChange}
-                />
-                <ToggleLabel htmlFor="switch" value={isChecked} />
-              </Toggle>
-              <ToggleText data-active={isChecked}>Expense</ToggleText>
-            </ToggleWrapper>
+        <ToggleWrapper>
+          <ToggleText data-active={!isChecked}>Income</ToggleText>
+          <Toggle>
+            <ToggleInput
+              type="checkbox"
+              name="check"
+              id="switch"
+              value={isChecked}
+              onChange={onCheckboxChange}
+            />
+            <ToggleLabel htmlFor="switch" value={isChecked} />
+          </Toggle>
+          <ToggleText data-active={isChecked}>Expense</ToggleText>
+        </ToggleWrapper>
 
-            <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-              {({ values, setFieldValue }) => (
-                <TransactionForm>
-                  {!isChecked && (
-                    <Field as="select" name="categories">
-                      {filteredCategories.map(({ name, id }) => (
-                        <option key={id} value={id}>
-                          {name}
-                        </option>
-                      ))}
-                    </Field>
-                  )}
-                  <Wrap>
-                    <SumInput
-                      name="amount"
-                      type="number"
-                      min="0.01"
-                      step="0.01"
-                      placeholder="0.00"
-                    />
-                    <DatePicker
-                      showDisabledMonthNavigation
-                      name="date"
-                      selected={date}
-                      value={values.date}
-                      onChange={val => {
-                        setDate(val);
-                        setFieldValue('date', val);
-                      }}
-                      dateFormat="dd.MM.yyyy"
-                      style={{
-                        border: 'none',
-                        outline: 'none',
-                        color: 'red',
-                      }}
-                    />
-                  </Wrap>
-                  <CommentInput
-                    name="comment"
-                    type="text"
-                    value={values.comment}
-                    placeholder="Comment"
-                  ></CommentInput>
-                  <ButWrap>
-                    <PrimaryBut type="submit">Add</PrimaryBut>
-                    <But
-                      onClick={() => dispatch(toggleModalAddTransaction())}
-                      type="button"
-                    >
-                      Cancel
-                    </But>
-                  </ButWrap>
-                </TransactionForm>
+        <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+          {({ values, setFieldValue }) => (
+            <TransactionForm>
+              {isChecked && (
+                <Field as="select" name="categories">
+                  {filteredCategories.map(({ name, id }) => (
+                    <option key={id} value={id}>
+                      {name}
+                    </option>
+                  ))}
+                </Field>
               )}
-            </Formik>
-          </Modal>
-        </Backdrop>
-      </motion.div>
-    </AnimatePresence>
+              <Wrap>
+                <SumInput
+                  name="amount"
+                  type="number"
+                  min="0.01"
+                  step="0.01"
+                  placeholder="0.00"
+                />
+                <DatePicker
+                  showDisabledMonthNavigation
+                  name="date"
+                  selected={date}
+                  value={values.date}
+                  onChange={val => {
+                    setDate(val);
+                    setFieldValue('date', val);
+                  }}
+                  dateFormat="dd.MM.yyyy"
+                  style={{
+                    border: 'none',
+                    outline: 'none',
+                    color: 'red',
+                  }}
+                />
+              </Wrap>
+              <CommentInput
+                name="comment"
+                type="text"
+                value={values.comment}
+                placeholder="Comment"
+              ></CommentInput>
+              <ButWrap>
+                <PrimaryBut type="submit">Add</PrimaryBut>
+                <But
+                  onClick={() => dispatch(toggleModalAddTransaction())}
+                  type="button"
+                >
+                  Cancel
+                </But>
+              </ButWrap>
+            </TransactionForm>
+          )}
+        </Formik>
+      </Modal>
+    </Backdrop>
   );
 }
