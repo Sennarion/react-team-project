@@ -39,7 +39,7 @@ export const CloseButton = styled.button`
     &:focus {
       fill: ${({ theme }) => theme.colors.accentBlue};
       transition: fill ${({ theme }) => theme.animation.cubicBezier};
-  }
+    }
   }
 `;
 
@@ -75,6 +75,55 @@ export const Switch = styled.button`
     left: ${({ theme }) => theme.spacing(3)};
   }
 `;
+
+// ================ NEW STYLES TOGGLE BUTTON ================
+export const ToggleLable = styled.label`
+  cursor: pointer;
+  position: relative;
+  top: -2.4rem;
+  left: -3.6rem;
+  display: flex;
+  padding: 18px;
+  background: gray;
+  color: transparent;
+  border-radius: 50%;
+  height: ${({ theme }) => theme.spacing(11)};
+  width: ${({ theme }) => theme.spacing(11)};
+  transition: background ease 0.3s;
+  &::after {
+    content: '';
+    top: 50%;
+    left: 50%;
+    transform: translate(-90%, -50%);
+    background: white;
+    height: ${({ theme }) => theme.spacing(11)};
+    width: ${({ theme }) => theme.spacing(11)};
+    border-radius: 50%;
+    transition: ease 0.3s;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.257);
+  }
+`;
+
+export const ToggleInput = styled.input`
+  display: none;
+  &:checked + ToggleLable {
+    background: #00ed82;
+    transition: background ease 0.3s;
+  }
+  &:checked + ToggleLable::after {
+    transform: translate(-10%, -50%);
+    transition: ease 0.3s;
+  }
+`;
+
+// #switch:checked + .toggle-label {
+//   background: var(--primary-color);
+//   transition: background ease 0.3s;
+// }
+// #switch:checked + .toggle-label::after {
+//   transform: translate(-10%, -50%);
+//   transition: ease 0.3s;
+// }
 
 export const TransactionForm = styled(Form)`
   display: flex;
