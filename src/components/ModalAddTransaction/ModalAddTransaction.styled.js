@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { Form, Field } from 'formik';
+import plusIcon from '../../images/plus.svg';
+import minusIcon from '../../images/minus.svg';
 
 export const Backdrop = styled.div`
   position: fixed;
@@ -39,7 +41,7 @@ export const CloseButton = styled.button`
     &:focus {
       fill: ${({ theme }) => theme.colors.accentBlue};
       transition: fill ${({ theme }) => theme.animation.cubicBezier};
-  }
+    }
   }
 `;
 
@@ -49,16 +51,6 @@ export const ModalTitle = styled.h2`
   font-family: ${({ theme }) => theme.fonts.secondary};
   font-size: ${({ theme }) => theme.fontSizes.title};
   line-height: 1.5;
-`;
-
-export const SwitchWrap = styled.div`
-  display: flex;
-  align-items: center;
-
-  width: ${({ theme }) => theme.spacing(20)};
-  height: ${({ theme }) => theme.spacing(10)};
-  border-radius: ${({ theme }) => theme.spacing(5)};
-  border: 1px solid #e0e0e0;
 `;
 
 export const Switch = styled.button`
@@ -74,6 +66,53 @@ export const Switch = styled.button`
     top: ${({ theme }) => theme.spacing(3)};
     left: ${({ theme }) => theme.spacing(3)};
   }
+`;
+
+export const ToggleWrapper = styled.div`
+  position: relative;
+  width: ${({ theme }) => theme.spacing(20)};
+  height: ${({ theme }) => theme.spacing(10)};
+  border-radius: ${({ theme }) => theme.spacing(5)};
+  border: 1px solid #e0e0e0;
+`;
+
+export const ToggleLabel = styled.label`
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+
+  &::after {
+    position: absolute;
+    content: '';
+    display: block;
+    top: 50%;
+    transform: translate(-100%, -50%);
+    left: 50%;
+    background-color: ${({ theme }) => theme.colors.accentGreen};
+    background-image: url(${plusIcon});
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 0px 6px 15px rgba(36, 204, 167, 0.5);
+    height: ${({ theme }) => theme.spacing(11)};
+    width: ${({ theme }) => theme.spacing(11)};
+    border-radius: 50%;
+    transition: transform 0.2s linear, background-color 0.2s linear,
+      box-shadow 0.2s linear, background-image 0.2s linear;
+  }
+
+  &[value='true'] {
+    &::after {
+      box-shadow: 0px 6px 15px rgba(255, 101, 150, 0.5);
+      background-color: ${({ theme }) => theme.colors.accentPink};
+      background-image: url(${minusIcon});
+      transform: translate(0, -50%);
+    }
+  }
+`;
+
+export const ToggleInput = styled.input`
+  display: none;
 `;
 
 export const TransactionForm = styled(Form)`

@@ -6,12 +6,16 @@ import {
 } from 'redux/transactions/operations';
 
 const initialState = {
+<<<<<<< HEAD
   summary: {},
   items: [],
+=======
+>>>>>>> main
   isLoading: false,
   error: null,
   totalBalance: '',
   data: [],
+  filteredData: [],
   categories: [],
   filteredData: [],
 };
