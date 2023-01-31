@@ -10,11 +10,11 @@ import { useAuth } from 'hooks/useUserAuth';
 import { refreshUser } from 'redux/auth/operations';
 import useMediaQuery from 'hooks/useMediaQuery/useMediaQuery';
 import Loader from './UI/Loader/Loader';
-
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { selectAuthErrorStatus } from 'redux/auth/selectors';
 import { selectTransactionsErrorStatus } from 'redux/transactions/selectors';
+import { selectSuccessfulAddition } from 'redux/transactions/selectors';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const HomePage = lazy(() => import('pages/HomePage/HomePage'));
 const LoginPage = lazy(() => import('pages/LoginPage/LoginPage'));
@@ -27,6 +27,7 @@ export const App = () => {
 
   const errorAuthStatus = useSelector(selectAuthErrorStatus);
   const errorTransactionsStatus = useSelector(selectTransactionsErrorStatus);
+  const successfulAddition = useSelector(selectSuccessfulAddition);
 
   useEffect(() => {
     dispatch(refreshUser());
@@ -34,9 +35,13 @@ export const App = () => {
 
   const error = errorAuthStatus || errorTransactionsStatus;
 
-  if (error) {
+  useEffect(() => {
     toast.error(error);
-  }
+  }, [error]);
+
+  useEffect(() => {
+    toast.info('Successful addition');
+  }, [successfulAddition]);
 
   return (
     <>
