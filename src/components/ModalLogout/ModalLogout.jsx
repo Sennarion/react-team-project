@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { toggleModalLogout } from 'redux/global/slice';
 import { logOut } from 'redux/auth/operations';
+import { closeModalAddTransaction, closeModalLogout } from 'redux/global/slice';
+import { clearTransactions } from 'redux/transactions/transactionsSlice';
 import Backdrop from 'components/UI/Backdrop/Backdrop';
 import {
   ModalWrapper,
@@ -17,7 +18,7 @@ export default function ModalLogout() {
   useEffect(() => {
     const onPressEsc = e => {
       if (e.code === 'Escape') {
-        dispatch(toggleModalLogout());
+        dispatch(closeModalLogout());
       }
     };
 
@@ -30,8 +31,15 @@ export default function ModalLogout() {
 
   const onBackdropClick = e => {
     if (e.currentTarget === e.target) {
-      dispatch(toggleModalLogout());
+      dispatch(closeModalLogout());
     }
+  };
+
+  const onLogoutBtnClick = () => {
+    dispatch(clearTransactions());
+    dispatch(closeModalAddTransaction());
+    dispatch(closeModalLogout());
+    dispatch(logOut());
   };
 
   return (
@@ -39,8 +47,8 @@ export default function ModalLogout() {
       <ModalWrapper>
         <ModalTitle>Are you sure you want to exit?</ModalTitle>
         <ButtonsWrapper>
-          <Button onClick={() => dispatch(logOut())}>Yes</Button>
-          <But onClick={() => dispatch(toggleModalLogout())}>No</But>
+          <Button onClick={onLogoutBtnClick}>Yes</Button>
+          <But onClick={() => dispatch(closeModalLogout())}>No</But>
         </ButtonsWrapper>
       </ModalWrapper>
     </Backdrop>
