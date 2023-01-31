@@ -80,7 +80,7 @@ export default function ModalAddTransaction() {
     const transaction = {
       amount: isChecked ? -amount : amount,
       comment,
-      transactionDate: new Date(date).toISOString(),
+      transactionDate: new Date(date),
       categoryId: isChecked ? selectId : incomeCategoryId,
       type: isChecked ? 'EXPENSE' : 'INCOME',
     };

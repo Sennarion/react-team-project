@@ -7,7 +7,15 @@ export default function Balance() {
   return (
     <BalanceWrapper>
       <Desc>Your balance</Desc>
-      <BalanceStatus>₴ {balance}</BalanceStatus>
+      <BalanceStatus>
+        {balance
+          .toLocaleString('en-US', {
+            style: 'currency',
+            currency: 'USD',
+          })
+          .replace('$', '₴ ')
+          .replace(',', ' ')}
+      </BalanceStatus>
     </BalanceWrapper>
   );
 }
