@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/react-team-project/static/css/main.cee817e6.css",
-    "main.js": "/react-team-project/static/js/main.688da6eb.js",
+    "main.js": "/react-team-project/static/js/main.ca2802d4.js",
     "static/js/323.89f4a87d.chunk.js": "/react-team-project/static/js/323.89f4a87d.chunk.js",
     "static/js/643.260ad051.chunk.js": "/react-team-project/static/js/643.260ad051.chunk.js",
     "static/js/773.c5eb6e0f.chunk.js": "/react-team-project/static/js/773.c5eb6e0f.chunk.js",
@@ -29,8 +29,9 @@
     "static/media/top-ellipse.svg": "/react-team-project/static/media/top-ellipse.07ef13244b203e866dcdec6e7633ee44.svg",
     "static/media/plus.svg": "/react-team-project/static/media/plus.6194a661e88e1e5113d28da2398b6404.svg",
     "static/media/minus.svg": "/react-team-project/static/media/minus.c1930871236002c803c7b6a6c0b99024.svg",
+    "static/media/arrow.svg": "/react-team-project/static/media/arrow.77b989b3724c691229812f9ba569ef26.svg",
     "main.cee817e6.css.map": "/react-team-project/static/css/main.cee817e6.css.map",
-    "main.688da6eb.js.map": "/react-team-project/static/js/main.688da6eb.js.map",
+    "main.ca2802d4.js.map": "/react-team-project/static/js/main.ca2802d4.js.map",
     "323.89f4a87d.chunk.js.map": "/react-team-project/static/js/323.89f4a87d.chunk.js.map",
     "643.260ad051.chunk.js.map": "/react-team-project/static/js/643.260ad051.chunk.js.map",
     "773.c5eb6e0f.chunk.js.map": "/react-team-project/static/js/773.c5eb6e0f.chunk.js.map",
@@ -38,6 +39,6 @@
   },
   "entrypoints": [
     "static/css/main.cee817e6.css",
-    "static/js/main.688da6eb.js"
+    "static/js/main.ca2802d4.js"
   ]
 }
