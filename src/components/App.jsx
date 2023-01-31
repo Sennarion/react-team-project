@@ -36,11 +36,11 @@ export const App = () => {
   const error = errorAuthStatus || errorTransactionsStatus;
 
   useEffect(() => {
-    toast.error(error);
+    if (error) toast.error(error);
   }, [error]);
 
   useEffect(() => {
-    toast.info('Successful addition');
+    if (successfulAddition) toast.info('Successful addition');
   }, [successfulAddition]);
 
   return (
