@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Form, Field } from 'formik';
 import plusIcon from '../../images/plus.svg';
 import minusIcon from '../../images/minus.svg';
-
+import DatePicker from 'react-datepicker';
 export const Modal = styled.div`
   position: relative;
   display: flex;
@@ -29,7 +29,6 @@ export const CloseButton = styled.button`
   right: ${({ theme }) => theme.spacing(5)};
   background-color: transparent;
   border: none;
-
   padding: ${({ theme }) => theme.spacing(2)};
   cursor: pointer;
 
@@ -128,32 +127,70 @@ export const TransactionForm = styled(Form)`
   gap: ${({ theme }) => theme.spacing(10)};
 `;
 
+export const Wrapper = styled.div`
+  position: relative;
+`;
+
 export const SumInput = styled(Field)`
   width: ${({ theme }) => theme.spacing(47.5)};
   height: ${({ theme }) => theme.spacing(8)};
   border: none;
+  outline: none;
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
+  font-family: ${({ theme }) => theme.fonts.primaryBold};
+  forn-size: ${({ theme }) => theme.spacing(5)};
+  color: ${({ theme }) => theme.colors.grey};
+  &::placeholder {
+    text-align: center;
+    color: ${({ theme }) => theme.colors.grey};
+  }
 `;
 
-export const DateInput = styled.div`
+export const DateWrapper = styled.div`
+  position: relative;
+  svg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    fill: ${({ theme }) => theme.colors.accentBlue};
+    pointer-events: none;
+  }
+`;
+
+export const DateInput = styled(DatePicker)`
   width: ${({ theme }) => theme.spacing(47.5)};
   height: ${({ theme }) => theme.spacing(8)};
+  padding-left: ${({ theme }) => theme.spacing(4)};
+  color: ${({ theme }) => theme.colors.black};
   border: none;
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
-  outline: 0;
+  outline: none;
   background-color: transparent;
 `;
 
 export const Wrap = styled.div`
   display: flex;
+  flex-direction: column;
   gap: ${({ theme }) => theme.spacing(7.5)};
+  @media screen and (min-width: ${({ theme }) => theme.media.tablet}) {
+    flex-direction: row;
+  } ;
 `;
 
 export const CommentInput = styled(Field)`
   width: 100%;
   height: ${({ theme }) => theme.spacing(8)};
   border: none;
+  outline: none;
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
+  color: ${({ theme }) => theme.colors.grey};
+  font-family: 'CirceRegular', sans-serif;
+  padding-left: ${({ theme }) => theme.spacing(4)};
+  font-size: 18px;
+  line-height: 27px;
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.grey};
+  }
 `;
 
 export const PrimaryBut = styled.button`
