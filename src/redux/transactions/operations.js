@@ -5,7 +5,12 @@ export const fetchTransactionsSummary = createAsyncThunk(
   'transactions/fetchTransactionsSummary',
   async (query, thunkAPI) => {
     try {
-      const res = await inctanceAuth.get('/transactions-summary', query);
+      const res = await inctanceAuth.get('/transactions-summary', {
+        params: {
+          month: query.selectedMonth,
+          year: query.selectedYear,
+        },
+      });
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

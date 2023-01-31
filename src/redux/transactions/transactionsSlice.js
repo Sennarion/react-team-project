@@ -7,6 +7,8 @@ import {
 } from 'redux/transactions/operations';
 
 const initialState = {
+  summary: {},
+  items: [],
   isLoading: false,
   error: null,
   data: [],
@@ -46,7 +48,7 @@ const transactionsSlice = createSlice({
 
     [fetchTransactionsSummary.fulfilled](state, action) {
       state.isLoading = false;
-      state.items = action.payload;
+      state.summary = action.payload;
       state.error = null;
     },
     [addTransaction.fulfilled](state, action) {
