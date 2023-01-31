@@ -28,9 +28,14 @@ import {
 import Backdrop from 'components/UI/Backdrop/Backdrop';
 import icons from '../../images/icons.svg';
 import { addTransaction } from 'redux/transactions/operations';
+import SelectTransaction from 'components/SelectTransaction/SelectTransaction';
 import 'react-datepicker/dist/react-datepicker.css';
 
 export default function ModalAddTransaction() {
+  const [date, setDate] = useState(new Date());
+  const [isChecked, setIsChecked] = useState(false);
+  const [selectId, setSelectId] = useState('');
+
   const initialValues = {
     transactionDate: '',
     type: 'INCOME',
@@ -39,9 +44,6 @@ export default function ModalAddTransaction() {
     amount: 0,
     date: new Date(),
   };
-
-  const [date, setDate] = useState(new Date());
-  const [isChecked, setIsChecked] = useState(true);
 
   const dispatch = useDispatch();
   const categories = useSelector(selectCategories);
@@ -70,18 +72,21 @@ export default function ModalAddTransaction() {
     }
   };
 
+ const onSelectToggle = id => { 
+   setSelectId(id);
+  }
+
   const handleSubmit = (
-    { amount, categories, comment, date },
+    { amount, comment, date },
     { resetForm }
   ) => {
     const transaction = {
       amount: isChecked ? -amount : amount,
       comment,
       transactionDate: new Date(date).toISOString(),
-      categoryId: isChecked ? categories : incomeCategoryId,
+      categoryId: isChecked ? selectId : incomeCategoryId,
       type: isChecked ? 'EXPENSE' : 'INCOME',
     };
-
     dispatch(addTransaction(transaction));
     dispatch(closeModalAddTransaction());
 
@@ -125,14 +130,8 @@ export default function ModalAddTransaction() {
         <Formik initialValues={initialValues} onSubmit={handleSubmit}>
           {({ values, setFieldValue }) => (
             <TransactionForm>
-              {isChecked && (
-                <Field as="select" name="categories">
-                  {filteredCategories.map(({ name, id }) => (
-                    <option key={id} value={id}>
-                      {name}
-                    </option>
-                  ))}
-                </Field>
+              {isChecked && (                
+                <SelectTransaction categories={filteredCategories} onSelectToggle={ onSelectToggle} />
               )}
               <Wrap>
                 <SumInput
