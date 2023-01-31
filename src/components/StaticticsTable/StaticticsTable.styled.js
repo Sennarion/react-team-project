@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import categoryColor from 'data/data';
 
 export const TableHead = styled.div`
   display: flex;
@@ -50,7 +51,7 @@ export const Square = styled.span`
   width: 24px;
   height: 24px;
   border-radius: 2px;
-  background-color: red; /* <= сюда передавать цвет категории, импортировать из диаграм, там создаь массив с цветами категорий */
+  background-color: red; <= сюда передавать цвет категории, импортировать из диаграм, там создаь массив с цветами категорий */
 `;
 
 export const Category = styled.p`

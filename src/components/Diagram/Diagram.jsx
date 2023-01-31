@@ -1,20 +1,14 @@
 import Chart from 'components/Chart/Chart';
 import StaticticsTable from 'components/StaticticsTable/StaticticsTable';
 import { DiagramWrapper, Dropdowns } from './Diagram.styled';
-import Dropdown from 'components/Dropdown/Dropdown';
 import { useEffect, useState } from 'react';
 import { fetchTransactionsSummary } from '../../redux/transactions/operations';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectSummary } from 'redux/transactions/selectors';
+import FilterDropdown from 'components/FilterDropdown/FilterDropdown';
+import categoryColor from 'data/data';
 
-//======================================================генерация случайного цвета
-const getRandomHexColor = () => {
-  return `#${Math.floor(Math.random() * 16777215)
-    .toString(16)
-    .padStart(6, 0)}`;
-};
-
-//======================================================разделяем трансакции по типу доход расход и считаем общую сумму в каждом из типов
+//======================================================разделяем транзакции по типу доход расход и считаем общую сумму в каждом из типов
 // let totalIncome = 0;
 // let totalExpence = 0;
 // let incomeTransactions = [];
@@ -44,19 +38,6 @@ const getRandomHexColor = () => {
 
 export default function Diagram() {
   const isSummary = useSelector(selectSummary);
-  //===================================================начальное состояние для чарта бублика
-
-  // const initState = {
-  //   labels: categories.map(data => data.category),
-  //   datasets: [
-  //     {
-  //       label: 'total',
-  //       data: categories.map(data => data.total),
-  //       backgroundColor: categories.map(el => getRandomHexColor()),
-  //     },
-  //   ],
-  // };
-  // const [userData] = useState(initState);
 
   //=======================================================достаем актуальные мецяц и год
   const currentMonth = new Date().getMonth();
@@ -97,39 +78,22 @@ export default function Diagram() {
     dispatch(fetchTransactionsSummary(query));
   }, [dispatch, month, year]);
 
-  const handleMomthChange = event => {
-    setMonth(event.target.value);
+  const handleMomthChange = id => {
+    setMonth(id);
   };
-  const handleYearChange = event => {
-    setYear(event.target.value);
+  const handleYearChange = id => {
+    setYear(years[id - 1].value);
   };
 
   const expenseCategories =
     Array.isArray(isSummary.categoriesSummary) &&
     isSummary.categoriesSummary.filter(el => el.type === 'EXPENSE');
-  console.log('Diagram ~ expenseCategories', expenseCategories);
 
-  // const initState = {
   //   labels:
   //     Array.isArray(expenseCategories) &&
   //     expenseCategories.map(data => data.name),
-  //   datasets: [
-  //     {
-  //       label: 'total',
-  //       data:
-  //         Array.isArray(expenseCategories) &&
-  //         expenseCategories.map(data => data.total * -1),
-  //       backgroundColor:
-  //         Array.isArray(expenseCategories) &&
-  //         expenseCategories.map(el => getRandomHexColor()),
-  //     },
-  //   ],
-  // };
 
   const userData = {
-    // labels:
-    //   Array.isArray(expenseCategories) &&
-    //   expenseCategories.map(data => data.name),
     datasets: [
       {
         label: 'total',
@@ -138,7 +102,9 @@ export default function Diagram() {
           expenseCategories.map(data => data.total * -1),
         backgroundColor:
           Array.isArray(expenseCategories) &&
-          expenseCategories.map(el => getRandomHexColor()),
+          expenseCategories.map(
+            el => categoryColor.find(item => item.name === el.name).color
+          ),
 
         borderWidth: 0,
         radius: '100%',
@@ -146,19 +112,22 @@ export default function Diagram() {
       },
     ],
   };
-  console.log('Diagram ~ userData', userData);
 
   return (
     <DiagramWrapper>
       <Chart chartData={userData} />
       <div>
         <Dropdowns>
-          <Dropdown
-            options={months}
-            value={month}
-            onChange={handleMomthChange}
+          <FilterDropdown
+            filters={months}
+            onSelectToggle={handleMomthChange}
+            defValue={months[month - 1].label}
           />
-          <Dropdown options={years} value={year} onChange={handleYearChange} />
+          <FilterDropdown
+            filters={years}
+            onSelectToggle={handleYearChange}
+            defValue={year}
+          />
         </Dropdowns>
         <StaticticsTable
           tableData={expenseCategories}

@@ -12,6 +12,8 @@ import {
   Total,
   TotalWrap,
 } from './StaticticsTable.styled';
+import categoryColor from 'data/data';
+console.log('categoryColor', categoryColor);
 
 export default function StaticticsTable({ income, expence, tableData }) {
   return (
@@ -24,7 +26,13 @@ export default function StaticticsTable({ income, expence, tableData }) {
         {Array.isArray(tableData) &&
           tableData.map(({ name, total }) => (
             <Row key={nanoid()}>
-              <Square></Square>
+              <Square
+                style={{
+                  backgroundColor: categoryColor.find(
+                    item => item.name === name
+                  ).color,
+                }}
+              ></Square>
               <Category>{name}</Category>
               <Sum>{Math.abs(total)}</Sum>
               <Line></Line>
