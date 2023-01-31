@@ -28,11 +28,6 @@ export default function ModalLogout() {
     };
   }, [dispatch]);
 
-  const logout = () => {
-    dispatch(toggleModalLogout());
-    dispatch(logOut());
-  };
-
   const onBackdropClick = e => {
     if (e.currentTarget === e.target) {
       dispatch(toggleModalLogout());
@@ -44,7 +39,7 @@ export default function ModalLogout() {
       <ModalWrapper>
         <ModalTitle>Are you sure you want to exit?</ModalTitle>
         <ButtonsWrapper>
-          <Button onClick={logout}>Yes</Button>
+          <Button onClick={() => dispatch(logOut())}>Yes</Button>
           <But onClick={() => dispatch(toggleModalLogout())}>No</But>
         </ButtonsWrapper>
       </ModalWrapper>
