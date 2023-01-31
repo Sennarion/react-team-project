@@ -1,10 +1,15 @@
 import styled from 'styled-components';
 
 export const DoughnutWrap = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
+  @media screen and (min-width: ${({ theme }) => theme.media.tablet}) {
+    width: 336px;
+    margin-top: 20px;
+  }
   @media screen and (min-width: ${({ theme }) => theme.media.desktop}) {
     width: 288px;
   }
@@ -19,10 +24,10 @@ export const Balance = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.medhium};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   line-height: calc(27 / 18);
-`;
-export const Title = styled.h2`
-  font-family: ${({ theme }) => theme.fonts.secondary};
-  font-size: ${({ theme }) => theme.fontSizes.title};
-  font-weight: ${({ theme }) => theme.fontWeight.normal};
-  text-align: start;
+  @media screen and (min-width: ${({ theme }) => theme.media.tablet}) {
+    width: 288px;
+  }
+  @media screen and (min-width: ${({ theme }) => theme.media.desktop}) {
+    width: 288px;
+  }
 `;

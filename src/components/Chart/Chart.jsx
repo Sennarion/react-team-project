@@ -10,17 +10,14 @@ export default function Chart({ chartData }) {
   const userBalance = useSelector(getUserBalance);
 
   return (
-    <div>
-      <Title>Statistics</Title>
+    <DoughnutWrap>
       <Balance>
         {new Intl.NumberFormat('en-US', {
           style: 'currency',
           currency: 'USD',
         }).format(userBalance)}
       </Balance>
-      <DoughnutWrap>
-        <Doughnut data={chartData} />
-      </DoughnutWrap>
-    </div>
+      <Doughnut data={chartData} />
+    </DoughnutWrap>
   );
 }

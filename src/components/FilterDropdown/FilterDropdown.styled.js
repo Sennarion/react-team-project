@@ -13,7 +13,7 @@ export const ButtonSelect = styled.div`
   font-family: ${({ theme }) => theme.fonts.primary};
   font-size: ${({ theme }) => theme.fontSizes.small};
   font-weight: ${({ theme }) => theme.fontWeight.normal};
-  background-color: ${({ theme }) => theme.colors.bgColor};
+  background-color: transparent;
   line-height: calc(24 / 16);
   position: relative;
   border: 1px solid #000000;
@@ -27,6 +27,16 @@ export const ButtonSelect = styled.div`
     height: 11px;
     width: 20px;
     pointer-events: none;
+    transition-property: background-image, transform;
+    transition-duration: 200ms;
+    transition-timing-function: linear;
+    transition-delay: 0;
+  }
+  &:focus::after {
+    transform: rotate(180deg);
+  }
+  @media screen and (min-width: ${({ theme }) => theme.media.tablet}) {
+    width: 160px;
   }
 `;
 export const SelectList = styled.ul`
@@ -35,7 +45,7 @@ export const SelectList = styled.ul`
   left: 0;
   z-index: 1;
   width: 100%;
-  height: 300px;
+  height: 157px;
   overflow: auto;
   background: rgba(255, 255, 255, 0.7);
   box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);

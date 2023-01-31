@@ -1,6 +1,12 @@
 import Chart from 'components/Chart/Chart';
 import StaticticsTable from 'components/StaticticsTable/StaticticsTable';
-import { DiagramWrapper, Dropdowns } from './Diagram.styled';
+import {
+  DiagramWrapper,
+  DropdownWrap,
+  Dropdowns,
+  Title,
+  Wrap,
+} from './Diagram.styled';
 import { useEffect, useState } from 'react';
 import { fetchTransactionsSummary } from '../../redux/transactions/operations';
 import { useDispatch, useSelector } from 'react-redux';
@@ -97,14 +103,18 @@ export default function Diagram() {
     datasets: [
       {
         label: 'total',
+        /* Array.isArray(expenseCategories) */
         data:
-          Array.isArray(expenseCategories) &&
-          expenseCategories.map(data => data.total * -1),
+          expenseCategories.length > 0
+            ? expenseCategories.map(data => data.total * -1)
+            : [0.0001],
+        /* Array.isArray(expenseCategories) */
         backgroundColor:
-          Array.isArray(expenseCategories) &&
-          expenseCategories.map(
-            el => categoryColor.find(item => item.name === el.name).color
-          ),
+          expenseCategories.length > 0
+            ? expenseCategories.map(
+                el => categoryColor.find(item => item.name === el.name).color
+              )
+            : 'rgba(0, 0, 0, 0.1)',
 
         borderWidth: 0,
         radius: '100%',
@@ -115,26 +125,31 @@ export default function Diagram() {
 
   return (
     <DiagramWrapper>
+      <Title>Statistics</Title>
       <Chart chartData={userData} />
-      <div>
+      <Wrap>
         <Dropdowns>
-          <FilterDropdown
-            filters={months}
-            onSelectToggle={handleMomthChange}
-            defValue={months[month - 1].label}
-          />
-          <FilterDropdown
-            filters={years}
-            onSelectToggle={handleYearChange}
-            defValue={year}
-          />
+          <DropdownWrap>
+            <FilterDropdown
+              filters={months}
+              onSelectToggle={handleMomthChange}
+              defValue={months[month - 1].label}
+            />
+          </DropdownWrap>
+          <DropdownWrap>
+            <FilterDropdown
+              filters={years}
+              onSelectToggle={handleYearChange}
+              defValue={year}
+            />
+          </DropdownWrap>
         </Dropdowns>
         <StaticticsTable
           tableData={expenseCategories}
           income={isSummary.incomeSummary}
           expence={isSummary.expenseSummary}
         />
-      </div>
+      </Wrap>
     </DiagramWrapper>
   );
 }
