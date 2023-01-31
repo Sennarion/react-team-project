@@ -41,7 +41,7 @@ export default function ModalAddTransaction() {
   };
 
   const [date, setDate] = useState(new Date());
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(true);
 
   const dispatch = useDispatch();
   const categories = useSelector(selectCategories);
@@ -75,7 +75,7 @@ export default function ModalAddTransaction() {
     { resetForm }
   ) => {
     const transaction = {
-      amount: isChecked ? Number(amount * -1) : amount,
+      amount: isChecked ? -amount : amount,
       comment,
       transactionDate: new Date(date).toISOString(),
       categoryId: isChecked ? categories : incomeCategoryId,
