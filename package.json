@@ -11,6 +11,7 @@
     "antd": "^5.1.6",
     "axios": "^1.2.5",
     "chart.js": "^4.2.0",
+    "date-fns": "^2.29.3",
     "formik": "^2.2.9",
     "framer-motion": "^8.5.5",
     "modern-normalize": "^1.1.0",

@@ -1,9 +1,11 @@
+import { format } from 'date-fns';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useMediaQuery from 'hooks/useMediaQuery/useMediaQuery';
 import { selectGetTransactions } from 'redux/transactions/selectors.js';
 import { selectCategories } from 'redux/transactions/selectors.js';
 import { getTransaction } from '../../redux/transactions/operations.js';
+// import { fetchCategories } from '../../redux/transactions/operations.js';
 import {
   List,
   ListItem,
@@ -27,6 +29,10 @@ export const Table = () => {
     dispatch(getTransaction());
   }, [dispatch]);
 
+  // useEffect(() => {
+  //   dispatch(fetchCategories());
+  // }, [dispatch]);
+
   const isTablet = useMediaQuery('(min-width: 768px)');
 
   const columns = [
@@ -34,7 +40,9 @@ export const Table = () => {
       title: 'Date',
       dataIndex: 'transactionDate',
       key: 'transactionDate',
-      width: '17%',
+      render: transactionDate =>
+        format(new Date(transactionDate), 'dd.MM.yyyy'),
+        width: '17%',
     },
 
     {
@@ -59,18 +67,14 @@ export const Table = () => {
 
     {
       title: 'Category',
-      dataIndex: 'category',
-      key: 'category',
-      render: category => (
-        <>
+      dataIndex: 'categoryId',
+      key: 'categoryId',
+      render: categoryId => (
+        <> 
           {categories
-            .filter(elem => elem.id === category)
-            .map(({ name }) => {
-              return name;
-            })}
+          .find(category => category.id === categoryId).name}
         </>
       ),
-
       width: '18%',
     },
 
@@ -100,7 +104,7 @@ export const Table = () => {
 
   return (
     <TableWrapper>
-      {isTablet ? (
+      {isTablet && categories.length > 0 ? (
         <StyledTable
           rowClassName="rowStyled"
           columns={columns}
@@ -123,7 +127,7 @@ export const Table = () => {
               <List type={item.type} key={item.id}>
                 <ListItem>
                   <ListText>{'Date'}</ListText>
-                  {new Date(item.transactionDate)}
+                  {format(new Date(item.transactionDate), 'dd.MM.yyyy')}
                 </ListItem>
                 <ListItem>
                   <ListText>{'Type'}</ListText>
