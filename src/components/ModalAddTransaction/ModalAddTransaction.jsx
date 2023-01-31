@@ -33,7 +33,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 export default function ModalAddTransaction() {
   const [date, setDate] = useState(new Date());
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(true);
   const [selectId, setSelectId] = useState('');
 
   const initialValues = {
@@ -84,14 +84,11 @@ export default function ModalAddTransaction() {
       categoryId: isChecked ? selectId : incomeCategoryId,
       type: isChecked ? 'EXPENSE' : 'INCOME',
     };
-    dispatch(addTransaction(transaction));
+
     dispatch(closeModalAddTransaction());
+    dispatch(addTransaction(transaction));
 
     resetForm();
-  };
-
-  const onCheckboxChange = () => {
-    setIsChecked(prev => !prev);
   };
 
   return (
@@ -117,7 +114,7 @@ export default function ModalAddTransaction() {
               name="check"
               id="switch"
               value={isChecked}
-              onChange={onCheckboxChange}
+              onChange={() => setIsChecked(prev => !prev)}
             />
             <ToggleLabel htmlFor="switch" value={isChecked} />
           </Toggle>
