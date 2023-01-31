@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { toggleModalAddTransaction } from 'redux/global/slice';
+import { openModalAddTransaction } from 'redux/global/slice';
 import { selectModalAddTransactionOpen } from 'redux/global/selectors';
 import useMediaQuery from 'hooks/useMediaQuery/useMediaQuery';
 import Balance from 'components/Balance/Balance';
@@ -21,7 +21,7 @@ export default function Home() {
       {isMobile && <Balance />}
       <Table />
       <ButtonAddTransaction
-        onClick={() => dispatch(toggleModalAddTransaction())}
+        onClick={() => dispatch(openModalAddTransaction())}
       />
       <Portal isVisible={isModalTransactionOpen}>
         <ModalAddTransaction />

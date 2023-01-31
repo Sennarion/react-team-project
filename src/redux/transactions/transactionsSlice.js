@@ -5,7 +5,6 @@ import {
   addTransaction,
   getTransaction,
 } from 'redux/transactions/operations';
-import { logOut } from 'redux/auth/operations';
 
 const initialState = {
   isLoading: false,
@@ -14,6 +13,7 @@ const initialState = {
   filteredData: [],
   categories: [],
   transactions: [],
+  balanceAfter: 0,
 };
 
 const handlePending = state => {
@@ -24,10 +24,20 @@ const handleRejected = (state, action) => {
   state.error = action.payload;
 };
 
-
 const transactionsSlice = createSlice({
   name: 'transactions',
   initialState,
+  reducers: {
+    clearTransactions(state) {
+      state.isLoading = false;
+      state.error = null;
+      state.data = [];
+      state.filteredData = [];
+      state.categories = [];
+      state.transactions = [];
+      state.balanceAfter = 0;
+    },
+  },
   extraReducers: {
     [fetchTransactionsSummary.pending]: handlePending,
     [fetchTransactionsSummary.rejected]: handleRejected,
@@ -40,22 +50,19 @@ const transactionsSlice = createSlice({
       state.error = null;
     },
     [addTransaction.fulfilled](state, action) {
-      state.data.push(action.payload);
+      state.transactions.push(action.payload);
+      state.balanceAfter = action.payload.balanceAfter;
     },
     [fetchCategories.fulfilled](state, action) {
       state.categories = action.payload;
     },
-    [logOut.fulfilled](state) {
-      state.error = null;
-      state.data = [];
-      state.filteredData = [];
-      state.categories = [];
-    },
-    [getTransaction.fulfilled](state,action){
+    [getTransaction.fulfilled](state, action) {
       state.transactions = action.payload;
       state.isLoading = false;
       state.error = null;
-    }
+    },
   },
 });
+
+export const { clearTransactions } = transactionsSlice.actions;
 export const transactionsReducer = transactionsSlice.reducer;

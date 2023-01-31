@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { toggleModalLogout } from 'redux/global/slice';
+import { openModalLogout } from 'redux/global/slice';
 import { useSelector } from 'react-redux';
 import { getUsername } from 'redux/auth/selectors';
 import {
@@ -20,7 +20,7 @@ export default function User() {
       <UserName>{username}</UserName>
       <LogoutBtn
         onClick={() => {
-          dispatch(toggleModalLogout());
+          dispatch(openModalLogout());
         }}
       >
         <LogoutIcon width="18" height="18">

@@ -1,6 +1,5 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { register, logIn, logOut, refreshUser } from './operations';
-import { addTransaction } from 'redux/transactions/operations';
 
 const initialState = {
   user: { username: null, email: null, balance: 0 },
@@ -58,9 +57,6 @@ const authSlice = createSlice({
         state.user = payload;
         state.isLogged = true;
         state.isRefreshUser = false;
-      })
-      .addCase(addTransaction.fulfilled, (state, { payload }) => {
-        state.user.balance = payload.balanceAfter;
       })
       .addMatcher(isAnyOf(...getActions('pending')), handlePending)
       .addMatcher(isAnyOf(...getActions('fulfilled')), handleFulfilled)
