@@ -5,7 +5,6 @@ import useMediaQuery from 'hooks/useMediaQuery/useMediaQuery';
 import { selectGetTransactions } from 'redux/transactions/selectors.js';
 import { selectCategories } from 'redux/transactions/selectors.js';
 import { getTransaction } from '../../redux/transactions/operations.js';
-// import { fetchCategories } from '../../redux/transactions/operations.js';
 import {
   List,
   ListItem,
@@ -29,9 +28,6 @@ export const Table = () => {
     dispatch(getTransaction());
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   dispatch(fetchCategories());
-  // }, [dispatch]);
 
   const isTablet = useMediaQuery('(min-width: 768px)');
 
