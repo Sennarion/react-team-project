@@ -1,5 +1,5 @@
 import { useEffect, lazy, Suspense } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { GlobalStyleComponent } from 'styles/GlobalStyles.styled';
 import { GlobalFontComponent } from 'fonts/FontStyled';
@@ -11,6 +11,11 @@ import { refreshUser } from 'redux/auth/operations';
 import useMediaQuery from 'hooks/useMediaQuery/useMediaQuery';
 import Loader from './UI/Loader/Loader';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { selectAuthErrorStatus } from 'redux/auth/selectors';
+import { selectTransactionsErrorStatus } from 'redux/transactions/selectors';
+
 const HomePage = lazy(() => import('pages/HomePage/HomePage'));
 const LoginPage = lazy(() => import('pages/LoginPage/LoginPage'));
 const RegisterPage = lazy(() => import('pages/RegisterPage/RegisterPage'));
@@ -20,9 +25,18 @@ export const App = () => {
   const { isRefreshing } = useAuth();
   const isTablet = useMediaQuery('(min-width: 768px)');
 
+  const errorAuthStatus = useSelector(selectAuthErrorStatus);
+  const errorTransactionsStatus = useSelector(selectTransactionsErrorStatus);
+
   useEffect(() => {
     dispatch(refreshUser());
   }, [dispatch]);
+
+  const error = errorAuthStatus || errorTransactionsStatus;
+
+  if (error) {
+    toast.error(error);
+  }
 
   return (
     <>
@@ -44,6 +58,7 @@ export const App = () => {
           </Suspense>
           <GlobalStyleComponent />
           <GlobalFontComponent />
+          <ToastContainer autoClose={2000} />
         </>
       )}
     </>
