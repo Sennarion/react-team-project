@@ -1,35 +1,36 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { ThreeCircles } from 'react-loader-spinner';
 import {
   TableWrapper,
+  LoaderWrapper,
   Table,
   TableHead,
   TableHeadData,
   TableBodyData,
 } from './Currency.styled';
-// import { privatbankApi } from 'services/privatbankApi';
+import { privatbankApi } from 'services/privatbankApi';
+import { theme } from 'styles/theme';
 
 export default function Currency() {
-  const [rates] = useState([
-    {
-      ccy: 'EUR',
-      base_ccy: 'UAH',
-      buy: '42.30000',
-      sale: '43.30000',
-    },
-    {
-      ccy: 'USD',
-      base_ccy: 'UAH',
-      buy: '39.80000',
-      sale: '40.30000',
-    },
-  ]);
+  const [rates, setRates] = useState([]);
 
-  // useEffect(() => {
-  //   privatbankApi.getExchangeRate().then(res => console.log(res));
-  // }, []);
+  useEffect(() => {
+    privatbankApi.getExchangeRate().then(res => setRates(res.data));
+  }, []);
 
   return (
     <TableWrapper>
+      {rates.length === 0 && (
+        <LoaderWrapper>
+          <ThreeCircles
+            color={theme.colors.accentGreen}
+            innerCircleColor={theme.colors.accentBlue}
+            ariaLabel="three-circles-rotating"
+            height="70"
+            width="70"
+          />
+        </LoaderWrapper>
+      )}
       <Table>
         <TableHead>
           <tr>
@@ -39,13 +40,14 @@ export default function Currency() {
           </tr>
         </TableHead>
         <tbody>
-          {rates.map(rate => (
-            <tr key={rate.ccy}>
-              <TableBodyData>{rate.ccy}</TableBodyData>
-              <TableBodyData>{Number(rate.buy).toFixed(2)}</TableBodyData>
-              <TableBodyData>{Number(rate.sale).toFixed(2)}</TableBodyData>
-            </tr>
-          ))}
+          {rates.length > 0 &&
+            rates.map(rate => (
+              <tr key={rate.code}>
+                <TableBodyData>{rate.code}</TableBodyData>
+                <TableBodyData>{Number(rate.buy).toFixed(2)}</TableBodyData>
+                <TableBodyData>{Number(rate.sell).toFixed(2)}</TableBodyData>
+              </tr>
+            ))}
         </tbody>
       </Table>
     </TableWrapper>

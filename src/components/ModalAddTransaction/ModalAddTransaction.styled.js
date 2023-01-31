@@ -3,30 +3,24 @@ import { Form, Field } from 'formik';
 import plusIcon from '../../images/plus.svg';
 import minusIcon from '../../images/minus.svg';
 
-export const Backdrop = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.25);
-`;
-
 export const Modal = styled.div`
-  width: 540px;
-  background-color: ${({ theme }) => theme.colors.white};
-  border-radius: 20px;
-  padding-left: ${({ theme }) => theme.spacing(18)};
-  padding-right: ${({ theme }) => theme.spacing(18)};
-  padding-top: ${({ theme }) => theme.spacing(10)};
-  padding-bottom: ${({ theme }) => theme.spacing(10)};
   position: relative;
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing(10)};
+  width: 100%;
+  height: 100%;
+  background-color: ${({ theme }) => theme.colors.white};
+  padding: ${({ theme }) => theme.spacing(4)};
+
+  @media screen and (min-width: ${({ theme }) => theme.media.tablet}) {
+    width: auto;
+    height: auto;
+    border-radius: 20px;
+
+    padding: ${({ theme }) => theme.spacing(10)}
+      ${({ theme }) => theme.spacing(18)};
+  }
 `;
 
 export const CloseButton = styled.button`
@@ -35,11 +29,14 @@ export const CloseButton = styled.button`
   right: ${({ theme }) => theme.spacing(5)};
   background-color: transparent;
   border: none;
-  svg {
-    fill: ${({ theme }) => theme.colors.black};
-    &:hover,
-    &:focus {
-      fill: ${({ theme }) => theme.colors.accentBlue};
+
+  padding: ${({ theme }) => theme.spacing(2)};
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    svg {
+      fill: ${({ theme }) => theme.colors.accentGreen};
       transition: fill ${({ theme }) => theme.animation.cubicBezier};
     }
   }
@@ -53,27 +50,35 @@ export const ModalTitle = styled.h2`
   line-height: 1.5;
 `;
 
-export const Switch = styled.button`
-  width: ${({ theme }) => theme.spacing(11)};
-  height: ${({ theme }) => theme.spacing(11)};
-  border-radius: 50%;
-  border: none;
-  background-color: ${({ theme }) => theme.colors.accentGreen};
-  position: relative;
-  svg {
-    position: absolute;
-    fill: ${({ theme }) => theme.colors.white};
-    top: ${({ theme }) => theme.spacing(3)};
-    left: ${({ theme }) => theme.spacing(3)};
+export const ToggleWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ToggleText = styled.span`
+  font-family: ${({ theme }) => theme.fonts.primaryBold};
+  color: #e0e0e0;
+  transition: color ${({ theme }) => theme.animation.cubicBezier};
+
+  &[data-active='true'] {
+    &:nth-of-type(1) {
+      color: ${({ theme }) => theme.colors.accentGreen};
+    }
+    &:nth-of-type(2) {
+      color: ${({ theme }) => theme.colors.accentPink};
+    }
   }
 `;
 
-export const ToggleWrapper = styled.div`
+export const Toggle = styled.div`
   position: relative;
   width: ${({ theme }) => theme.spacing(20)};
   height: ${({ theme }) => theme.spacing(10)};
   border-radius: ${({ theme }) => theme.spacing(5)};
   border: 1px solid #e0e0e0;
+  margin-left: ${({ theme }) => theme.spacing(6)};
+  margin-right: ${({ theme }) => theme.spacing(6)};
 `;
 
 export const ToggleLabel = styled.label`
@@ -97,8 +102,10 @@ export const ToggleLabel = styled.label`
     height: ${({ theme }) => theme.spacing(11)};
     width: ${({ theme }) => theme.spacing(11)};
     border-radius: 50%;
-    transition: transform 0.2s linear, background-color 0.2s linear,
-      box-shadow 0.2s linear, background-image 0.2s linear;
+    transition: transform ${({ theme }) => theme.animation.cubicBezier},
+      background-color ${({ theme }) => theme.animation.cubicBezier},
+      box-shadow ${({ theme }) => theme.animation.cubicBezier},
+      background-image ${({ theme }) => theme.animation.cubicBezier};
   }
 
   &[value='true'] {

@@ -2,11 +2,11 @@ import styled from 'styled-components';
 import bg from '../../images/wave-bg.svg';
 
 export const TableWrapper = styled.div`
+  position: relative;
   background: url(${bg}) bottom / 100% no-repeat;
   background-color: ${({ theme }) => theme.colors.accentBlue};
   border-radius: 30px;
   overflow: hidden;
-
   min-height: 174px;
 
   @media screen and (min-width: ${({ theme }) => theme.media.tablet}) {
@@ -18,6 +18,19 @@ export const TableWrapper = styled.div`
     width: 100%;
     min-height: 331px;
   }
+`;
+
+export const LoaderWrapper = styled.div`
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Table = styled.table`

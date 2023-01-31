@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const DiagramWrapper = styled.div`
-  /* flex-grow: 1; */
+  flex-grow: 1;
 `;
 export const Dropdowns = styled.div`
   display: flex;

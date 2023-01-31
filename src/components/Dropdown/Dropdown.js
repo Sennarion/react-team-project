@@ -11,7 +11,6 @@ export default function Dropdown({ options, value, onChange }) {
           </Option>
         ))}
       </Select>
-      {/* <p>you choose {value}</p> */}
     </SelectWrap>
   );
 }

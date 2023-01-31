@@ -4,7 +4,7 @@ import arrow from '../../images/arrow.svg';
 export const Select = styled.select`
   cursor: pointer;
   border-radius: 20px;
-  min-width: 280px;
+  width: 280px;
   padding: 12px 20px 14px 20px;
   appearance: none;
   font-family: ${({ theme }) => theme.fonts.primary};
@@ -29,5 +29,3 @@ export const SelectWrap = styled.div`
     pointer-events: none;
   }
 `;
-
-// ${({ theme }) => theme.spacing(75)}

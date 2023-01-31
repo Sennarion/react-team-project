@@ -141,7 +141,7 @@ export default function Diagram() {
           expenseCategories.map(el => getRandomHexColor()),
 
         borderWidth: 0,
-        radius: 140,
+        radius: '100%',
         cutout: '70%',
       },
     ],
@@ -151,15 +151,21 @@ export default function Diagram() {
   return (
     <DiagramWrapper>
       <Chart chartData={userData} />
-      <Dropdowns>
-        <Dropdown options={months} value={month} onChange={handleMomthChange} />
-        <Dropdown options={years} value={year} onChange={handleYearChange} />
-      </Dropdowns>
-      <StaticticsTable
-        tableData={expenseCategories}
-        income={isSummary.incomeSummary}
-        expence={isSummary.expenseSummary}
-      />
+      <div>
+        <Dropdowns>
+          <Dropdown
+            options={months}
+            value={month}
+            onChange={handleMomthChange}
+          />
+          <Dropdown options={years} value={year} onChange={handleYearChange} />
+        </Dropdowns>
+        <StaticticsTable
+          tableData={expenseCategories}
+          income={isSummary.incomeSummary}
+          expence={isSummary.expenseSummary}
+        />
+      </div>
     </DiagramWrapper>
   );
 }
