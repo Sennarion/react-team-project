@@ -1,17 +1,16 @@
 import styled from 'styled-components';
-import categoryColor from 'data/data';
 
 export const TableHead = styled.div`
   display: flex;
-  margin-bottom: ${({ theme }) => theme.spacing(4)};
   justify-content: space-between;
+  margin-bottom: ${({ theme }) => theme.spacing(4)};
+  padding: ${({ theme }) => theme.spacing(4)} ${({ theme }) => theme.spacing(5)};
+  border-radius: 30px;
+  background-color: ${({ theme }) => theme.colors.white};
   font-family: ${({ theme }) => theme.fonts.primary};
   font-size: ${({ theme }) => theme.fontSizes.medhium};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   line-height: calc(27 / 18);
-  background-color: ${({ theme }) => theme.colors.white};
-  border-radius: 30px;
-  padding: ${({ theme }) => theme.spacing(4)} ${({ theme }) => theme.spacing(5)};
 `;
 
 export const Table = styled.table`
@@ -51,7 +50,6 @@ export const Square = styled.span`
   width: 24px;
   height: 24px;
   border-radius: 2px;
-  background-color: red; <= сюда передавать цвет категории, импортировать из диаграм, там создаь массив с цветами категорий */
 `;
 
 export const Category = styled.p`

@@ -5,7 +5,6 @@ import {
   SelectList,
   SelectItem,
 } from './FilterDropdown.styled';
-// import icons from '../../images/icons.svg';
 
 export default function FilterDropdown({ filters, onSelectToggle, defValue }) {
   const [selectDropdownShown, setSelectDropdownShown] = useState(false);

@@ -5,6 +5,9 @@ export const DoughnutWrap = styled.div`
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
+  @media screen and (min-width: ${({ theme }) => theme.media.desktop}) {
+    width: 288px;
+  }
 `;
 export const Balance = styled.p`
   text-align: center;
