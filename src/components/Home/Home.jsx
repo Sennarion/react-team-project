@@ -8,6 +8,7 @@ import { HomeWrapper } from './Home.styled';
 import { ButtonAddTransaction } from 'components/ButtonAddTransaction/ButtonAddTransaction';
 import ModalAddTransaction from 'components/ModalAddTransaction/ModalAddTransaction';
 import { Table } from '../../components/Table/Table.jsx';
+import Portal from 'components/UI/Portal/Portal';
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -22,7 +23,9 @@ export default function Home() {
       <ButtonAddTransaction
         onClick={() => dispatch(toggleModalAddTransaction())}
       />
-      {isModalTransactionOpen && <ModalAddTransaction />}
+      <Portal isVisible={isModalTransactionOpen}>
+        <ModalAddTransaction />
+      </Portal>
     </HomeWrapper>
   );
 }
