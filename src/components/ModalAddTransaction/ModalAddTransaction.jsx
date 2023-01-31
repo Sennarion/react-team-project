@@ -43,38 +43,23 @@ export default function ModalAddTransaction() {
   const initialValues = {
     transactionDate: '',
     type: 'INCOME',
-    categoryId: '',
     comment: '',
     amount: '',
     date: new Date(),
   };
   const FormError = ({ name }) => {
-    if (name === 'categoryId') {
-      return (
-        <ErrorMessage
-          name={name}
-          render={message => (
-            <ErrorMess data-mess={message}>
-              Category is a required field.
-            </ErrorMess>
-          )}
-        />
-      );
-    } else {
-      return (
-        <ErrorMessage
-          name={name}
-          render={message => <ErrorMess>{message}</ErrorMess>}
-        />
-      );
-    }
+    return (
+      <ErrorMessage
+        name={name}
+        render={message => <ErrorMess>{message}</ErrorMess>}
+      />
+    );
   };
 
   const transactionSchema = yup.object().shape({
-    categoryId: yup.string().required(),
     amount: yup
       .string()
-      .matches(/^\d+(\.\d+)*$/, 'Only numbers with dots. Example: 125.50')
+      .matches(/^\d+(\.\d+)*$/, 'Only numbers with dots. For example: 125.50.')
       .required(),
     date: yup.date().required('Date is a required field.'),
     comment: yup.string().required(),
@@ -108,7 +93,10 @@ export default function ModalAddTransaction() {
   };
 
   const onSelectToggle = id => {
+    console.log(id);
+    console.log(selectId);
     setSelectId(id);
+    console.log(selectId);
   };
 
   const handleSubmit = ({ amount, comment, date }, { resetForm }) => {
@@ -119,7 +107,7 @@ export default function ModalAddTransaction() {
       categoryId: isChecked ? selectId : incomeCategoryId,
       type: isChecked ? 'EXPENSE' : 'INCOME',
     };
-
+    console.log(transaction);
     dispatch(closeModalAddTransaction());
     dispatch(addTransaction(transaction));
 
@@ -169,7 +157,9 @@ export default function ModalAddTransaction() {
                     categories={filteredCategories}
                     onSelectToggle={onSelectToggle}
                   />
-                  <FormError name="categoryId" />
+                  {selectId.length === 0 && (
+                    <ErrorMess>Category is a required field</ErrorMess>
+                  )}
                 </Wrapper>
               )}
               <Wrap>
