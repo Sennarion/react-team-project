@@ -11,7 +11,6 @@ export const fetchTransactionsSummary = createAsyncThunk(
           year: query.selectedYear,
         },
       });
-      console.log('summary', res.data);
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -39,6 +38,18 @@ export const addTransaction = createAsyncThunk(
       return data;
     } catch (err) {
       console.error(err);
+    }
+  }
+);
+
+export const getTransaction = createAsyncThunk(
+  'transactions/getTransaction',
+  async (_, thunkAPI) => {
+    try {
+      const res = await inctanceAuth.get('/transactions');
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );

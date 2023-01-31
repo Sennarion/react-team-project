@@ -119,7 +119,7 @@ export default function RegistrationForm() {
         {({ values, setFieldValue }) => (
           <StyledForm autoComplete="off">
             <Wrapper>
-              <Input type="email" name="email" id="email" placeholder=" " />
+              <Input autoComplete='off' type="email" name="email" id="email" placeholder=" " />
               <Label htmlFor="email"> E-mail</Label>
               <Icon>
                 <svg width="24" height="24">
@@ -130,6 +130,7 @@ export default function RegistrationForm() {
             </Wrapper>
             <Wrapper>
               <Input
+                autoComplete='off'
                 type="password"
                 value={values.password}
                 onChange={e => {
@@ -141,7 +142,7 @@ export default function RegistrationForm() {
                 id="password"
                 placeholder=" "
               />
-              <Label htmlFor="password">Password</Label>
+              <Label autoComplete='off' htmlFor="password">Password</Label>
               <ProgressBarContainer>
                 <ProgressBar style={{ ...progressBarStyles }}></ProgressBar>
               </ProgressBarContainer>
@@ -154,6 +155,7 @@ export default function RegistrationForm() {
             </Wrapper>
             <Wrapper>
               <Input
+                autoComplete='off'
                 type="password"
                 name="confirmPassword"
                 id="confirmPassword"
@@ -169,6 +171,7 @@ export default function RegistrationForm() {
             </Wrapper>
             <Wrapper>
               <Input
+                autoComplete='off'
                 type="username"
                 name="username"
                 id="username"

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { Formik, Field } from 'formik';
+import { Formik } from 'formik';
 import DatePicker from 'react-datepicker';
 import { selectCategories } from 'redux/transactions/selectors';
-import { toggleModalAddTransaction } from 'redux/global/slice';
+import { closeModalAddTransaction } from 'redux/global/slice';
 import useMediaQuery from 'hooks/useMediaQuery/useMediaQuery';
 import HeaderContent from 'components/HeaderContent/HeaderContent';
 // import * as yup from 'yup';
@@ -28,9 +28,14 @@ import {
 import Backdrop from 'components/UI/Backdrop/Backdrop';
 import icons from '../../images/icons.svg';
 import { addTransaction } from 'redux/transactions/operations';
+import SelectTransaction from 'components/SelectTransaction/SelectTransaction';
 import 'react-datepicker/dist/react-datepicker.css';
 
 export default function ModalAddTransaction() {
+  const [date, setDate] = useState(new Date());
+  const [isChecked, setIsChecked] = useState(true);
+  const [selectId, setSelectId] = useState('');
+
   const initialValues = {
     transactionDate: '',
     type: 'INCOME',
@@ -39,9 +44,6 @@ export default function ModalAddTransaction() {
     amount: 0,
     date: new Date(),
   };
-
-  const [date, setDate] = useState(new Date());
-  const [isChecked, setIsChecked] = useState(true);
 
   const dispatch = useDispatch();
   const categories = useSelector(selectCategories);
@@ -53,7 +55,7 @@ export default function ModalAddTransaction() {
   useEffect(() => {
     const onPressEsc = e => {
       if (e.code === 'Escape') {
-        dispatch(toggleModalAddTransaction());
+        dispatch(closeModalAddTransaction());
       }
     };
 
@@ -66,30 +68,27 @@ export default function ModalAddTransaction() {
 
   const onBackdropClick = e => {
     if (e.currentTarget === e.target) {
-      dispatch(toggleModalAddTransaction());
+      dispatch(closeModalAddTransaction());
     }
   };
 
-  const handleSubmit = (
-    { amount, categories, comment, date },
-    { resetForm }
-  ) => {
+  const onSelectToggle = id => {
+    setSelectId(id);
+  };
+
+  const handleSubmit = ({ amount, comment, date }, { resetForm }) => {
     const transaction = {
       amount: isChecked ? -amount : amount,
       comment,
       transactionDate: new Date(date).toISOString(),
-      categoryId: isChecked ? categories : incomeCategoryId,
+      categoryId: isChecked ? selectId : incomeCategoryId,
       type: isChecked ? 'EXPENSE' : 'INCOME',
     };
 
+    dispatch(closeModalAddTransaction());
     dispatch(addTransaction(transaction));
-    dispatch(toggleModalAddTransaction());
 
     resetForm();
-  };
-
-  const onCheckboxChange = () => {
-    setIsChecked(prev => !prev);
   };
 
   return (
@@ -98,7 +97,7 @@ export default function ModalAddTransaction() {
         {isMobile ? (
           <HeaderContent />
         ) : (
-          <CloseButton onClick={() => dispatch(toggleModalAddTransaction())}>
+          <CloseButton onClick={() => dispatch(closeModalAddTransaction())}>
             <svg width="16" height="16">
               <use href={`${icons}#icon-close`}></use>
             </svg>
@@ -115,7 +114,7 @@ export default function ModalAddTransaction() {
               name="check"
               id="switch"
               value={isChecked}
-              onChange={onCheckboxChange}
+              onChange={() => setIsChecked(prev => !prev)}
             />
             <ToggleLabel htmlFor="switch" value={isChecked} />
           </Toggle>
@@ -126,13 +125,10 @@ export default function ModalAddTransaction() {
           {({ values, setFieldValue }) => (
             <TransactionForm>
               {isChecked && (
-                <Field as="select" name="categories">
-                  {filteredCategories.map(({ name, id }) => (
-                    <option key={id} value={id}>
-                      {name}
-                    </option>
-                  ))}
-                </Field>
+                <SelectTransaction
+                  categories={filteredCategories}
+                  onSelectToggle={onSelectToggle}
+                />
               )}
               <Wrap>
                 <SumInput
@@ -168,7 +164,7 @@ export default function ModalAddTransaction() {
               <ButWrap>
                 <PrimaryBut type="submit">Add</PrimaryBut>
                 <But
-                  onClick={() => dispatch(toggleModalAddTransaction())}
+                  onClick={() => dispatch(closeModalAddTransaction())}
                   type="button"
                 >
                   Cancel

@@ -1,14 +1,13 @@
 import { useSelector } from 'react-redux';
-import { getUserBalance } from 'redux/auth/selectors';
+import { getBalance } from 'redux/auth/selectors';
 import { BalanceWrapper, Desc, BalanceStatus } from './Balance.styled';
 
 export default function Balance() {
-  const userBalance = useSelector(getUserBalance);
-
+  const balance = useSelector(getBalance);
   return (
     <BalanceWrapper>
       <Desc>Your balance</Desc>
-      <BalanceStatus>₴ {userBalance}</BalanceStatus>
+      <BalanceStatus>₴ {balance}</BalanceStatus>
     </BalanceWrapper>
   );
 }

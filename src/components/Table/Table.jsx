@@ -1,9 +1,9 @@
-import React from 'react';
-// import './index.css'
-
-import Media from 'react-media';
-import { transactions } from './transaction.js';
-
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import useMediaQuery from 'hooks/useMediaQuery/useMediaQuery';
+import { selectGetTransactions } from 'redux/transactions/selectors.js';
+import { selectCategories } from 'redux/transactions/selectors.js';
+import { getTransaction } from '../../redux/transactions/operations.js';
 import {
   List,
   ListItem,
@@ -14,6 +14,21 @@ import {
 } from './Table.styled.js';
 
 export const Table = () => {
+  const dispatch = useDispatch();
+  const categories = useSelector(selectCategories);
+  const transactions = useSelector(selectGetTransactions);
+  const reverseTransactions = [...transactions].reverse();
+
+  const updateCategory = id => {
+    return categories.find(category => category.id === id).name;
+  };
+
+  useEffect(() => {
+    dispatch(getTransaction());
+  }, [dispatch]);
+
+  const isTablet = useMediaQuery('(min-width: 768px)');
+
   const columns = [
     {
       title: 'Date',
@@ -26,31 +41,58 @@ export const Table = () => {
       title: 'Type',
       dataIndex: 'type',
       key: 'type',
+      render: type => (type === 'INCOME' ? '+' : '-'),
+
+      filters: [
+        {
+          text: '+',
+          value: 'INCOME',
+        },
+        {
+          text: '-',
+          value: 'EXPENSE',
+        },
+      ],
       width: '10%',
+      onFilter: (value, item) => item.type.includes(value),
     },
+
     {
       title: 'Category',
       dataIndex: 'category',
       key: 'category',
-      width: '15%',
+      render: category => (
+        <>
+          {categories
+            .filter(elem => elem.id === category)
+            .map(({ name }) => {
+              return name;
+            })}
+        </>
+      ),
+
+      width: '18%',
     },
 
     {
       title: 'Comment',
       key: 'comment',
       dataIndex: 'comment',
-      width: '15%',
+      width: '18%',
     },
 
     {
-      title: 'Amount',
+      title: 'Sum',
       key: 'amount',
       dataIndex: 'amount',
+      render: (sum, item) => (
+        <SumStyled type={item.type}>{sum.toFixed(2)} </SumStyled>
+      ),
       width: '15%',
     },
 
     {
-      title: 'BalanceAfter',
+      title: 'Balance',
       key: 'balanceAfter',
       dataIndex: 'balanceAfter',
     },
@@ -58,57 +100,55 @@ export const Table = () => {
 
   return (
     <TableWrapper>
-      <Media query="(min-width: 768px)">
-        {matches =>
-          matches ? (
-            <StyledTable
-              rowClassName="rowStyled"
-              columns={columns}
-              dataSource={transactions?.map(item => ({
-                ...item,
-                key: item.id,
-              }))}
-              pagination={{
-                defaultPageSize: '5',
-                showSizeChanger: true,
-                pageSizeOptions: [5, 10, 15],
-                position: ['bottomRight'],
-              }}
-            />
-          ) : (
-            <TableWrapper>
-              {transactions?.map(item => (
-                <List type={item.type} key={item.id}>
-                  <ListItem>
-                    <ListText>{'Date'}</ListText>
-                    {item.transactionDate}
-                  </ListItem>
-                  <ListItem>
-                    <ListText>{'Type'}</ListText>
-                    {item.type === 'INCOME' ? '+' : '-'}
-                  </ListItem>
-                  <ListItem>
-                    <ListText>{'Category'}</ListText>
-                    {item.category}
-                  </ListItem>
-                  <ListItem>
-                    <ListText>{'Comment'}</ListText>
-                    {item.comment}
-                  </ListItem>
-                  <ListItem>
-                    <ListText>{'Sum'}</ListText>
-                    <SumStyled type={item.type}>{item.amount}</SumStyled>
-                  </ListItem>
-                  <ListItem>
-                    <ListText>{'Balance'}</ListText>
-                    {item.balanceAfter}
-                  </ListItem>
-                </List>
-              ))}
-            </TableWrapper>
-          )
-        }
-      </Media>
+      {isTablet ? (
+        <StyledTable
+          rowClassName="rowStyled"
+          columns={columns}
+          dataSource={reverseTransactions?.map(item => ({
+            ...item,
+            key: item.id,
+          }))}
+          pagination={{
+            defaultPageSize: '5',
+            showSizeChanger: true,
+            pageSizeOptions: [5, 10, 15],
+            position: ['bottomCenter'],
+          }}
+        />
+      ) : (
+        <TableWrapper>
+          {reverseTransactions.length > 0 &&
+            categories.length > 0 &&
+            reverseTransactions.map(item => (
+              <List type={item.type} key={item.id}>
+                <ListItem>
+                  <ListText>{'Date'}</ListText>
+                  {new Date(item.transactionDate)}
+                </ListItem>
+                <ListItem>
+                  <ListText>{'Type'}</ListText>
+                  {item.type === 'INCOME' ? '+' : '-'}
+                </ListItem>
+                <ListItem>
+                  <ListText>{'Category'}</ListText>
+                  {updateCategory(item.categoryId)}
+                </ListItem>
+                <ListItem>
+                  <ListText>{'Comment'}</ListText>
+                  {item.comment}
+                </ListItem>
+                <ListItem>
+                  <ListText>{'Sum'}</ListText>
+                  <SumStyled type={item.type}>{item.amount}</SumStyled>
+                </ListItem>
+                <ListItem>
+                  <ListText>{'Balance'}</ListText>
+                  {item.balanceAfter}
+                </ListItem>
+              </List>
+            ))}
+        </TableWrapper>
+      )}
     </TableWrapper>
   );
 };
