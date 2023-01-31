@@ -15,6 +15,7 @@ export const theme = Object.freeze({
     primaryBold: 'CirceBold, sans serif',
     secondary: 'PoppinsRegular, sans serif',
     secondaryBold: 'PoppinsBold, sans serif',
+  
   },
   fontSizes: {
     min: '12px',

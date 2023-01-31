@@ -3,6 +3,7 @@ import {
   fetchTransactionsSummary,
   fetchCategories,
   addTransaction,
+  getTransaction,
 } from 'redux/transactions/operations';
 import { logOut } from 'redux/auth/operations';
 
@@ -12,6 +13,7 @@ const initialState = {
   data: [],
   filteredData: [],
   categories: [],
+  transactions: [],
 };
 
 const handlePending = state => {
@@ -22,12 +24,16 @@ const handleRejected = (state, action) => {
   state.error = action.payload;
 };
 
+
 const transactionsSlice = createSlice({
   name: 'transactions',
   initialState,
   extraReducers: {
     [fetchTransactionsSummary.pending]: handlePending,
     [fetchTransactionsSummary.rejected]: handleRejected,
+    [getTransaction.pending]: handlePending,
+    [getTransaction.rejected]: handleRejected,
+
     [fetchTransactionsSummary.fulfilled](state, action) {
       state.isLoading = false;
       state.items = action.payload;
@@ -45,6 +51,11 @@ const transactionsSlice = createSlice({
       state.filteredData = [];
       state.categories = [];
     },
+    [getTransaction.fulfilled](state,action){
+      state.transactions = action.payload;
+      state.isLoading = false;
+      state.error = null;
+    }
   },
 });
 export const transactionsReducer = transactionsSlice.reducer;
