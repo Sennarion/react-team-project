@@ -13,6 +13,7 @@ import {
   SumStyled,
   TableWrapper,
 } from './Table.styled.js';
+import { formatCurrency } from 'utils/formatCurrency.js';
 
 export const Table = () => {
   const dispatch = useDispatch();
@@ -28,7 +29,6 @@ export const Table = () => {
     dispatch(getTransaction());
   }, [dispatch]);
 
-
   const isTablet = useMediaQuery('(min-width: 768px)');
 
   const columns = [
@@ -38,9 +38,8 @@ export const Table = () => {
       key: 'transactionDate',
       render: transactionDate =>
         format(new Date(transactionDate), 'dd.MM.yyyy'),
-        width: '17%',
+      width: '17%',
     },
-
     {
       title: 'Type',
       dataIndex: 'type',
@@ -60,41 +59,35 @@ export const Table = () => {
       width: '10%',
       onFilter: (value, item) => item.type.includes(value),
     },
-
     {
       title: 'Category',
       dataIndex: 'categoryId',
       key: 'categoryId',
       render: categoryId => (
-        <> 
-          {categories
-          .find(category => category.id === categoryId).name}
-        </>
+        <>{categories.find(category => category.id === categoryId).name}</>
       ),
       width: '18%',
     },
-
     {
       title: 'Comment',
       key: 'comment',
       dataIndex: 'comment',
       width: '18%',
     },
-
     {
       title: 'Sum',
       key: 'amount',
       dataIndex: 'amount',
       render: (sum, item) => (
-        <SumStyled type={item.type}>{sum.toFixed(2)} </SumStyled>
+        <SumStyled type={item.type}>{formatCurrency(sum)} </SumStyled>
       ),
       width: '15%',
     },
-
     {
       title: 'Balance',
       key: 'balanceAfter',
       dataIndex: 'balanceAfter',
+      render: balanceAfter => formatCurrency(balanceAfter),
     },
   ];
 
@@ -139,11 +132,13 @@ export const Table = () => {
                 </ListItem>
                 <ListItem>
                   <ListText>{'Sum'}</ListText>
-                  <SumStyled type={item.type}>{item.amount}</SumStyled>
+                  <SumStyled type={item.type}>
+                    {formatCurrency(item.amount)}
+                  </SumStyled>
                 </ListItem>
                 <ListItem>
                   <ListText>{'Balance'}</ListText>
-                  {item.balanceAfter}
+                  {formatCurrency(item.balanceAfter)}
                 </ListItem>
               </List>
             ))}

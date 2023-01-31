@@ -1,5 +1,5 @@
 export function formatCurrency(number) {
-  return number
+  return Math.abs(number)
     .toLocaleString('en-US', {
       style: 'currency',
       currency: 'USD',
