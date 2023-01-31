@@ -50,7 +50,7 @@ const transactionsSlice = createSlice({
       state.error = null;
     },
     [addTransaction.fulfilled](state, action) {
-      state.data.push(action.payload);
+      state.transactions.push(action.payload);
       state.balanceAfter = action.payload.balanceAfter;
     },
     [fetchCategories.fulfilled](state, action) {
