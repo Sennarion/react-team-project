@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { Formik, Field } from 'formik';
+import { Formik } from 'formik';
 import DatePicker from 'react-datepicker';
 import { selectCategories } from 'redux/transactions/selectors';
 import { closeModalAddTransaction } from 'redux/global/slice';
@@ -72,14 +72,11 @@ export default function ModalAddTransaction() {
     }
   };
 
- const onSelectToggle = id => { 
-   setSelectId(id);
-  }
+  const onSelectToggle = id => {
+    setSelectId(id);
+  };
 
-  const handleSubmit = (
-    { amount, comment, date },
-    { resetForm }
-  ) => {
+  const handleSubmit = ({ amount, comment, date }, { resetForm }) => {
     const transaction = {
       amount: isChecked ? -amount : amount,
       comment,
@@ -130,8 +127,11 @@ export default function ModalAddTransaction() {
         <Formik initialValues={initialValues} onSubmit={handleSubmit}>
           {({ values, setFieldValue }) => (
             <TransactionForm>
-              {isChecked && (                
-                <SelectTransaction categories={filteredCategories} onSelectToggle={ onSelectToggle} />
+              {isChecked && (
+                <SelectTransaction
+                  categories={filteredCategories}
+                  onSelectToggle={onSelectToggle}
+                />
               )}
               <Wrap>
                 <SumInput
