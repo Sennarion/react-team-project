@@ -81,7 +81,7 @@ export default function ModalAddTransaction() {
     { resetForm }
   ) => {
     const transaction = {
-      amount: isChecked ? Number(amount * -1) : amount,
+      amount: isChecked ? -amount : amount,
       comment,
       transactionDate: new Date(date).toISOString(),
       categoryId: isChecked ? selectId : incomeCategoryId,

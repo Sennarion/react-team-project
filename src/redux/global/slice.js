@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { logOut } from 'redux/auth/operations';
 
 const initialState = {
   isModalAddTransactionOpen: false,
@@ -16,6 +17,11 @@ const globalSlice = createSlice({
       state.isModalLogoutOpen = !state.isModalLogoutOpen;
     },
   },
+  extraReducers: builder =>
+    builder.addCase(logOut.fulfilled, state => {
+      state.isModalAddTransactionOpen = false;
+      state.isModalLogoutOpen = false;
+    }),
 });
 
 export const { toggleModalAddTransaction, toggleModalLogout } =

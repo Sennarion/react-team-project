@@ -4,6 +4,7 @@ import {
   fetchCategories,
   addTransaction,
 } from 'redux/transactions/operations';
+import { logOut } from 'redux/auth/operations';
 
 const initialState = {
   isLoading: false,
@@ -37,6 +38,12 @@ const transactionsSlice = createSlice({
     },
     [fetchCategories.fulfilled](state, action) {
       state.categories = action.payload;
+    },
+    [logOut.fulfilled](state) {
+      state.error = null;
+      state.data = [];
+      state.filteredData = [];
+      state.categories = [];
     },
   },
 });
