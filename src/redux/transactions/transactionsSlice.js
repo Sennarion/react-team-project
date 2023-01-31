@@ -7,12 +7,12 @@ import {
 } from 'redux/transactions/operations';
 
 const initialState = {
-  isLoading: false,
-  error: null,
-  data: [],
-  filteredData: [],
   categories: [],
   transactions: [],
+  summary: {},
+  isLoading: false,
+  isSuccessfulAddition: null,
+  error: null,
   balanceAfter: 0,
 };
 
@@ -29,12 +29,10 @@ const transactionsSlice = createSlice({
   initialState,
   reducers: {
     clearTransactions(state) {
-      state.isLoading = false;
-      state.error = null;
-      state.data = [];
-      state.filteredData = [];
       state.categories = [];
       state.transactions = [];
+      state.isLoading = false;
+      state.error = null;
       state.balanceAfter = 0;
     },
   },
@@ -46,12 +44,13 @@ const transactionsSlice = createSlice({
 
     [fetchTransactionsSummary.fulfilled](state, action) {
       state.isLoading = false;
-      state.items = action.payload;
+      state.summary = action.payload;
       state.error = null;
     },
     [addTransaction.fulfilled](state, action) {
       state.transactions.push(action.payload);
       state.balanceAfter = action.payload.balanceAfter;
+      state.isSuccessfulAddition = action.payload;
     },
     [fetchCategories.fulfilled](state, action) {
       state.categories = action.payload;

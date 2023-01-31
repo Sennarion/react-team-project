@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useMediaQuery from 'hooks/useMediaQuery/useMediaQuery';
@@ -12,6 +13,7 @@ import {
   SumStyled,
   TableWrapper,
 } from './Table.styled.js';
+import { formatCurrency } from 'utils/formatCurrency.js';
 
 export const Table = () => {
   const dispatch = useDispatch();
@@ -34,9 +36,10 @@ export const Table = () => {
       title: 'Date',
       dataIndex: 'transactionDate',
       key: 'transactionDate',
+      render: transactionDate =>
+        format(new Date(transactionDate), 'dd.MM.yyyy'),
       width: '17%',
     },
-
     {
       title: 'Type',
       dataIndex: 'type',
@@ -56,51 +59,41 @@ export const Table = () => {
       width: '10%',
       onFilter: (value, item) => item.type.includes(value),
     },
-
     {
       title: 'Category',
-      dataIndex: 'category',
-      key: 'category',
-      render: category => (
-        <>
-          {categories
-            .filter(elem => elem.id === category)
-            .map(({ name }) => {
-              return name;
-            })}
-        </>
+      dataIndex: 'categoryId',
+      key: 'categoryId',
+      render: categoryId => (
+        <>{categories.find(category => category.id === categoryId).name}</>
       ),
-
       width: '18%',
     },
-
     {
       title: 'Comment',
       key: 'comment',
       dataIndex: 'comment',
       width: '18%',
     },
-
     {
       title: 'Sum',
       key: 'amount',
       dataIndex: 'amount',
       render: (sum, item) => (
-        <SumStyled type={item.type}>{sum.toFixed(2)} </SumStyled>
+        <SumStyled type={item.type}>{formatCurrency(sum)} </SumStyled>
       ),
       width: '15%',
     },
-
     {
       title: 'Balance',
       key: 'balanceAfter',
       dataIndex: 'balanceAfter',
+      render: balanceAfter => formatCurrency(balanceAfter),
     },
   ];
 
   return (
     <TableWrapper>
-      {isTablet ? (
+      {isTablet && categories.length > 0 ? (
         <StyledTable
           rowClassName="rowStyled"
           columns={columns}
@@ -123,7 +116,7 @@ export const Table = () => {
               <List type={item.type} key={item.id}>
                 <ListItem>
                   <ListText>{'Date'}</ListText>
-                  {new Date(item.transactionDate)}
+                  {format(new Date(item.transactionDate), 'dd.MM.yyyy')}
                 </ListItem>
                 <ListItem>
                   <ListText>{'Type'}</ListText>
@@ -139,11 +132,13 @@ export const Table = () => {
                 </ListItem>
                 <ListItem>
                   <ListText>{'Sum'}</ListText>
-                  <SumStyled type={item.type}>{item.amount}</SumStyled>
+                  <SumStyled type={item.type}>
+                    {formatCurrency(item.amount)}
+                  </SumStyled>
                 </ListItem>
                 <ListItem>
                   <ListText>{'Balance'}</ListText>
-                  {item.balanceAfter}
+                  {formatCurrency(item.balanceAfter)}
                 </ListItem>
               </List>
             ))}

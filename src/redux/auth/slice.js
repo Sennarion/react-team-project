@@ -5,7 +5,6 @@ const initialState = {
   user: { username: null, email: null, balance: 0 },
   token: null,
   isLogged: false,
-  isRefreshUser: false,
   isLoading: false,
   error: null,
 };
@@ -14,13 +13,10 @@ const extraActions = [register, logIn, refreshUser, logOut];
 const getActions = type => extraActions.map(action => action[type]);
 
 const handlePending = state => {
+  state.error = null;
   state.isLoading = true;
 };
 
-const handleRejected = (state, { payload }) => {
-  state.isLoading = false;
-  state.error = payload;
-};
 const handleFulfilled = state => {
   state.isLoading = false;
   state.error = null;
@@ -47,20 +43,24 @@ const authSlice = createSlice({
         state.isLogged = false;
         state.error = null;
       })
-      .addCase(refreshUser.pending, state => {
-        state.isRefreshUser = true;
-      })
-      .addCase(refreshUser.rejected, state => {
-        state.isRefreshUser = false;
-      })
       .addCase(refreshUser.fulfilled, (state, { payload }) => {
         state.user = payload;
         state.isLogged = true;
-        state.isRefreshUser = false;
+      })
+      .addCase(register.rejected, state => {
+        state.isLoading = false;
+        state.error = 'Such a user is already registered';
+      })
+      .addCase(logIn.rejected, state => {
+        state.isLoading = false;
+        state.error = 'Invalid e-mail or password. Try again';
+      })
+      .addCase(logOut.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload.error;
       })
       .addMatcher(isAnyOf(...getActions('pending')), handlePending)
-      .addMatcher(isAnyOf(...getActions('fulfilled')), handleFulfilled)
-      .addMatcher(isAnyOf(...getActions('rejected')), handleRejected);
+      .addMatcher(isAnyOf(...getActions('fulfilled')), handleFulfilled);
   },
 });
 
