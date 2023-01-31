@@ -1,8 +1,12 @@
 import React from 'react';
-// import './index.css'
 
-import Media from 'react-media';
-import { transactions } from './transaction.js';
+    import { useEffect } from 'react';
+    import { useDispatch, useSelector } from 'react-redux';
+    import useMediaQuery from 'hooks/useMediaQuery/useMediaQuery';
+    import { selectGetTransactions } from 'redux/transactions/selectors.js';
+    import { selectCategories } from 'redux/transactions/selectors.js';
+    import { getTransaction } from '../../redux/transactions/operations.js';
+    import { fetchCategories } from '../../redux/transactions/operations.js';
 
 import {
   List,
@@ -14,6 +18,24 @@ import {
 } from './Table.styled.js';
 
 export const Table = () => {
+  const dispatch = useDispatch();
+
+  const transactions = useSelector(selectGetTransactions);
+  const reverseTransactions = [...transactions].reverse();
+
+  const categories = useSelector(selectCategories);
+
+  useEffect(() => {
+    dispatch(getTransaction());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
+
+
+const isTablet = useMediaQuery('(min-width: 768px)');
+
   const columns = [
     {
       title: 'Date',
@@ -26,45 +48,71 @@ export const Table = () => {
       title: 'Type',
       dataIndex: 'type',
       key: 'type',
+      render: type => (type === 'INCOME' ? '+' : '-'),
+
+      filters: [
+        {
+          text: '+',
+          value: 'INCOME',
+        },
+        {
+          text: '-',
+          value: 'EXPENSE',
+        },
+      ],
       width: '10%',
+      onFilter: (value, item) => item.type.includes(value),
     },
+
     {
       title: 'Category',
       dataIndex: 'category',
       key: 'category',
-      width: '15%',
+      render: category => (
+        <>
+        {categories
+          .filter(elem => elem.id === category)
+          .map(({ name }) => {
+            return name;
+          })}
+      </>
+      ),
+
+      width: '18%',
     },
 
     {
       title: 'Comment',
       key: 'comment',
       dataIndex: 'comment',
-      width: '15%',
+      width: '18%',
     },
 
-    {
-      title: 'Amount',
-      key: 'amount',
-      dataIndex: 'amount',
-      width: '15%',
-    },
+      {
+        title: 'Sum',
+        key: 'amount',
+        dataIndex: 'amount',
+        render: (sum, item) => (
+          <SumStyled type={item.type}>{sum.toFixed(2)} </SumStyled>
+        ),
+        width: '15%',
+      },
 
-    {
-      title: 'BalanceAfter',
-      key: 'balanceAfter',
-      dataIndex: 'balanceAfter',
-    },
+      {
+        title: 'Balance',
+        key: 'balanceAfter',
+        dataIndex: 'balanceAfter',
+        
+      },
   ];
 
   return (
     <TableWrapper>
-      <Media query="(min-width: 768px)">
-        {matches =>
-          matches ? (
+      { isTablet ? (
             <StyledTable
               rowClassName="rowStyled"
               columns={columns}
-              dataSource={transactions?.map(item => ({
+              dataSource={reverseTransactions?.map(item => ({
                 ...item,
                 key: item.id,
               }))}
@@ -72,12 +120,12 @@ export const Table = () => {
                 defaultPageSize: '5',
                 showSizeChanger: true,
                 pageSizeOptions: [5, 10, 15],
-                position: ['bottomRight'],
+                position: ['bottomCenter'],
               }}
             />
           ) : (
             <TableWrapper>
-              {transactions?.map(item => (
+              {reverseTransactions?.map(item => (
                 <List type={item.type} key={item.id}>
                   <ListItem>
                     <ListText>{'Date'}</ListText>
@@ -89,7 +137,9 @@ export const Table = () => {
                   </ListItem>
                   <ListItem>
                     <ListText>{'Category'}</ListText>
-                    {item.category}
+                    {categories
+                      .filter(elem => elem.id === item.category)
+                      .map(el => el.name)}
                   </ListItem>
                   <ListItem>
                     <ListText>{'Comment'}</ListText>
@@ -106,9 +156,7 @@ export const Table = () => {
                 </List>
               ))}
             </TableWrapper>
-          )
-        }
-      </Media>
+          )}
     </TableWrapper>
   );
 };
