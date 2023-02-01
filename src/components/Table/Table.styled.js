@@ -83,7 +83,8 @@ export const List = styled.ul`
   margin-bottom: 10px;
   border-radius: 10px;
   border-left: 5px solid;
-  border-left-color: ${({ type }) => (type === 'INCOME' ? 'green' : 'red')};
+  border-left-color: ${({ type, theme }) =>
+    type === 'INCOME' ? theme.colors.accentGreen : theme.colors.accentPink};
   background: ${theme.colors.white};
   overflow: hidden;
 `;
@@ -109,7 +110,8 @@ export const ListText = styled.span`
 `;
 
 export const SumStyled = styled.span`
-  color: ${({ type }) => (type === 'INCOME' ? 'green' : 'red')};
+  color: ${({ type, theme }) =>
+    type === 'INCOME' ? theme.colors.accentGreen : theme.colors.accentPink};
   font-family: ${theme.fonts.primary};
   font-weight: ${theme.fontWeight.bold};
   font-size: ${theme.fontSizes.small};
