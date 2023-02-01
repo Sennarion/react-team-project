@@ -1,40 +1,19 @@
 import Chart from 'components/Chart/Chart';
 import StaticticsTable from 'components/StaticticsTable/StaticticsTable';
-import { DiagramWrapper, Dropdowns } from './Diagram.styled';
+import {
+  ChartTable,
+  DiagramWrapper,
+  DropdownWrap,
+  Dropdowns,
+  Title,
+  Wrap,
+} from './Diagram.styled';
 import { useEffect, useState } from 'react';
 import { fetchTransactionsSummary } from '../../redux/transactions/operations';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectSummary } from 'redux/transactions/selectors';
 import FilterDropdown from 'components/FilterDropdown/FilterDropdown';
 import categoryColor from 'data/data';
-
-//======================================================разделяем транзакции по типу доход расход и считаем общую сумму в каждом из типов
-// let totalIncome = 0;
-// let totalExpence = 0;
-// let incomeTransactions = [];
-// let expenceTransactions = [];
-// for (let el of transactions) {
-//   if (el.type === 'INCOME') {
-//     incomeTransactions.push(el);
-//     totalIncome += el.amount;
-//   }
-//   if (el.type === 'EXPENCE') {
-//     expenceTransactions.push(el);
-//     totalExpence += el.amount;
-//   }
-// }
-
-//======================================================создаем массив с тратами по каждой категории
-// let object = expenceTransactions.reduce((acc, el) => {
-//   acc[el.categoryId] = acc[el.categoryId]
-//     ? el.amount + acc[el.categoryId]
-//     : el.amount;
-//   return acc;
-// }, {});
-// let categories = [];
-// for (let el in object) {
-//   categories.push({ category: el, total: object[el] });
-// }
 
 export default function Diagram() {
   const isSummary = useSelector(selectSummary);
@@ -68,6 +47,8 @@ export default function Diagram() {
   //======================================================установка значения фильтра по дате
   const [month, setMonth] = useState(months[currentMonth].value);
   const [year, setYear] = useState(currentYear);
+  const [selectMonthShown, setSelectMonthShown] = useState(false);
+  const [selectYearsShown, setSelectYearsShown] = useState(false);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -77,6 +58,20 @@ export default function Diagram() {
     };
     dispatch(fetchTransactionsSummary(query));
   }, [dispatch, month, year]);
+
+  function handleMonthDown() {
+    setSelectMonthShown(prev => !prev);
+    if (selectYearsShown === true) {
+      setSelectYearsShown(false);
+    }
+  }
+
+  function handleYearDown() {
+    setSelectYearsShown(prev => !prev);
+    if (selectMonthShown === true) {
+      setSelectMonthShown(false);
+    }
+  }
 
   const handleMomthChange = id => {
     setMonth(id);
@@ -89,25 +84,38 @@ export default function Diagram() {
     Array.isArray(isSummary.categoriesSummary) &&
     isSummary.categoriesSummary.filter(el => el.type === 'EXPENSE');
 
-  //   labels:
-  //     Array.isArray(expenseCategories) &&
-  //     expenseCategories.map(data => data.name),
-
   const userData = {
+    labels:
+      Array.isArray(expenseCategories) &&
+      expenseCategories.map(data => data.name),
     datasets: [
       {
         label: 'total',
+        /* Array.isArray(expenseCategories) */
         data:
-          Array.isArray(expenseCategories) &&
-          expenseCategories.map(data => data.total * -1),
+          expenseCategories.length > 0
+            ? expenseCategories.map(data => data.total * -1)
+            : [0.0001],
+        /* Array.isArray(expenseCategories) */
         backgroundColor:
-          Array.isArray(expenseCategories) &&
-          expenseCategories.map(
-            el => categoryColor.find(item => item.name === el.name).color
-          ),
-
+          expenseCategories.length > 0
+            ? expenseCategories.map(
+                el => categoryColor.find(item => item.name === el.name).color
+              )
+            : 'rgba(0, 0, 0, 0.1)',
         borderWidth: 0,
-        radius: '100%',
+        radius: function (windowInnerWidth) {
+          windowInnerWidth = window.innerWidth;
+          if (windowInnerWidth < 768) {
+            return '100%';
+          }
+          if (windowInnerWidth >= 768 && windowInnerWidth <= 1280) {
+            return 168;
+          }
+          if (windowInnerWidth >= 1280) {
+            return 144;
+          }
+        },
         cutout: '70%',
       },
     ],
@@ -115,26 +123,37 @@ export default function Diagram() {
 
   return (
     <DiagramWrapper>
-      <Chart chartData={userData} />
-      <div>
-        <Dropdowns>
-          <FilterDropdown
-            filters={months}
-            onSelectToggle={handleMomthChange}
-            defValue={months[month - 1].label}
+      <Title>Statistics</Title>
+      <ChartTable>
+        <Chart chartData={userData} />
+        <Wrap>
+          <Dropdowns>
+            <DropdownWrap>
+              <FilterDropdown
+                handleDropDown={handleMonthDown}
+                selectDropdownShown={selectMonthShown}
+                filters={months}
+                onSelectToggle={handleMomthChange}
+                defValue={months[month - 1].label}
+              />
+            </DropdownWrap>
+            <DropdownWrap>
+              <FilterDropdown
+                handleDropDown={handleYearDown}
+                selectDropdownShown={selectYearsShown}
+                filters={years}
+                onSelectToggle={handleYearChange}
+                defValue={year}
+              />
+            </DropdownWrap>
+          </Dropdowns>
+          <StaticticsTable
+            tableData={expenseCategories}
+            income={isSummary.incomeSummary}
+            expence={isSummary.expenseSummary}
           />
-          <FilterDropdown
-            filters={years}
-            onSelectToggle={handleYearChange}
-            defValue={year}
-          />
-        </Dropdowns>
-        <StaticticsTable
-          tableData={expenseCategories}
-          income={isSummary.incomeSummary}
-          expence={isSummary.expenseSummary}
-        />
-      </div>
+        </Wrap>
+      </ChartTable>
     </DiagramWrapper>
   );
 }
