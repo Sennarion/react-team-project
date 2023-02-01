@@ -39,6 +39,10 @@ export default function ModalAddTransaction() {
   const [date, setDate] = useState(new Date());
   const [isChecked, setIsChecked] = useState(true);
   const [selectId, setSelectId] = useState('');
+  const [selectErrorStyle, setSelectErrorStyle] = useState({
+    opacity: 0,
+    height: '0px',
+  });
 
   const initialValues = {
     transactionDate: '',
@@ -61,8 +65,8 @@ export default function ModalAddTransaction() {
       .string()
       .matches(/^\d+(\.\d+)*$/, 'Only numbers with dots. For example: 125.50.')
       .required(),
-    date: yup.date().required('Date is a required field.'),
-    comment: yup.string().required(),
+    comment: yup.string().min(2).max(20),
+    date: yup.date().max(new Date()).required('Date is a required field.'),
   });
 
   const dispatch = useDispatch();
@@ -71,6 +75,15 @@ export default function ModalAddTransaction() {
 
   const incomeCategoryId = categories.find(el => el.name === 'Income').id;
   const filteredCategories = categories.filter(el => el.name !== 'Income');
+
+  useEffect(() => {    
+    if (selectId.length > 0 && selectErrorStyle.opacity === 1) {
+      setSelectErrorStyle({
+        opacity: 0,
+        height: '0px',
+      });
+    }
+  }, [selectId, selectErrorStyle]);
 
   useEffect(() => {
     const onPressEsc = e => {
@@ -93,13 +106,17 @@ export default function ModalAddTransaction() {
   };
 
   const onSelectToggle = id => {
-    console.log(id);
-    console.log(selectId);
     setSelectId(id);
-    console.log(selectId);
   };
 
   const handleSubmit = ({ amount, comment, date }, { resetForm }) => {
+    if (!selectId.length && isChecked) {
+      setSelectErrorStyle({
+        opacity: 1,
+        height: 'auto',
+      });
+      return;
+    }
     const transaction = {
       amount: isChecked ? -Number(amount) : Number(amount),
       comment,
@@ -157,9 +174,9 @@ export default function ModalAddTransaction() {
                     categories={filteredCategories}
                     onSelectToggle={onSelectToggle}
                   />
-                  {selectId.length === 0 && (
-                    <ErrorMess>Category is a required field</ErrorMess>
-                  )}
+                  <ErrorMess style={selectErrorStyle}>
+                    Category is a required field
+                  </ErrorMess>
                 </Wrapper>
               )}
               <Wrap>

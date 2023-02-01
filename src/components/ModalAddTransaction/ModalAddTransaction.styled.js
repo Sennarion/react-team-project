@@ -140,6 +140,7 @@ export const SumInput = styled(Field)`
   font-family: ${({ theme }) => theme.fonts.primaryBold};
   forn-size: ${({ theme }) => theme.spacing(5)};
   color: ${({ theme }) => theme.colors.grey};
+  text-align: center;
   &::placeholder {
     text-align: center;
     color: ${({ theme }) => theme.colors.grey};
