@@ -3,6 +3,7 @@ import { Doughnut } from 'react-chartjs-2';
 import { useSelector } from 'react-redux';
 import { getUserBalance } from 'redux/auth/selectors';
 import { Balance, DoughnutWrap } from './Chart.styled';
+import { formatCurrency } from 'utils/formatCurrency';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 ChartJS.overrides.doughnut.plugins = {
@@ -17,12 +18,7 @@ export default function Chart({ chartData }) {
 
   return (
     <DoughnutWrap>
-      <Balance>
-        {new Intl.NumberFormat('en-US', {
-          style: 'currency',
-          currency: 'USD',
-        }).format(userBalance)}
-      </Balance>
+      <Balance>{formatCurrency(userBalance)}</Balance>
       <Doughnut data={chartData} />
     </DoughnutWrap>
   );
