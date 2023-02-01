@@ -83,7 +83,8 @@ export const List = styled.ul`
   margin-bottom: 10px;
   border-radius: 10px;
   border-left: 5px solid;
-  border-left-color: ${({ type }) => (type === 'INCOME' ? 'green' : 'red')};
+  border-left-color: ${({ type, theme }) =>
+    type === 'INCOME' ? theme.colors.accentGreen : theme.colors.accentPink};
   background: ${theme.colors.white};
   overflow: hidden;
 `;
