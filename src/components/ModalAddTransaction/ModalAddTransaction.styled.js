@@ -132,7 +132,7 @@ export const Wrapper = styled.div`
 `;
 
 export const SumInput = styled(Field)`
-  width: ${({ theme }) => theme.spacing(47.5)};
+  width: 100%;
   height: ${({ theme }) => theme.spacing(8)};
   border: none;
   outline: none;
@@ -140,10 +140,14 @@ export const SumInput = styled(Field)`
   font-family: ${({ theme }) => theme.fonts.primaryBold};
   forn-size: ${({ theme }) => theme.spacing(5)};
   color: ${({ theme }) => theme.colors.grey};
+  text-align: center;
   &::placeholder {
     text-align: center;
     color: ${({ theme }) => theme.colors.grey};
   }
+  @media screen and (min-width: ${({ theme }) => theme.media.tablet}) {
+    width: ${({ theme }) => theme.spacing(47.5)};
+  } ;
 `;
 
 export const DateWrapper = styled.div`
@@ -158,7 +162,7 @@ export const DateWrapper = styled.div`
 `;
 
 export const DateInput = styled(DatePicker)`
-  width: ${({ theme }) => theme.spacing(47.5)};
+  width: 100%;
   height: ${({ theme }) => theme.spacing(8)};
   padding-left: ${({ theme }) => theme.spacing(4)};
   color: ${({ theme }) => theme.colors.black};
@@ -166,6 +170,9 @@ export const DateInput = styled(DatePicker)`
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
   outline: none;
   background-color: transparent;
+  @media screen and (min-width: ${({ theme }) => theme.media.tablet}) {
+    width: ${({ theme }) => theme.spacing(47.5)};
+  } ;
 `;
 
 export const Wrap = styled.div`
