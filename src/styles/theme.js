@@ -15,14 +15,13 @@ export const theme = Object.freeze({
     primaryBold: 'CirceBold, sans serif',
     secondary: 'PoppinsRegular, sans serif',
     secondaryBold: 'PoppinsBold, sans serif',
-  
   },
   fontSizes: {
     min: '12px',
     small: '16px',
     medium: '18px',
-    large: '28px',
     max: '24px',
+    large: '28px',
     title: '30px',
   },
   fontWeight: {
