@@ -15,7 +15,6 @@
     "formik": "^2.2.9",
     "framer-motion": "^8.5.5",
     "modern-normalize": "^1.1.0",
-    "nanoid": "^4.0.0",
     "react": "^18.1.0",
     "react-chartjs-2": "^5.2.0",
     "react-datepicker": "^4.10.0",

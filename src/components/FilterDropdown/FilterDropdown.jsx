@@ -6,16 +6,16 @@ import {
   SelectItem,
 } from './FilterDropdown.styled';
 
-export default function FilterDropdown({ filters, onSelectToggle, defValue }) {
-  const [selectDropdownShown, setSelectDropdownShown] = useState(false);
+export default function FilterDropdown({
+  filters,
+  onSelectToggle,
+  defValue,
+  selectDropdownShown,
+  handleDropDown,
+}) {
   const [filter, setFilter] = useState(0);
   const filterNames = [defValue];
-
   filterNames.push(...filters.map(fil => fil.label));
-
-  function handleDropDown() {
-    setSelectDropdownShown(prev => !prev);
-  }
 
   function handleFilter(e) {
     setFilter(e.target.dataset.id);
@@ -25,7 +25,11 @@ export default function FilterDropdown({ filters, onSelectToggle, defValue }) {
 
   return (
     <SelectWrapper>
-      <ButtonSelect type="button" onClick={handleDropDown}>
+      <ButtonSelect
+        type="button"
+        onClick={handleDropDown}
+        isOpen={selectDropdownShown}
+      >
         <p>{filterNames[filter]}</p>
       </ButtonSelect>
       {selectDropdownShown && (
