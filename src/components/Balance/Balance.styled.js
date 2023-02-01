@@ -25,3 +25,8 @@ export const BalanceStatus = styled.h2`
   font-size: ${({ theme }) => theme.fontSizes.title};
   line-height: calc(45 / 30);
 `;
+
+export const BalanceCurrency = styled.span`
+  font-family: ${({ theme }) => theme.fonts.secondary};
+  font-weight: 400;
+`;
