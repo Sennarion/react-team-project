@@ -18,7 +18,7 @@ export default function Chart({ chartData }) {
 
   return (
     <DoughnutWrap>
-      <Balance>{formatCurrency(userBalance)}</Balance>
+      <Balance>₴ {formatCurrency(userBalance)}</Balance>
       <Doughnut data={chartData} />
     </DoughnutWrap>
   );

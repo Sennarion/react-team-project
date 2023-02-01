@@ -18,17 +18,14 @@ import categoryColor from 'data/data';
 export default function Diagram() {
   const isSummary = useSelector(selectSummary);
 
-  //=======================================================достаем актуальные мецяц и год
   const currentMonth = new Date().getMonth();
   const currentYear = new Date().getFullYear();
 
-  //======================================================записываем в массив 5 последних лет
   const years = [];
   for (let i = currentYear; i >= currentYear - 5; i -= 1) {
     years.push({ label: i, value: i });
   }
 
-  //======================================================массив с месяцами
   const months = [
     { label: 'January', value: '1' },
     { label: 'February', value: '2' },
@@ -44,7 +41,6 @@ export default function Diagram() {
     { label: 'December', value: '12' },
   ];
 
-  //======================================================установка значения фильтра по дате
   const [month, setMonth] = useState(months[currentMonth].value);
   const [year, setYear] = useState(currentYear);
   const [selectMonthShown, setSelectMonthShown] = useState(false);
@@ -91,12 +87,10 @@ export default function Diagram() {
     datasets: [
       {
         label: 'total',
-        /* Array.isArray(expenseCategories) */
         data:
           expenseCategories.length > 0
             ? expenseCategories.map(data => data.total * -1)
             : [0.0001],
-        /* Array.isArray(expenseCategories) */
         backgroundColor:
           expenseCategories.length > 0
             ? expenseCategories.map(

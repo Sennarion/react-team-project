@@ -13,15 +13,9 @@ export default function FilterDropdown({
   selectDropdownShown,
   handleDropDown,
 }) {
-  //   const [selectDropdownShown, setSelectDropdownShown] = useState(false);
   const [filter, setFilter] = useState(0);
   const filterNames = [defValue];
-
   filterNames.push(...filters.map(fil => fil.label));
-
-  //   function handleDropDown() {
-  //     setSelectDropdownShown(prev => !prev);
-  //   }
 
   function handleFilter(e) {
     setFilter(e.target.dataset.id);
