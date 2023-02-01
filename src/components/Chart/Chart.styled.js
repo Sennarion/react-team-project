@@ -27,7 +27,7 @@ export const Balance = styled.p`
   left: 50%;
   transform: translate(-50%, -50%);
   font-family: ${({ theme }) => theme.fonts.primary};
-  font-size: ${({ theme }) => theme.fontSizes.medhium};
+  font-size: ${({ theme }) => theme.fontSizes.medium};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   line-height: calc(27 / 18);
   @media screen and (min-width: ${({ theme }) => theme.media.tablet}) {

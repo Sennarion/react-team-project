@@ -32,11 +32,18 @@ export const SelectList = styled.ul`
   box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(25px);
   border-radius: ${({ theme }) => theme.spacing(5)};
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
 `;
 export const SelectItem = styled.li`
   cursor: pointer;
-  padding-top: ${({ theme }) => theme.spacing(2)};
-  padding-bottom: ${({ theme }) => theme.spacing(2)};
+  padding-top: ${({ theme }) => theme.spacing(3.5)};
+  padding-bottom: ${({ theme }) => theme.spacing(3.5)};
   padding-left: ${({ theme }) => theme.spacing(5)};
   padding-right: ${({ theme }) => theme.spacing(5)};
   font-family: ${({ theme }) => theme.fonts.primary};

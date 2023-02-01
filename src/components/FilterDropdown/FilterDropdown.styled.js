@@ -41,9 +41,9 @@ export const SelectList = styled.ul`
   left: 0;
   z-index: 1;
   width: 100%;
-  height: ${({ theme }) => theme.spacing(40)}
+  height: ${({ theme }) => theme.spacing(40)};
   overflow: auto;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.5);
   box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(25px);
   border-radius: ${({ theme }) => theme.spacing(5)};
@@ -53,6 +53,7 @@ export const SelectList = styled.ul`
   &::-webkit-scrollbar {
       width: 0;
       height: 0;
+  }
 `;
 
 export const SelectItem = styled.li`
