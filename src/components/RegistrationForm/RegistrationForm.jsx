@@ -103,7 +103,10 @@ export default function RegistrationForm() {
       email: values.email,
       password: values.password,
     };
-
+    setProgressBarStyles({
+      width: '0%',
+      backgroundColor: 'transparent',
+    });
     dispatch(register(user));
     resetForm();
   };
