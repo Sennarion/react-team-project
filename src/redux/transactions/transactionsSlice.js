@@ -41,7 +41,6 @@ const transactionsSlice = createSlice({
     [fetchTransactionsSummary.rejected]: handleRejected,
     [getTransaction.pending]: handlePending,
     [getTransaction.rejected]: handleRejected,
-
     [fetchTransactionsSummary.fulfilled](state, action) {
       state.isLoading = false;
       state.summary = action.payload;
