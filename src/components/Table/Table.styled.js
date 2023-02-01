@@ -3,81 +3,79 @@ import { Table } from 'antd';
 import { theme } from '../../styles/theme';
 
 export const StyledTable = styled(Table)`
-min-width: 715px;
-max-width: 750px;
+  min-width: 715px;
+  max-width: 750px;
 
-@media screen and (min-width: ${theme.media.tablet}) {
-  min-width: 704px;
-}
+  @media screen and (min-width: ${theme.media.tablet}) {
+    min-width: 704px;
+  }
 
-.ant-table {
-  width: 100%;
-  border-radius: 30px;
-  background: transparent;
-}
-.ant-table .ant-table-container {
-  border-radius: 0;
-}
-.ant-table table {
-  border-radius: 30px;
-}
-thead.ant-table-thead tr th {
-  font-family: ${date => date.theme.fonts.primary};
-  font-weight:  ${date => date.theme.fontWeight.bold};
-  font-size: ${date => date.theme.fontSizes.medium};
-  background: ${date => date.theme.colors.white};
-}
+  .ant-table {
+    width: 100%;
+    border-radius: 30px;
+    background: transparent;
+  }
+  .ant-table .ant-table-container {
+    border-radius: 0;
+  }
+  .ant-table table {
+    border-radius: 30px;
+  }
+  thead.ant-table-thead tr th {
+    font-family: ${date => date.theme.fonts.primary};
+    font-weight: ${date => date.theme.fontWeight.bold};
+    font-size: ${date => date.theme.fontSizes.medium};
+    background: ${date => date.theme.colors.white};
+  }
 
-.ant-table-tbody tr td {
-  border-top: 1px solid #DCDCDF !important;
-}
+  .ant-table-tbody tr td {
+    border-top: 1px solid #dcdcdf !important;
+  }
 
-.ant-table-cell {
-  font-family: ${date => date.theme.fonts.primary};
-  font-weight: ${date => date.theme.fontWeight.normal};
-  font-size: ${date => date.theme.fontSizes.small};
-  text-align: center;
-}
+  .ant-table-cell {
+    font-family: ${date => date.theme.fonts.primary};
+    font-weight: ${date => date.theme.fontWeight.normal};
+    font-size: ${date => date.theme.fontSizes.small};
+    text-align: center;
+  }
 
-.ant-table-container table > thead > tr > th {
-  text-align: center;
-}
+  .ant-table-container table > thead > tr > th {
+    text-align: center;
+  }
 
-th.ant-table-cell::before{
-  background-color:transparent !important;
-}
+  th.ant-table-cell::before {
+    background-color: transparent !important;
+  }
 
-.ant-table-container,
-.ant-table-container table > thead > tr:first-child th:first-child {
-  border-radius: 30px 0 0 30px;
-}
-.ant-table-container,
-.ant-table-container table > thead > tr:first-child th:last-child {
-  border-radius: 0 30px 30px 0;
-}
+  .ant-table-container,
+  .ant-table-container table > thead > tr:first-child th:first-child {
+    border-radius: 30px 0 0 30px;
+  }
+  .ant-table-container,
+  .ant-table-container table > thead > tr:first-child th:last-child {
+    border-radius: 0 30px 30px 0;
+  }
 
-//body of table 
-.ant-table-container,
-.ant-table-container table > tbody > tr:first-child td:first-child {
-  border-radius: 30px 0px 0px 0px !important;
-}
-.ant-table-container,
-.ant-table-container table > tbody > tr:first-child td:last-child {
-  border-radius: 0px 30px 0px 0px !important;
-}
+  //body of table
+  .ant-table-container,
+  .ant-table-container table > tbody > tr:first-child td:first-child {
+    border-radius: 30px 0px 0px 0px !important;
+  }
+  .ant-table-container,
+  .ant-table-container table > tbody > tr:first-child td:last-child {
+    border-radius: 0px 30px 0px 0px !important;
+  }
 
-.ant-table-container,
-.ant-table-container table > tbody > tr:last-child td {
-  border-bottom:none !important;
-}
+  .ant-table-container,
+  .ant-table-container table > tbody > tr:last-child td {
+    border-bottom: none !important;
+  }
 
-.ant-table-container,
-.ant-table-container table > tbody > tr td {
-  border-bottom:none !important;
-}
+  .ant-table-container,
+  .ant-table-container table > tbody > tr td {
+    border-bottom: none !important;
+  }
 `;
-
-
 
 export const List = styled.ul`
   width: 100%;
@@ -105,16 +103,16 @@ export const ListItem = styled.li`
 `;
 
 export const ListText = styled.span`
-font-family: ${theme.fonts.primary};
-font-weight: ${theme.fontWeight.bold};
-font-size: ${theme.fontSizes.medium};
+  font-family: ${theme.fonts.primary};
+  font-weight: ${theme.fontWeight.bold};
+  font-size: ${theme.fontSizes.medium};
 `;
 
 export const SumStyled = styled.span`
-color: ${({ type }) => (type === 'INCOME' ? 'green' : 'red')};
-font-family: ${theme.fonts.primary};
-font-weight: ${theme.fontWeight.bold};
-font-size: ${theme.fontSizes.small};
+  color: ${({ type }) => (type === 'INCOME' ? 'green' : 'red')};
+  font-family: ${theme.fonts.primary};
+  font-weight: ${theme.fontWeight.bold};
+  font-size: ${theme.fontSizes.small};
 `;
 
 export const TableWrapper = styled.div`
@@ -131,9 +129,7 @@ export const TableWrapper = styled.div`
     padding: 46px 0 0 0px;
     width: 100%;
   }
-
 `;
-
 
 //   @media screen and (${breakpoints.tablet}) {
 //     padding-right: 0;

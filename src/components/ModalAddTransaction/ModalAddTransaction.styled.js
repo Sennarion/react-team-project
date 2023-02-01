@@ -16,7 +16,7 @@ export const Modal = styled.div`
   @media screen and (min-width: ${({ theme }) => theme.media.tablet}) {
     width: auto;
     height: auto;
-    border-radius: 20px;
+    border-radius: ${({ theme }) => theme.spacing(5)};
 
     padding: ${({ theme }) => theme.spacing(10)}
       ${({ theme }) => theme.spacing(18)};
@@ -193,8 +193,8 @@ export const CommentInput = styled(Field)`
   color: ${({ theme }) => theme.colors.grey};
   font-family: 'CirceRegular', sans-serif;
   padding-left: ${({ theme }) => theme.spacing(4)};
-  font-size: 18px;
-  line-height: 27px;
+  font-size: ${({ theme }) => theme.fontSizes.medium};
+  line-height: ${({ theme }) => theme.spacing(7)};
   &::placeholder {
     color: ${({ theme }) => theme.colors.grey};
   }
