@@ -1,6 +1,7 @@
 import Chart from 'components/Chart/Chart';
 import StaticticsTable from 'components/StaticticsTable/StaticticsTable';
 import {
+  ChartTable,
   DiagramWrapper,
   DropdownWrap,
   Dropdowns,
@@ -95,14 +96,14 @@ export default function Diagram() {
     Array.isArray(isSummary.categoriesSummary) &&
     isSummary.categoriesSummary.filter(el => el.type === 'EXPENSE');
 
-  //   labels:
-  //     Array.isArray(expenseCategories) &&
-  //     expenseCategories.map(data => data.name),
-
   const userData = {
+    // labels:
+    //   Array.isArray(expenseCategories) &&
+    //   expenseCategories.map(data => data.name),
     datasets: [
       {
         label: 'total',
+
         /* Array.isArray(expenseCategories) */
         data:
           expenseCategories.length > 0
@@ -126,30 +127,32 @@ export default function Diagram() {
   return (
     <DiagramWrapper>
       <Title>Statistics</Title>
-      <Chart chartData={userData} />
-      <Wrap>
-        <Dropdowns>
-          <DropdownWrap>
-            <FilterDropdown
-              filters={months}
-              onSelectToggle={handleMomthChange}
-              defValue={months[month - 1].label}
-            />
-          </DropdownWrap>
-          <DropdownWrap>
-            <FilterDropdown
-              filters={years}
-              onSelectToggle={handleYearChange}
-              defValue={year}
-            />
-          </DropdownWrap>
-        </Dropdowns>
-        <StaticticsTable
-          tableData={expenseCategories}
-          income={isSummary.incomeSummary}
-          expence={isSummary.expenseSummary}
-        />
-      </Wrap>
+      <ChartTable>
+        <Chart chartData={userData} />
+        <Wrap>
+          <Dropdowns>
+            <DropdownWrap>
+              <FilterDropdown
+                filters={months}
+                onSelectToggle={handleMomthChange}
+                defValue={months[month - 1].label}
+              />
+            </DropdownWrap>
+            <DropdownWrap>
+              <FilterDropdown
+                filters={years}
+                onSelectToggle={handleYearChange}
+                defValue={year}
+              />
+            </DropdownWrap>
+          </Dropdowns>
+          <StaticticsTable
+            tableData={expenseCategories}
+            income={isSummary.incomeSummary}
+            expence={isSummary.expenseSummary}
+          />
+        </Wrap>
+      </ChartTable>
     </DiagramWrapper>
   );
 }

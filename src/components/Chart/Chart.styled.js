@@ -5,13 +5,19 @@ export const DoughnutWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 32px;
+  min-width: 280px;
+  min-height: 280px;
   @media screen and (min-width: ${({ theme }) => theme.media.tablet}) {
     width: 336px;
-    margin-top: 20px;
+    height: 336px;
+    margin-top: ${({ theme }) => theme.spacing(16)};
+    margin-bottom: 0;
   }
   @media screen and (min-width: ${({ theme }) => theme.media.desktop}) {
     width: 288px;
+    height: 288px;
+    margin-top: 0;
   }
 `;
 export const Balance = styled.p`
