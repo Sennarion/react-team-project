@@ -5,6 +5,12 @@ import { getUserBalance } from 'redux/auth/selectors';
 import { Balance, DoughnutWrap } from './Chart.styled';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.overrides.doughnut.plugins = {
+  ...ChartJS.overrides.doughnut.plugins,
+  legend: {
+    display: false,
+  },
+};
 
 export default function Chart({ chartData }) {
   const userBalance = useSelector(getUserBalance);

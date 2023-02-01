@@ -27,13 +27,8 @@ export const ButtonSelect = styled.div`
     height: 11px;
     width: 20px;
     pointer-events: none;
-    transition-property: background-image, transform;
-    transition-duration: 200ms;
-    transition-timing-function: linear;
-    transition-delay: 0;
-  }
-  &:focus::after {
-    transform: rotate(180deg);
+    transition: transform ${({ theme }) => theme.animation.cubicBezier};
+    transform: rotate(${({ isOpen }) => (isOpen ? '180deg' : '0')});
   }
   @media screen and (min-width: ${({ theme }) => theme.media.tablet}) {
     width: 160px;
