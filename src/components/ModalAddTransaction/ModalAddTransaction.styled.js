@@ -3,6 +3,7 @@ import { Form, Field } from 'formik';
 import plusIcon from '../../images/plus.svg';
 import minusIcon from '../../images/minus.svg';
 import DatePicker from 'react-datepicker';
+
 export const Modal = styled.div`
   position: relative;
   display: flex;
@@ -12,6 +13,7 @@ export const Modal = styled.div`
   height: 100%;
   background-color: ${({ theme }) => theme.colors.white};
   padding: ${({ theme }) => theme.spacing(4)};
+  overflow: auto;
 
   @media screen and (min-width: ${({ theme }) => theme.media.tablet}) {
     width: auto;
