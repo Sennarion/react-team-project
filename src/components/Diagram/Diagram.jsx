@@ -96,6 +96,9 @@ export default function Diagram() {
     Array.isArray(isSummary.categoriesSummary) &&
     isSummary.categoriesSummary.filter(el => el.type === 'EXPENSE');
 
+  // const windowInnerWidth = window.innerWidth;
+  // console.log('Diagram ~ windowInnerWidth', windowInnerWidth);
+
   const userData = {
     // labels:
     //   Array.isArray(expenseCategories) &&
@@ -118,7 +121,19 @@ export default function Diagram() {
             : 'rgba(0, 0, 0, 0.1)',
 
         borderWidth: 0,
-        radius: '100%',
+
+        radius: function (windowInnerWidth) {
+          windowInnerWidth = window.innerWidth;
+          if (windowInnerWidth <= 768) {
+            return '100%';
+          }
+          if (windowInnerWidth >= 768 && windowInnerWidth <= 1280) {
+            return 168;
+          }
+          if (windowInnerWidth >= 1280) {
+            return 144;
+          }
+        },
         cutout: '70%',
       },
     ],
