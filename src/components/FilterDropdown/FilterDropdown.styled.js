@@ -42,18 +42,18 @@ export const SelectList = styled.ul`
   width: 100%;
   height: 157px;
   overflow: auto;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.01);
   box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(25px);
   border-radius: 20px;
 
-  overflow: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {
       width: 0;
       height: 0;
 `;
+
 export const SelectItem = styled.li`
   padding-top: ${({ theme }) => theme.spacing(2)};
   padding-bottom: ${({ theme }) => theme.spacing(2)};
