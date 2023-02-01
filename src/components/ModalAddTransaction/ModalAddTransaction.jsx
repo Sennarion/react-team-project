@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { Formik } from 'formik';
-import DatePicker from 'react-datepicker';
+import { Formik, ErrorMessage } from 'formik';
+import iconsSprite from '../../images/icons.svg';
 import { selectCategories } from 'redux/transactions/selectors';
 import { closeModalAddTransaction } from 'redux/global/slice';
 import useMediaQuery from 'hooks/useMediaQuery/useMediaQuery';
 import HeaderContent from 'components/HeaderContent/HeaderContent';
-// import * as yup from 'yup';
+import * as yup from 'yup';
+import { ErrorMess } from 'components/LoginForm/LoginForm.styled';
 import {
   Modal,
   CloseButton,
@@ -24,6 +25,9 @@ import {
   ToggleText,
   ToggleInput,
   ToggleLabel,
+  DateInput,
+  DateWrapper,
+  Wrapper,
 } from './ModalAddTransaction.styled';
 import Backdrop from 'components/UI/Backdrop/Backdrop';
 import icons from '../../images/icons.svg';
@@ -39,11 +43,27 @@ export default function ModalAddTransaction() {
   const initialValues = {
     transactionDate: '',
     type: 'INCOME',
-    categoryId: '',
     comment: '',
-    amount: 0,
+    amount: '',
     date: new Date(),
   };
+  const FormError = ({ name }) => {
+    return (
+      <ErrorMessage
+        name={name}
+        render={message => <ErrorMess>{message}</ErrorMess>}
+      />
+    );
+  };
+
+  const transactionSchema = yup.object().shape({
+    amount: yup
+      .string()
+      .matches(/^\d+(\.\d+)*$/, 'Only numbers with dots. For example: 125.50.')
+      .required(),
+    date: yup.date().required('Date is a required field.'),
+    comment: yup.string().required(),
+  });
 
   const dispatch = useDispatch();
   const categories = useSelector(selectCategories);
@@ -73,18 +93,21 @@ export default function ModalAddTransaction() {
   };
 
   const onSelectToggle = id => {
+    console.log(id);
+    console.log(selectId);
     setSelectId(id);
+    console.log(selectId);
   };
 
   const handleSubmit = ({ amount, comment, date }, { resetForm }) => {
     const transaction = {
-      amount: isChecked ? -amount : amount,
+      amount: isChecked ? -Number(amount) : Number(amount),
       comment,
-      transactionDate: new Date(date).toISOString(),
+      transactionDate: new Date(date),
       categoryId: isChecked ? selectId : incomeCategoryId,
       type: isChecked ? 'EXPENSE' : 'INCOME',
     };
-
+    console.log(transaction);
     dispatch(closeModalAddTransaction());
     dispatch(addTransaction(transaction));
 
@@ -121,46 +144,55 @@ export default function ModalAddTransaction() {
           <ToggleText data-active={isChecked}>Expense</ToggleText>
         </ToggleWrapper>
 
-        <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+          validationSchema={transactionSchema}
+        >
           {({ values, setFieldValue }) => (
             <TransactionForm>
               {isChecked && (
-                <SelectTransaction
-                  categories={filteredCategories}
-                  onSelectToggle={onSelectToggle}
-                />
+                <Wrapper>
+                  <SelectTransaction
+                    categories={filteredCategories}
+                    onSelectToggle={onSelectToggle}
+                  />
+                  {selectId.length === 0 && (
+                    <ErrorMess>Category is a required field</ErrorMess>
+                  )}
+                </Wrapper>
               )}
               <Wrap>
-                <SumInput
-                  name="amount"
-                  type="number"
-                  min="0.01"
-                  step="0.01"
-                  placeholder="0.00"
-                />
-                <DatePicker
-                  showDisabledMonthNavigation
-                  name="date"
-                  selected={date}
-                  value={values.date}
-                  onChange={val => {
-                    setDate(val);
-                    setFieldValue('date', val);
-                  }}
-                  dateFormat="dd.MM.yyyy"
-                  style={{
-                    border: 'none',
-                    outline: 'none',
-                    color: 'red',
-                  }}
-                />
+                <Wrapper>
+                  <SumInput name="amount" type="text" placeholder="0.00" />
+                  <FormError name="amount" />
+                </Wrapper>
+                <DateWrapper>
+                  <DateInput
+                    showDisabledMonthNavigation
+                    name="date"
+                    selected={date}
+                    value={values.date}
+                    onChange={val => {
+                      setDate(val);
+                      setFieldValue('date', val);
+                    }}
+                    dateFormat="dd.MM.yyyy"
+                  />
+                  <svg width="24" height="24">
+                    <use href={`${iconsSprite}#icon-calendar`}></use>
+                  </svg>
+                  <FormError name="date" />
+                </DateWrapper>
               </Wrap>
-              <CommentInput
-                name="comment"
-                type="text"
-                value={values.comment}
-                placeholder="Comment"
-              ></CommentInput>
+              <Wrapper>
+                <CommentInput
+                  name="comment"
+                  type="text"
+                  placeholder="Comment"
+                />
+                <FormError name="comment" />
+              </Wrapper>
               <ButWrap>
                 <PrimaryBut type="submit">Add</PrimaryBut>
                 <But

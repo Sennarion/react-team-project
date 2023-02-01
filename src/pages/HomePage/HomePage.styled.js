@@ -11,10 +11,10 @@ export const BgWrapper = styled.div`
   &::before {
     content: '';
     position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+    left: -25px;
+    right: -25px;
+    top: -25px;
+    bottom: -25px;
     z-index: -1;
     filter: blur(25px);
 

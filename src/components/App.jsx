@@ -6,15 +6,15 @@ import { GlobalFontComponent } from 'fonts/FontStyled';
 import Home from './Home/Home';
 import Diagram from './Diagram/Diagram';
 import Currency from './Currency/Currency';
-import { useAuth } from 'hooks/useUserAuth';
+import { getIsRefreshCurrentUser } from 'redux/auth/selectors';
 import { refreshUser } from 'redux/auth/operations';
 import useMediaQuery from 'hooks/useMediaQuery/useMediaQuery';
 import Loader from './UI/Loader/Loader';
-
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { selectAuthErrorStatus } from 'redux/auth/selectors';
 import { selectTransactionsErrorStatus } from 'redux/transactions/selectors';
+import { selectSuccessfulAddition } from 'redux/transactions/selectors';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const HomePage = lazy(() => import('pages/HomePage/HomePage'));
 const LoginPage = lazy(() => import('pages/LoginPage/LoginPage'));
@@ -22,11 +22,12 @@ const RegisterPage = lazy(() => import('pages/RegisterPage/RegisterPage'));
 
 export const App = () => {
   const dispatch = useDispatch();
-  const { isRefreshing } = useAuth();
   const isTablet = useMediaQuery('(min-width: 768px)');
 
   const errorAuthStatus = useSelector(selectAuthErrorStatus);
   const errorTransactionsStatus = useSelector(selectTransactionsErrorStatus);
+  const successfulAddition = useSelector(selectSuccessfulAddition);
+  const isRefreshing = useSelector(getIsRefreshCurrentUser);
 
   useEffect(() => {
     dispatch(refreshUser());
@@ -34,9 +35,17 @@ export const App = () => {
 
   const error = errorAuthStatus || errorTransactionsStatus;
 
-  if (error) {
-    toast.error(error);
-  }
+  useEffect(() => {
+    if (error) toast.error(error);
+  }, [error]);
+
+  useEffect(() => {
+    if (successfulAddition) {
+      toast.info(
+        `${successfulAddition.type} for the amount ${successfulAddition.amount} was successfully added to the history`
+      );
+    }
+  }, [successfulAddition]);
 
   return (
     <>

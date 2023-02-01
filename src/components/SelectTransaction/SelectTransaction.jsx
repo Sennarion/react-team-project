@@ -15,7 +15,7 @@ export default function SelectTransaction({ categories, onSelectToggle }) {
     setSelectDropdownShown(prev => !prev);
   }
   function handleCategory(e) {
-    setCategory(e.target.dataset.idx);
+    setCategory(e.target.dataset.idx);    
     onSelectToggle(e.target.dataset.id);
     handleDropDown();
   }
