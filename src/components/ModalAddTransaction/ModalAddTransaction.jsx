@@ -76,7 +76,7 @@ export default function ModalAddTransaction() {
   const incomeCategoryId = categories.find(el => el.name === 'Income').id;
   const filteredCategories = categories.filter(el => el.name !== 'Income');
 
-  useEffect(() => {    
+  useEffect(() => {
     if (selectId.length > 0 && selectErrorStyle.opacity === 1) {
       setSelectErrorStyle({
         opacity: 0,
@@ -124,7 +124,7 @@ export default function ModalAddTransaction() {
       categoryId: isChecked ? selectId : incomeCategoryId,
       type: isChecked ? 'EXPENSE' : 'INCOME',
     };
-    console.log(transaction);
+
     dispatch(closeModalAddTransaction());
     dispatch(addTransaction(transaction));
 

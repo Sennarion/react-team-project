@@ -1,6 +1,13 @@
 import { createGlobalStyle } from 'styled-components';
+import { theme } from './theme';
 
 export const GlobalStyleComponent = createGlobalStyle`
+
+:root {
+  --toastify-color-info: ${theme.colors.accentGreen};
+  --toastify-color-error: ${theme.colors.accentPink};
+}
+
 html {
   box-sizing: border-box;
   overflow-x: hidden;
