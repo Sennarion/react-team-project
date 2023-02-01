@@ -1,10 +1,10 @@
 {
   "files": {
     "main.css": "/react-team-project/static/css/main.cee817e6.css",
-    "main.js": "/react-team-project/static/js/main.eab9566b.js",
+    "main.js": "/react-team-project/static/js/main.0272d2da.js",
     "static/js/323.ce58ecd5.chunk.js": "/react-team-project/static/js/323.ce58ecd5.chunk.js",
     "static/js/643.fc658745.chunk.js": "/react-team-project/static/js/643.fc658745.chunk.js",
-    "static/js/773.e36f7d95.chunk.js": "/react-team-project/static/js/773.e36f7d95.chunk.js",
+    "static/js/773.dd6b1537.chunk.js": "/react-team-project/static/js/773.dd6b1537.chunk.js",
     "static/media/Circe-Bold.woff": "/react-team-project/static/media/Circe-Bold.fca9743700608e1abf6a.woff",
     "static/media/Circe-Regular.woff": "/react-team-project/static/media/Circe-Regular.a5168fcec068fa77220a.woff",
     "static/media/loginBg-desktop-2x.png": "/react-team-project/static/media/loginBg-desktop-2x.2ca36b55710b68ed178b.png",
@@ -30,13 +30,13 @@
     "static/media/minus.svg": "/react-team-project/static/media/minus.c1930871236002c803c7b6a6c0b99024.svg",
     "static/media/arrow.svg": "/react-team-project/static/media/arrow.77b989b3724c691229812f9ba569ef26.svg",
     "main.cee817e6.css.map": "/react-team-project/static/css/main.cee817e6.css.map",
-    "main.eab9566b.js.map": "/react-team-project/static/js/main.eab9566b.js.map",
+    "main.0272d2da.js.map": "/react-team-project/static/js/main.0272d2da.js.map",
     "323.ce58ecd5.chunk.js.map": "/react-team-project/static/js/323.ce58ecd5.chunk.js.map",
     "643.fc658745.chunk.js.map": "/react-team-project/static/js/643.fc658745.chunk.js.map",
-    "773.e36f7d95.chunk.js.map": "/react-team-project/static/js/773.e36f7d95.chunk.js.map"
+    "773.dd6b1537.chunk.js.map": "/react-team-project/static/js/773.dd6b1537.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.cee817e6.css",
-    "static/js/main.eab9566b.js"
+    "static/js/main.0272d2da.js"
   ]
 }
